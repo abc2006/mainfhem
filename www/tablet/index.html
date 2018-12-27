@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="widget_base_width" content="240">
+<meta name="widget_base_height" content="274">
+<!--<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">-->
+<meta name="gridster_disable" content="1"> <!-- das hier erlaubt (0) oder verbietet (1) das verschieben der Kacheln -->
+<!--<meta name="gridster_min_height" content="">-->
+<meta name="gridster_cols" content="5">
+<meta name="gridster_rows" content="7">
+<meta name="widget_margin" content="1">
+
+
+<meta name="longpoll" content="1"> <!-- 1=longpoll;0=shortpoll every 30sec -->
+<meta name="longpoll_type" content="websocket"> <!-- 1=longpoll;0=shortpoll every 30sec -->
+<meta name="longpoll_maxage" content="240"><!--wird in diesem Zeitraum kein Longpoll empfangen, wird die seite refreshed -->
+<meta name="debug" content="2"> <!-- verbose level 1-6 = output to console;0 = not output -->
+
+<meta name='toast_position' content='top-right'>
+<meta name='toast' content='2'>
+
+<link rel="stylesheet" href="lib/jquery.gridster.min.css" />
+<link rel="stylesheet" href="css/fhem-tablet-ui.css" />
+<link rel="stylesheet" href="lib/font-awesome.min.css" />
+<link rel="stylesheet" href="lib/jquery.toast.min.css" />
+
+<!-- define your personal style here, it wont be overwritten  -->
+<!-- link rel="stylesheet" href="css/fhem-green-ui.css" / -->
+<!-- link rel="stylesheet" href="css/fhem-tablet-ui-user.css" / -->
+<!-- 1200x1920-->
+<script src="../pgm2/jquery.min.js"></script>
+<script src="lib/jquery.toast.min.js"></script>
+<script src="lib/jquery.gridster.min.js"></script>
+<script src="js/fhem-tablet-ui.js" defer></script>
+
+<title>FTUI Dev</title>
+</head>
+<body>
+<div class="gridster">
+<ul>
+<!-- https://www.w3schools.com/html/html_css.asp -->
+<!--https://wiki.selfhtml.org/wiki/CSS/Eigenschaften/Tabellenformatierung -->
+
+<!-- ######################################################################################### -->
+<li data-row="1" data-col="1" data-sizex="1" data-sizey="2">ROW 1 | COL 1 | X 1 | Y 1
+	<div class=bigger> PS 3000</div>
+		<div data-template="psTemp.html" data-parameter='{"param-device":"RE_TEMP_PS3000_11"}'></div>
+		<div data-template="psTemp.html" data-parameter='{"param-device":"RE_TEMP_PS3000_10"}'></div>
+		<div data-template="psTemp.html" data-parameter='{"param-device":"RE_TEMP_PS3000_09"}'></div>
+		<div data-template="psTemp.html" data-parameter='{"param-device":"RE_TEMP_PS3000_08"}'></div>
+		<div data-template="psTemp.html" data-parameter='{"param-device":"RE_TEMP_PS3000_07"}'></div>
+		<div data-template="psTemp.html" data-parameter='{"param-device":"RE_TEMP_PS3000_06"}'></div>
+		<div data-template="psTemp.html" data-parameter='{"param-device":"RE_TEMP_PS3000_05"}'></div>
+		<div data-template="psTemp.html" data-parameter='{"param-device":"RE_TEMP_PS3000_04"}'></div>
+		<div data-template="psTemp.html" data-parameter='{"param-device":"RE_TEMP_PS3000_03"}'></div>
+		<div data-template="psTemp.html" data-parameter='{"param-device":"RE_TEMP_PS3000_02"}'></div>
+		<div data-template="psTemp.html" data-parameter='{"param-device":"RE_TEMP_PS3000_01"}'></div>
+</li>
+<!-- ######################################################################################### -->
+<li data-row="1" data-col="2" data-sizex="1" data-sizey="1">ROW 1 | COL 2 | X 1 | Y 1
+	<div data-type="clock" data-format="l" class="bigger top-space"></div>
+	<div 
+		data-type="clock"
+		data-format="d.m.Y H:i:s"  
+		class=bigger  
+	></div>
+	<br />
+	<div 
+		class="bigger">LogDb
+	</div>
+	<div 
+		data-type="label" 
+		data-device="logdb"
+		data-get="state" 
+		data-limits='["connected","!connected"]' 
+		data-colors='["green","red"]' 
+		class="bigger"
+	></div>
+
+
+</li>
+<!-- ######################################################################################### -->
+<li data-row="1" data-col="3" data-sizex="1" data-sizey="1">ROW 1 | COL 3 | X 1 | Y 1
+<!--	<div style="font-size:2vw">Aussentemperatur</div>-->
+	<div class="bigger">Aussentemperatur</div>
+	<div 	data-type="label" 
+		data-device="RE_TEMP_AUSSEN"
+		data-get="temperature" 
+		data-limits='[-73,0,30]' 
+		data-colors='["#6699FF","#AA6900","#FF0000"]' 
+		data-unit="&deg;C" 
+		class="bigger"
+	></div>
+	<div class="bigger">Aussen_AVG</div>
+	<div 	data-type="label" 
+		data-device="RE_TEMP_AUSSEN"
+		data-get="AVG" 
+		data-limits='[-73,0,30]' 
+		data-colors='["#6699FF","#AA6900","#FF0000"]' 
+		data-unit="&deg;C" 
+		class="bigger"
+	></div>
+
+</li>
+<!-- ######################################################################################### -->
+<li data-row="1" data-col="4" data-sizex="1" data-sizey="1">ROW 1 | COL 4 | X 1 | Y 1
+<!--	<div style="font-size:2vw">Feuerwehr</div>-->
+	<div class="bigger">Feuerwehr</div>
+<!--	<div style="font-size:2vw"-->
+	<div 
+		data-type="label" 
+		data-device="DF_FFO_Alarm"
+		data-get="state" 
+		data-limits='["FME","none1","none3","auto"]' 
+		data-colors='["red","green","green","lightblue"]' 
+		class="bigger"
+	></div>
+	<div 
+		data-type="label" 
+		data-device="DF_FFO_Alarm"
+		data-get="LastAlarm" 
+		class="bigger"
+	></div>
+
+</li>
+<!-- ######################################################################################### -->
+<li data-row="1" data-col="5" data-sizex="1" data-sizey="1">ROW 1 | COL 5 | X 1 | Y 1
+	<div class="bigger">All Off!</div>
+	<div
+		data-type="push"
+		data-fhem-cmd="{SetAllOff()}"
+		class="bigger"
+	></div>
+</li>
+<!-- ######################################################################################### -->
+<li data-row="2" data-col="2" data-sizex="1" data-sizey="1"> UWP 3000to1500
+	<div 
+		data-type="AUswitch"
+		data-cmd="setreading"
+		data-device="DF_3000to1500"
+		data-set="pump_mode"		
+		data-set-states='["man_off","auto","man_on"]'
+		data-states='["man_on","man_off","auto"]'
+		data-colors='["white","white","white"]'
+		data-background-colors='["green","red","blue"]'
+		class="bigger"
+	></div>
+	<div 
+		data-type="label" 
+		data-device="DF_3000to1500"
+		data-get="pump_mode" 
+		data-limits='["man_on","man_off","auto"]' 
+		data-colors='["green","red","lightblue"]' 
+		class="bigger"
+	></div>
+	<div 
+		data-type="label" 
+		data-device="KNX32.O02_Aktor_UWP_3000_1500"
+		data-get="state" 
+		data-limits='["on","off"]' 
+		data-colors='["green","red"]' 
+		class="bigger"
+	></div>
+</li>
+<!-- ######################################################################################### -->
+<li data-row="2" data-col="3" data-sizex="1" data-sizey="1"> UWP 1500to3000
+	<div 
+		data-type="AUswitch"
+		data-cmd="setreading"
+		data-device="DF_move_heat"
+  		data-set="pump_mode1t3"
+		data-set-states='["man_off","auto","man_on"]'
+		data-states='["man_on","man_off","auto"]'
+		data-colors='["white","white","white"]'
+		data-background-colors='["green","red","blue"]'
+		class="bigger"
+	></div>
+	<div 
+		data-type="label" 
+		data-device="DF_move_heat"
+		data-get="pump_mode1t3" 
+		data-limits='["man_on","man_off","auto"]' 
+		data-colors='["green","red","lightblue"]' 
+		class="bigger"
+	></div>
+	<div 
+		data-type="label" 
+		data-device="KNX32.O03_Aktor_UWP_1500_3000"
+		data-get="state" 
+		data-limits='["on","off"]' 
+		data-colors='["green","red"]' 
+		class="bigger"
+	></div>
+</li>
+<!-- ######################################################################################### -->
+<li data-row="2" data-col="4" data-sizex="1" data-sizey="1"> Heizung komplett
+	<div 
+		data-type="AUswitch"
+		data-cmd="set"
+		data-device="KNX02.O03_Aktor_Heizung_komplett"
+		class="bigger"
+	></div>
+	<div 
+		data-type="label" 
+		data-device="KNX02.O03_Aktor_Heizung_komplett"
+		data-get="setG1" 
+		data-limits='["on","off"]' 
+		data-colors='["green","red"]' 
+		class="bigger"
+	></div>
+
+
+</li>
+<!-- ######################################################################################### -->
+<li data-row="2" data-col="5" data-sizex="1" data-sizey="1">ROW 2 | COL 5 | X 1 | Y 1
+	<div data-type="departure"
+		data-title="S1 Frankfurt"
+		data-device="NadineSbahnFFM_S1_morgens"
+		data-get="xFTUI_departure"
+		data-icon="fa-bus"
+		data-width="100%"
+		data-interval="60">
+	</div>
+</li>
+<!-- ######################################################################################### -->
+<li data-row="3" data-col="1" data-sizex="1" data-sizey="2">ROW 3 | COL 1 | X 1 | Y 1
+	<div class=bigger> PS 1500</div>
+		<div data-template="psTemp.html" data-parameter='{"param-device":"RE_TEMP_Speicher_10"}'></div>
+		<div data-template="psTemp.html" data-parameter='{"param-device":"RE_TEMP_Speicher_09"}'></div>
+		<div data-template="psTemp.html" data-parameter='{"param-device":"RE_TEMP_Speicher_08"}'></div>
+		<div data-template="psTemp.html" data-parameter='{"param-device":"RE_TEMP_Speicher_07"}'></div>
+		<div data-template="psTemp.html" data-parameter='{"param-device":"RE_TEMP_Speicher_06"}'></div>
+		<div data-template="psTemp.html" data-parameter='{"param-device":"RE_TEMP_Speicher_05"}'></div>
+		<div data-template="psTemp.html" data-parameter='{"param-device":"RE_TEMP_Speicher_04"}'></div>
+		<div data-template="psTemp.html" data-parameter='{"param-device":"RE_TEMP_Speicher_03"}'></div>
+		<div data-template="psTemp.html" data-parameter='{"param-device":"RE_TEMP_Speicher_02"}'></div>
+		<div data-template="psTemp.html" data-parameter='{"param-device":"RE_TEMP_Speicher_01"}'></div>
+</li>  
+<!-- ######################################################################################### -->
+<li data-row="3" data-col="2" data-sizex="1" data-sizey="1">Tonstrom
+	<div 
+		data-type="AUswitch"
+		data-cmd="set"
+		data-device="KNX32.O05_Aktor_Tonstrom_WoEss"
+		class="bigger"
+	></div>
+	<div 
+		data-type="label" 
+		data-device="KNX32.O05_Aktor_Tonstrom_WoEss"
+		data-get="state" 
+		data-limits='["on","off"]' 
+		data-colors='["green","red"]' 
+		class="bigger"
+	></div>
+
+</li>
+<!-- ######################################################################################### -->
+<li data-row="3" data-col="3" data-sizex="1" data-sizey="1">Zirkulation
+	<div 
+		data-type="AUswitch"
+		data-cmd="set"
+		data-device="KNX32.O01_Aktor_Zirkulation_WW"
+		class="bigger"
+	></div>
+	<div 
+		data-type="label" 
+		data-device="KNX32.O01_Aktor_Zirkulation_WW"
+		data-get="state" 
+		data-limits='["on","off"]' 
+		data-colors='["green","red"]' 
+		class="bigger"
+	></div>
+
+</li>
+<!-- ######################################################################################### -->
+
+
+<li data-row="3" data-col="4" data-sizex="1" data-sizey="1">ROW 3 | COL 4 | X 1 | Y 1
+<table>
+	<tr>
+		<td colspan="2" style="background-color:lightgrey;color:black">
+		Pumpe 3 to 1
+		</td>
+
+	</tr>
+	<tr>
+		<td>
+			Bedingung
+		</td>
+		<td>		
+			erfüllt?
+		</td>
+	</tr>
+	<tr>
+		<td>
+			A1: NOTkühlung: 3002 &gt; 40 && 1501 &lt; 40 && HV_VL &gt; 80
+		</td>
+		<td>		
+			<div 
+			data-type="label" 
+			data-device="DF_move_heat_3t1_A1"
+			data-get="zustand" 
+			data-limits='["true","false"]' 
+			data-colors='["green","red"]' 
+			></div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			A2: 1t3 eq off
+		</td>
+		<td>		
+			<div 
+			data-type="label" 
+			data-device="DF_move_heat_3t1_A2"
+			data-get="zustand" 
+			data-limits='["true","false"]' 
+			data-colors='["green","red"]' 
+			></div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			A3: 1504 &gt; 50 || AUSSEN &gt; 20
+		</td>
+		<td>		
+			<div 
+			data-type="label" 
+			data-device="DF_move_heat_3t1_A3"
+			data-get="zustand" 
+			data-limits='["true","false"]' 
+			data-colors='["green","red"]' 
+			></div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			A4: GreFue <div
+
+				data-type="label" 
+				data-device="DF_Grenzfuehler"
+				data-get="grenzfuehler" 
+				data-color='lightblue' 
+				class="inline"
+			 > </div>&lt; VL_Soll
+		</td>
+		<td>		
+			<div 
+			data-type="label" 
+			data-device="DF_move_heat_3t1_A4"
+			data-get="zustand" 
+			data-limits='["true","false"]' 
+			data-colors='["green","red"]' 
+			></div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			A5: 3011 &gt; VL_Soll 
+		</td>
+		<td>		
+			<div 
+			data-type="label" 
+			data-device="DF_move_heat_3t1_A5"
+			data-get="zustand" 
+			data-limits='["true","false"]' 
+			data-colors='["green","red"]' 
+			></div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			A6: 3010 &gt; 1509 && 3010 &gt; 1510
+		</td>
+		
+		<td>		
+			<div 
+			data-type="label" 
+			data-device="DF_move_heat_3t1_A6"
+			data-get="zustand" 
+			data-limits='["true","false"]' 
+			data-colors='["green","red"]' 
+			></div>
+		</td>
+	</tr>
+
+
+</table>
+</li>
+
+<!-- ######################################################################################### -->
+
+
+<li data-row="3" data-col="5" data-sizex="1" data-sizey="1">ROW 3 | COL 5 | X 1 | Y 1
+</li>
+
+<!-- ######################################################################################### -->
+<li data-row="4" data-col="2" data-sizex="1" data-sizey="1">ROW 4 | COL 2 | X 1 | Y 1
+
+	<table style="border:none;width:inherit;">
+		<tr>
+<!--			<td style="height:10px;width:45vw;background-color:blue;">-->
+			<td style="height:10px;width:45%;background-color:blue;">
+			</td>
+			
+			<td style="height:10px;width:10%;background-color:green;"> 
+			</td>
+
+			<td style="height:10px;width:45%;background-color:blue;">
+			</td>
+		</tr>
+	</table>
+	<table>
+		<tr>
+			<td colspan="3" style="width:100%;text-align:center;font-size:2vmin;background-color:orange;"> 
+				ETH
+			</td>
+		</tr>
+		<tr>
+			<td style="width:45%;"> 
+				<div data-type="label"
+					data-color="red"
+					data-device="ETH_HTTPMOD" 
+					data-get="rate_sell"
+					data-unit="&euro;"
+					data-fix='2'
+					style="font-size:150%;"
+					>
+				</div>
+			</td>
+	
+			<td style="width:10%;background-color:green;"> 
+			</td>
+
+			<td style="width:45%;"> 
+				<div data-type="label"
+					data-color="green"
+					data-device="ETH_HTTPMOD" 
+					data-get="rate_buy"
+					data-unit="&euro;"
+					data-fix='2'
+					style="font-size:150%;"
+					>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3" style="width:100%;text-align:center;font-size:2vmin;background-color:orange;"> 
+				BCH
+			</td>
+		</tr>
+	
+		<tr>
+			<td style="width:45%;"> 
+				<div data-type="label"
+					data-color="red"
+					data-device="BCH_HTTPMOD" 
+					data-get="rate_sell"
+					data-unit="&euro;"
+					data-fix='2'
+					style="font-size:150%;"
+					>
+				</div>
+			</td>
+			<td style="width:10%;background-color:green;"> 
+			</td>
+
+			<td style="width:45%;"> 
+				<div data-type="label"
+					data-color="green"
+					data-device="BCH_HTTPMOD" 
+					data-get="rate_buy"
+					data-unit="&euro;"
+					data-fix='2'
+					style="font-size:150%;"
+					>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3" style="width:100%;text-align:center;font-size:2vmin;background-color:orange;"> 
+				BTC
+			</td>
+		</tr>
+		<tr>
+			<td style="width:45%;"> 
+				<div data-type="label"
+					data-color="red"
+					data-device="BTC_HTTPMOD" 
+					data-get="rate_sell"
+					data-unit="&euro;"
+					data-fix='2'
+					style="font-size:150%;"
+					>
+				</div>
+			</td>
+			<td style="width:10%;background-color:green;"> 
+			</td>
+
+			<td style="width:45%;"> 
+				<div data-type="label"
+					data-color="green"
+					data-device="BTC_HTTPMOD" 
+					data-get="rate_buy"
+					data-unit="&euro;"
+					data-fix='2'
+					style="font-size:150%;"
+					>
+				</div>
+			</td>
+		</tr>
+</table>
+
+
+</li>
+<!-- ######################################################################################### -->
+<li data-row="4" data-col="3" data-sizex="1" data-sizey="1">
+	
+<!--damit das mal dokumentiert ist: weiss, wenn kleiner als erster Wert. Erste farbe, wenn größer als erster Wert. Zweite farbe, wenn größer als zweiter Wert usw -->
+<table style="border:none;width:inherit;">
+	<tr>
+		<td>
+			Heizzeit: 
+		</td>
+		<td>
+         		<div data-type="label" 
+                		data-device="DF_stored_heating_Energy"
+             		   	data-get="timeleft"
+             		   	data-limits='[0,1,5]' 
+                		data-colors='["#960000","#FFAA00","#009600"]' 
+		 	 	data-unit="h"> 
+        		</div>
+		</td>
+	</tr>
+       	<tr>
+		<td>
+			Duschzeit: 	
+		</td>
+		<td>
+		       <div  	
+		  		data-type="label" 
+                		data-device="DF_stored_shower_Energy"
+                		data-get="timeleft"
+                		data-limits='[0,1,10]' 
+                		data-colors='["#960000","#FFAA00","#009600"]' 
+				data-unit="h">
+       			</div>
+		</td>
+	</tr>
+       	<tr>
+		<td>
+		       Erw. Solarb hte: 
+		</td>
+       		<td>
+			<div 	style="border:0; margin:0;padding:0;"
+				data-type="label" 
+		                data-device="DF_WMZ_Solar"
+                		data-get="solarerwartung_heute"
+		                data-limits='[0,1,10]' 
+                		data-colors='["#960000","#FFAA00","#009600"]' 
+		                data-unit="kWh">
+		        </div>
+		</td>
+       </tr>
+       <tr>
+	       <td>
+		       Erw. Solarb mgn: 
+		</td>
+	       <td>
+			<div 	style="border:0; margin:0;padding:0;"
+				data-type="label" 
+		                data-device="DF_WMZ_Solar"
+		                data-get="solarerwartung_morgen"
+		                data-limits='[0,1,10]' 
+		                data-colors='["#960000","#FFAA00","#009600"]' 
+		  		data-unit="kWh"> 
+        		</div>
+		</td>
+	       <td>
+       	</tr>
+       	<tr>
+		<td>
+			ene3000: 
+		</td>
+		<td>
+		       <div data-type="label" 
+		                data-device="DF_stored_shower_Energy"
+                		data-get="ene1"
+		                data-limits='[0,1,10]' 
+                		data-colors='["#960000","#FFAA00","#009600"]' 
+				data-unit="kWh" 
+				class="cell inline big">
+		        </div>
+		</td>
+       	</tr>
+       	<tr>
+		<td>
+			ene1500: 
+		</td>
+		<td>
+		       <div data-type="label" 
+                		data-device="DF_stored_shower_Energy"
+		                data-get="ene0"
+                		data-limits='[0,1,10]' 
+		                data-colors='["#960000","#FFAA00","#009600"]' 
+				data-unit="kWh" 
+				class="cell inline big">
+        		</div>
+
+		</td>
+       </tr>
+</table>
+</li>
+<!-- ######################################################################################### -->
+q
+<li data-row="4" data-col="4" data-sizex="1" data-sizey="1">ROW 4 | COL 4 | X 1 | Y 1
+        <div data-type="thermostat" 
+                data-device="DF_calcVLSoll" 
+                data-valve=""
+                data-get="value"
+                data-set="value"
+                data-step="0.5"   
+                data-min="18"
+                data-max="30" 
+                class="cell">
+        </div>
+        <div data-type="label" 
+                data-device="DF_calcVLSoll"
+                data-get="vltemp"
+                data-limits='[20,30,40]' 
+                data-colors='["#6699FF","#AA6900","#FF0000"]' 
+                data-unit="%B0C%0A" 
+                class="cell big">
+        </div>
+
+        <div data-type="label" 
+                data-device="PID_HZFHEM"
+                data-get="actuation"
+                data-unit="%B0" 
+                class="cell big">
+        </div>
+
+</li>
+<!-- ######################################################################################### -->
+<li data-row="4" data-col="5" data-sizex="1" data-sizey="1">ROW 4 | COL 5 | X 1 | Y 1
+        <div class="bigger">Ankleide:
+           	<div data-type="label" 
+                data-device="RE_TEMP_Ankleide"
+                data-get="temperature"
+                data-limits='[10,20,30]' 
+                data-colors='["#6699FF","#AA6900","#FF0000"]' 
+                data-unit="%B0C%0A"
+		class="inline">
+        	</div>
+        </div>
+
+       <div class="bigger">Bad:
+           	<div data-type="label" 
+                data-device="RE_TEMP_Bad"
+                data-get="temperature"
+                data-limits='[10,20,30]' 
+                data-colors='["#6699FF","#AA6900","#FF0000"]' 
+                data-unit="%B0C%0A"
+		class="inline">
+        	</div>
+        </div>
+
+       <div class="bigger">FlurOG:
+           	<div data-type="label" 
+                data-device="RE_TEMP_FlurOG"
+                data-get="temperature"
+                data-limits='[10,20,30]' 
+                data-colors='["#6699FF","#AA6900","#FF0000"]' 
+                data-unit="%B0C%0A"
+		class="inline">
+        	</div>
+        </div>
+
+        <div class="bigger">Schlafzimmer:
+           	<div data-type="label" 
+                data-device="RE_TEMP_Schlafzimmer"
+                data-get="temperature"
+                data-limits='[10,20,30]' 
+                data-colors='["#6699FF","#AA6900","#FF0000"]' 
+                data-unit="%B0C%0A"
+		class="inline">
+        	</div>
+        </div>
+
+       <div class="bigger">Wohnzimmer:
+           	<div data-type="label" 
+                data-device="RE_TEMP_WoZi"
+                data-get="temperature"
+                data-limits='[10,20,30]' 
+                data-colors='["#6699FF","#AA6900","#FF0000"]' 
+                data-unit="%B0C%0A"
+		class="inline">
+        	</div>
+        </div>
+
+
+</li>
+
+<!-- ######################################################################################### -->
+<li data-row="5" data-col="1" data-sizex="1" data-sizey="1">ROW 5 | COL 1 | X 1 | Y1 
+	<div class="bigger">Holzvergaser</div>
+<table border="0" width=100%>
+	<tr>
+	<td width=40% align="right">
+		<div class="bigger"> VL:</div>
+	</td>
+	<td width=60% align="left"> 
+	<div data-type="label"
+		data-device="RE_TEMP_HV_VL2" 
+		data-get="temperature"
+		data-part="1"
+		data-unit="&deg;C"
+		data-limits='[0,40,80,87]' 
+		data-colors='["blue","yellow","green","red"]' 
+		data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div class="bigger" align="right"> RLA:</div>
+	</td>
+	<td width=60% align="left"> 
+	<div data-type="label"
+		data-device="RE_TEMP_HV_RLA2" 
+		data-get="temperature"
+		data-part="1"
+		data-unit="&deg;C"
+		data-limits='[0,60,70]' 
+		data-colors='["blue","green","red"]' 
+		data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div class="bigger" align="right"> RL:</div>
+	</td>
+	<td width=60% align="left">
+	<div data-type="label"
+		data-device="RE_TEMP_HV_RL2" 
+		data-get="temperature"
+		data-part="1"
+		data-unit="&deg;C"
+		data-limits='[-10,10,30,50]' 
+		data-colors='["red","green","orange","red"]' 
+		data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div class="bigger" align="right"> BRT:</div>
+	</td>
+	<td width=60% align="left">
+	<div data-type="label"
+		data-device="RE_TEMP_BRT" 
+		data-get="temperature"
+		data-part="1"
+		data-unit="&deg;C"
+		data-limits='[0,650,700]' 
+		data-colors='["blue","#00BFFF","green"]' 
+		data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div class="bigger" align="right"> P:</div>
+	</td>
+	<td width=60% align="left">
+	<div data-type="label"
+		data-device="KNX10.I05_Zaehler_Holzvergaser" 
+		data-get="power"
+		data-part="1"
+		data-unit="W"
+		data-limits='[-5000,0,40000]' 
+		data-colors='["red","yellow","green"]' 
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div class="bigger" align="right"> V:</div>
+	</td>
+	<td width=60% align="left">
+	<div data-type="label"
+		data-device="KNX10.I05_Zaehler_Holzvergaser" 
+		data-get="literpromin"
+		data-part="1"
+		data-unit="l/min"
+		data-limits='[0,20]' 
+		data-colors='["red","green"]' 
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+
+</table>
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="5" data-col="2" data-sizex="1" data-sizey="1">ROW 5 | COL 2 | X 1 | Y 1
+	<div class="bigger">Solar</div>
+<table border="0" width=100%>
+	<tr>
+	<td width=50% align="right">
+
+		<div class="bigger"> P:</div>
+	</td>
+	<td width=50% align="left">
+	<div data-type="label"
+		data-device="D_WMZ_Solar" 
+		data-get="power"
+		data-part="1" 
+		data-unit="W"
+		data-limits='[0,60,70]' 
+		data-colors='["blue","green","red"]' 
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td width=50% align="right">
+		<div class="bigger"> VL:</div>
+	</td>
+	<td width=50% align="left"> 
+	<div data-type="label"
+		data-device="RE_TEMP_Vorlauf_Solar" 
+		data-get="temperature"
+		data-part="1"
+		data-unit="&deg;C"
+		data-limits='[0,40,80,87]' 
+		data-colors='["blue","yellow","green","red"]' 
+		data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td width=50% align="right">
+		<div class="bigger"> RL:</div>
+	</td>
+	<td width=50% align="left"> 
+	<div data-type="label"
+		data-device="RE_TEMP_Ruecklauf_Solar" 
+		data-get="temperature"
+		data-part="1"
+		data-unit="&deg;C"
+		data-limits='[0,60,70]' 
+		data-colors='["blue","green","red"]' 
+		data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td width=50% align="right">
+		<div class="bigger"> V:</div>
+	</td>
+	<td width=50% align="left">
+	<div data-type="label"
+		data-device="D_WMZ_Solar" 
+		data-get="literpromin"
+		data-part="1"
+		data-unit="l/min"
+		data-limits='[0,1]' 
+		data-colors='["red","green"]' 
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+
+</table>
+
+</li>
+<!-- ######################################################################################### -->
+<li data-row="5" data-col="3" data-sizex="1" data-sizey="1">ROW 5 | COL 3 | X 1 | Y 1
+	<div class="bigger">Gas</div>
+<table border="0" width=100%>
+	<tr>
+	<td width=50% align="right">
+		<div class="bigger"> VL:</div>
+	</td>
+	<td width=50% align="left"> 
+	<div data-type="label"
+		data-device="RE_TEMP_Vorlauf_Kessel" 
+		data-get="temperature"
+		data-unit="&deg;C"
+		data-limits='[0,40,80,87]' 
+		data-colors='["blue","yellow","green","red"]' 
+		data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td width=50% align="right">
+		<div class="bigger"> RL:</div>
+	</td>
+	<td width=50% align="left">
+	<div data-type="label"
+		data-device="RE_TEMP_Ruecklauf_Kessel" 
+		data-get="temperature"
+		data-unit="&deg;C"
+		data-limits='[0,60,70]' 
+		data-colors='["blue","green","red"]' 
+		data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td width=50% align="right">
+		<div class="bigger"> P:</div>
+	</td>
+	<td width=50% align="left">
+	<div data-type="label"
+		data-device="D_WMZ_Gaskessel" 
+		data-get="power"
+		data-unit=""
+		data-limits='[0,60,70]' 
+		data-colors='["blue","green","red"]' 
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+</table>
+
+
+</li>
+
+
+<!-- ######################################################################################### -->
+<li data-row="5" data-col="4" data-sizex="1" data-sizey="1">ROW 5 | COL 4 | X 1 | Y 1
+	<div class="bigger">Heizkreis</div>
+<table border="0" width=100%>
+	<tr>
+	<td width=50% align="right">
+		<div class="bigger"> VL-Soll:</div>
+	</td>
+	<td width=50% align="left"> 
+	<div data-type="label"
+		data-device="DF_calcVLSoll" 
+		data-get="vltemp"
+		data-part="1"
+		data-unit="&deg;C"
+		data-limits='[20,24,30,35]' 
+		data-colors='["blue","green","orange","red"]' 
+		data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td width=50% align="right">
+		<div class="bigger"> VL-Ist:</div>
+	</td>
+	<td width=50% align="left"> 
+	<div data-type="label"
+		data-device="RE_TEMP_VorlaufHK" 
+		data-get="temperature"
+		data-part="1"
+		data-unit="&deg;C"
+		data-limits='[20,24,30,35]' 
+		data-colors='["blue","yellow","orange","red"]' 
+		data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td width=50% align="right">
+		<div class="bigger"> RL:</div>
+	</td>
+	<td width=50% align="left">
+	<div data-type="label"
+		data-device="RE_TEMP_RuecklaufHK" 
+		data-get="temperature"
+		data-part="1"
+		data-unit="&deg;C"
+		data-limits='[0,20,30]' 
+		data-colors='["blue","green","red"]' 
+		data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	<tr>
+	<td width=50% align="right">
+		<div class="bigger">P:</div>
+	</td>
+	<td width=50% align="left">
+	<div data-type="label"
+		data-device="D_WMZ_Heizung_main" 
+		data-get="power"
+		data-part="1"
+		data-unit="W"
+		data-limits='[0,60,70]' 
+		data-colors='["blue","green","red"]' 
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	
+	<tr>
+	<td width=50% align="right">
+		<div class="bigger">V:</div>
+	</td>
+	<td width=50% align="left">
+	<div data-type="label"
+		data-device="D_WMZ_Heizung_main" 
+		data-get="literpromin"
+		data-part="1"
+		data-unit="l/min"
+		data-limits='[0,1]' 
+		data-colors='["red","green"]' 
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+
+</table>
+
+</li> 
+
+<!-- ######################################################################################### -->
+<li data-row="5" data-col="5" data-sizex="1" data-sizey="1">ROW 5 | COL 5 | X 1 | Y 1
+	<div class="bigger">Zählerstände</div>
+
+		<div class="bigger"> Strom:</div>
+	<div data-type="label"
+		data-device="Stromzaehler" 
+		data-get="total_energy"
+		data-unit=" kWh"
+		data-fix=0
+		class="bigger">
+	</div>
+		<div class="bigger"> Gas:</div>
+	<div data-type="label"
+		data-device="KNX10.I08_Gaszaehler_KNX" 
+		data-get="total"
+		data-unit=" m3"
+		data-fix=0
+		class="bigger">
+	</div>
+</li> 
+
+<li data-row="6" data-col="1" data-sizex="1" data-sizey="1">ROW 6 | COL 1 | X 1 | Y 1
+
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="6" data-col="2" data-sizex="1" data-sizey="1">ROW 6 | COL 2 | X 1 | Y 1
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="6" data-col="3" data-sizex="1" data-sizey="1">ROW 6 | COL 1 | X 1 | Y 1
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="6" data-col="4" data-sizex="1" data-sizey="1">ROW 6 | COL 1 | X 1 | Y 1
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="6" data-col="5" data-sizex="1" data-sizey="1">ROW 6 | COL 1 | X 1 | Y 1
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="7" data-col="1" data-sizex="1" data-sizey="1">ROW 6 | COL 1 | X 1 | Y 1
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="7" data-col="2" data-sizex="1" data-sizey="1">ROW 7 | COL 1 | X 1 | Y 1
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="7" data-col="3" data-sizex="1" data-sizey="1">ROW 7 | COL 1 | X 1 | Y 1
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="7" data-col="4" data-sizex="1" data-sizey="1">ROW 7 | COL 1 | X 1 | Y 1
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="7" data-col="5" data-sizex="1" data-sizey="1">ROW 7 | COL 1 | X 1 | Y 1
+</li> 
+
+
+
+
+
+
+</ul>
+</div>
+</body>
+</html>
