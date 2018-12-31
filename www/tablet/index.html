@@ -353,8 +353,8 @@
 					<tr><td>
 				<div 
 					data-type="switch"
-					data-cmd="set"
 					data-device="KNX01.O02_Aktor_Leuchte_Rumpel"
+					data-set="steuern"
 					data-get="status"
 					class="bigger"
 				></div>
@@ -366,6 +366,7 @@
 					data-type="switch"
 					data-cmd="set"
 					data-device="KNX01.O03_Aktor_Leuchte_HZGRaum"
+					data-set="steuern"
 					data-get="status"
 					class="bigger"
 				></div>
@@ -375,9 +376,7 @@
 					<tr><td>
 				<div 
 					data-type="switch"
-					data-cmd="set"
 					data-device="KNX01.O04_Aktor_Leuchte_Ankleide"
-					data-get="status"
 					class="bigger"
 				></div>
 					</td><td class="bigger">
@@ -386,9 +385,7 @@
 					<tr><td>
 				<div 
 					data-type="switch"
-					data-cmd="set"
 					data-device="KNX01.O05_Aktor_Leuchte_Schlafzimmer"
-					data-get="status"
 					class="bigger"
 				></div>
 					</td><td class="bigger">
@@ -397,8 +394,8 @@
 					<tr><td>
 				<div 
 					data-type="switch"
-					data-cmd="set"
 					data-device="KNX01.O01_Aktor_Leuchte_Flur_EG_OG"
+					data-set="steuern"
 					data-get="status"
 					class="bigger"
 				></div>
@@ -408,9 +405,7 @@
 					<tr><td>
 				<div 
 					data-type="switch"
-					data-cmd="set"
 					data-device="KNX01.O08_Aktor_Leuchte_Flur_EG_provisorisch"
-					data-get="status"
 					class="bigger"
 				></div>
 					</td><td class="bigger">
@@ -831,8 +826,7 @@ q
 </li>
 
 <!-- ######################################################################################### -->
-<li data-row="5" data-col="1" data-sizex="1" data-sizey="1">ROW 5 | COL 1 | X 1 | Y1 
-	<div class="bigger">Holzvergaser</div>
+<li data-row="5" data-col="1" data-sizex="1" data-sizey="1">Holzvergaser
 <table border="0" width=100%>
 	<tr>
 	<td width=40% align="right">
@@ -897,6 +891,23 @@ q
 		data-unit="&deg;C"
 		data-limits='[0,650,700]' 
 		data-colors='["blue","#00BFFF","green"]' 
+		data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div class="bigger" align="right"> AGT:</div>
+	</td>
+	<td width=60% align="left">
+	<div data-type="label"
+		data-device="RE_TEMP_AGT" 
+		data-get="temperature"
+		data-part="1"
+		data-unit="&deg;C"
+		data-limits='[0,105,150,170]' 
+		data-colors='["blue","#00BFFF","green","red"]' 
 		data-fix='2'
 		class="bigger">
 	</div>
