@@ -200,12 +200,14 @@
 		data-cmd="set"
 		data-device="KNX02.O03_Aktor_Heizung_komplett"
   		data-lock="global_FTUIFree:lock"
-		class="bigger"
+		data-set="steuern"
+  		data-get="status"
+    		class="bigger"
 	></div>
 	<div 
 		data-type="label" 
 		data-device="KNX02.O03_Aktor_Heizung_komplett"
-		data-get="setG1" 
+		data-get="status" 
 		data-limits='["on","off"]' 
 		data-colors='["green","red"]' 
 		class="bigger"
@@ -1065,7 +1067,7 @@ q
 	</td>
 	<td width=50% align="left">
 	<div data-type="label"
-		data-device="D_WMZ_Gaskessel" 
+		data-device="DF_WMZ_Gaskessel" 
 		data-get="power"
 		data-unit=""
 		data-limits='[0,60,70]' 
@@ -1189,7 +1191,6 @@ q
 		data-device="KNX10.I08_Gaszaehler_KNX" 
 		data-get="total"
 		data-unit=" m3"
-		data-fix=0
 		class="bigger">
 	</div>
 </li> 
