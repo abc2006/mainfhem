@@ -921,7 +921,7 @@ q
 	</td>
 	<td width=60% align="left">
 	<div data-type="label"
-		data-device="KNX10.I05_Zaehler_Holzvergaser" 
+		data-device="DF_WMZ_HV" 
 		data-get="power"
 		data-part="1"
 		data-unit="W"
@@ -937,7 +937,7 @@ q
 	</td>
 	<td width=60% align="left">
 	<div data-type="label"
-		data-device="KNX10.I05_Zaehler_Holzvergaser" 
+		data-device="DF_WMZ_HV" 
 		data-get="literpromin"
 		data-part="1"
 		data-unit="l/min"
@@ -1067,11 +1067,12 @@ q
 	</td>
 	<td width=50% align="left">
 	<div data-type="label"
-		data-device="DF_WMZ_Gaskessel" 
+		data-device="KNX10.I08_Gaszaehler_KNX" 
 		data-get="power"
-		data-unit=""
+		data-unit="W"
 		data-limits='[0,60,70]' 
 		data-colors='["blue","green","red"]' 
+		data-part="1"
 		class="bigger">
 	</div>
 	</td>
@@ -1085,8 +1086,8 @@ q
   		data-lock="global_FTUIFree:lock"
 		data-set-on="cmd_2"
   		data-set-off="cmd_3"
-  		data-get="active-low-status"
-    		class="bigger"
+  		data-get="status"
+    		class="big"
 	></div>
 	<div 
 		data-type="label" 
@@ -1219,13 +1220,30 @@ q
 </li> 
 
 <li data-row="6" data-col="1" data-sizex="1" data-sizey="1">ROW 6 | COL 1 | X 1 | Y 1
-
+	<div class="bigger">wärmer</div>
+	<div
+		data-type="push"
+		data-fhem-cmd="set DF_move_mischer_man cmd_1"
+		class="bigger"
+	></div>
 </li> 
 <!-- ######################################################################################### -->
 <li data-row="6" data-col="2" data-sizex="1" data-sizey="1">ROW 6 | COL 2 | X 1 | Y 1
+	<div class="bigger">kälter</div>
+	<div
+		data-type="push"
+		data-fhem-cmd="set DF_move_mischer_man cmd_2"
+		class="bigger"
+	></div>
 </li> 
 <!-- ######################################################################################### -->
 <li data-row="6" data-col="3" data-sizex="1" data-sizey="1">ROW 6 | COL 1 | X 1 | Y 1
+	<div class="bigger">auto</div>
+	<div
+		data-type="push"
+		data-fhem-cmd="set DF_move_mischer_man cmd_3"
+		class="bigger"
+	></div>
 </li> 
 <!-- ######################################################################################### -->
 <li data-row="6" data-col="4" data-sizex="1" data-sizey="1">ROW 6 | COL 1 | X 1 | Y 1
