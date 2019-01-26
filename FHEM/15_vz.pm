@@ -85,12 +85,68 @@ sub vz_read($$)
 	
 	# read from serial device
 	my $buf = DevIo_SimpleRead($hash);
+	my $data = $buf; ## kompatibilität bewahren
 	if(!defined($buf) || $buf eq ""){
 	# wird beim versuch, Daten zu lesen, eine geschlossene Verbindung erkannt, wird *undef* zurückgegeben. Es erfolgt ein neuer Verbindungsversuch?
 	Log3($name,1, "vz SimpleRead fehlgeschlagen, was soll ich jetzt tun?");
 
 	return "";
 	}
+
+	############################ neues vorgehen
+	my $buffer = $hash->{PARTIAL};
+	Log3 $name, 5, "$name - received $data (buffer contains: $buffer)";
+	# concat received data to $buffer
+	$buffer .= $data;
+
+	# as long as the buffer contains newlines (complete datagramm)
+	while($buffer =~ m/1b1b1b1b1a/)
+	{
+	  my $msg;
+    
+	  Log3 $name, 5, "$name - buffer contains: $buffer";
+	  Log3 $name, 5, "$name - msg contains: $msg)";
+	  # extract the complete message ($msg), everything else is assigned to $buffer
+	  ($msg, $buffer) = split("1b1b1b1b1a", $buffer, 2);
+    
+	  Log3 $name, 5, "$name - after split, buffer now contains: $buffer";
+	  Log3 $name, 5, "$name - after split, msg now contains: $msg)";
+
+	  # remove trailing whitespaces
+	  chomp $msg;
+    
+	  Log3 $name, 5, "$name - after chomp (maybe obsolete), msg now contains: $msg)";
+
+	# did we really get a full frame?
+	if ($msg =~ "(1b1b1b1b01010101(.*)1b1b1b1b1a)" && length($msg gt 572)) 
+	{
+	my $fullframe= $1;
+	Log3($name, 5, "Full Frame content: " . $fullframe);
+	#$hash->{total_energy_pos} = index($hash->{buffer},"070100010800ff");
+#	$hash->{total_energy}   = substr($fullframe,308,8);
+	my $temp   = substr($fullframe,308,8);
+	Log3 $name, 5, "$name - total_energy: $temp )";
+#	$hash->{total_energy_1} = substr($fullframe,356,8);
+#	$hash->{total_energy_2} = substr($fullframe,404,8);
+#	$hash->{total_power}    = substr($fullframe,448,4);
+#	$hash->{total_power_L1} = substr($fullframe,488,4);
+#	$hash->{total_power_L2} = substr($fullframe,528,4);
+#	$hash->{total_power_L3} = substr($fullframe,568,4);
+
+	  # parse the extracted message
+	  #MY_MODULE_ParseMessage($hash, $msg);
+  	}
+
+	  # update $hash->{PARTIAL} with the current buffer content
+	  $hash->{PARTIAL} = $buffer; 	
+	}
+
+	######################################################
+
+
+
+
+
 	# convert to hex string to make parsing with regex easier
 	#$hash->{buffer} .= $buf;	
 	$hash->{buffer} .= unpack ('H*', $buf);	
