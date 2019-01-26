@@ -29,17 +29,18 @@ vz_Define($$)
 	
 if(@a < 3 || @a > 5){
 	my $msg = "wrong syntax: define <name> vz <device>";
-	Log3 $hash, 2, $msg;
 	return $msg;
 }	
 	my $name = $a[0];
 	my $device = $a[2];
-
+ 
   $hash->{name} = $name;
+  ## $hash->DeviceName keeps the name of the io-Device. Without this, DevIO does not work.
   $hash->{DeviceName} = $device;
-
+	
 
   my $ret = DevIo_OpenDev($hash, 0, "vz_DoInit" );
+  Log3($name, 1, "vz DevIO_OpenDev_Define $ret"); 
   return $ret;
 }
 
@@ -49,6 +50,21 @@ vz_DoInit($)
 {
  Log3 undef, 2, "DoInitfkt";
 }
+###########################################
+#_ready-function for reconnecting the Device
+# function is called, when connection is down.
+sub
+vz_Ready($)
+{
+	my ($hash) = @_;
+  my $ret = DevIo_OpenDev($hash, 1, "vz_DoInit" );
+  Log3($hash->{name}, 1, "vz DevIO_OpenDev_Ready $ret"); 
+  return $ret;
+
+
+}
+
+
 
 #####################################
 sub
@@ -68,34 +84,37 @@ sub vz_read($$)
 	my $name = $hash->{NAME};
 	
 	# read from serial device
-	my $buf = DevIo_SimpleRead($hash);		
-	return "" if ( !defined($buf) );
+	my $buf = DevIo_SimpleRead($hash);
+	if(!defined($buf) || $buf eq ""){
+	# wird beim versuch, Daten zu lesen, eine geschlossene Verbindung erkannt, wird *undef* zurückgegeben. Es erfolgt ein neuer Verbindungsversuch?
+	Log3($name,1, "vz SimpleRead fehlgeschlagen, was soll ich jetzt tun?");
 
+	return "";
+	}
 	# convert to hex string to make parsing with regex easier
 	#$hash->{buffer} .= $buf;	
 	$hash->{buffer} .= unpack ('H*', $buf);	
-	#Log3 $name, 5, "Current buffer content: " . $hash->{buffer};
+	Log3($name, 5, "Current buffer content: " . $hash->{buffer});
 	
 
 	# did we already get a full frame?
 	if ($hash->{buffer} =~ "(1b1b1b1b01010101(.*)1b1b1b1b1a)") 
 	{
-	#my $pos[1] = 
-	$hash->{pack} = $1;
-	
+	my $fullframe= $1;
+	Log3($name, 5, "Full Frame content: " . $fullframe);
 	#$hash->{total_energy_pos} = index($hash->{buffer},"070100010800ff");
-	$hash->{total_energy}   = substr($hash->{pack},308,8);
-	$hash->{total_energy_1} = substr($hash->{pack},356,8);
-	$hash->{total_energy_2} = substr($hash->{pack},404,8);
-	$hash->{total_power}    = substr($hash->{pack},448,4);
-	$hash->{total_power_L1} = substr($hash->{pack},488,4);
-	$hash->{total_power_L2} = substr($hash->{pack},528,4);
-	$hash->{total_power_L3} = substr($hash->{pack},568,4);
+	$hash->{total_energy}   = substr($fullframe,308,8);
+	$hash->{total_energy_1} = substr($fullframe,356,8);
+	$hash->{total_energy_2} = substr($fullframe,404,8);
+	$hash->{total_power}    = substr($fullframe,448,4);
+	$hash->{total_power_L1} = substr($fullframe,488,4);
+	$hash->{total_power_L2} = substr($fullframe,528,4);
+	$hash->{total_power_L3} = substr($fullframe,568,4);
 
 	my %readings; 
 	
-    		readingsBeginUpdate($hash);
-	 	#readingsBulkUpdate($hash, "state", $val);
+	readingsBeginUpdate($hash);
+ 	#readingsBulkUpdate($hash, "state", $val);
 
     	$readings{total_energy}    = hex($hash->{total_energy})/10000;
     	$readings{total_energy_1}  = hex($hash->{total_energy_1})/10000;
