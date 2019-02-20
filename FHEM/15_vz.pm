@@ -15,6 +15,7 @@ vz_Initialize($)
   $hash->{DefFn}     = "vz_Define";
   $hash->{UndefFn}   = "vz_Undef";
   $hash->{ReadFn}    = "vz_read";
+  $hash->{ReadyFn}   = "vz_Ready";
   $hash->{AttrList}  = "Anschluss ".
                         $readingFnAttributes;
 
