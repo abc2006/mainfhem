@@ -962,8 +962,7 @@ q
 </table>
 </li> 
 <!-- ######################################################################################### -->
-<li data-row="5" data-col="2" data-sizex="1" data-sizey="1">ROW 5 | COL 2 | X 1 | Y 1
-	<div class="bigger">Solar</div>
+<li data-row="5" data-col="2" data-sizex="1" data-sizey="1">ROW 5 | COL 2 | Solar TH
 <table border="0" width=100%>
 	<tr>
 	<td width=50% align="right">
@@ -1038,89 +1037,85 @@ q
 
 </li>
 <!-- ######################################################################################### -->
-<li data-row="5" data-col="3" data-sizex="1" data-sizey="1">ROW 5 | COL 3 | X 1 | Y 1
-	<div class="bigger">Gas</div>
+<li data-row="5" data-col="3" data-sizex="1" data-sizey="1">ROW 5 | COL 3 | Solar PV
+
 <table border="0" width=100%>
-	<tr>
 	<td width=50% align="right">
-		<div class="bigger"> VL:</div>
+		<div class="bigger"> PinSolar:</div>
 	</td>
 	<td width=50% align="left"> 
 	<div data-type="label"
-		data-device="RE_TEMP_Vorlauf_Kessel" 
-		data-get="temperature"
-		data-unit="&deg;C"
-		data-limits='[0,40,80,87]' 
-		data-colors='["blue","yellow","green","red"]' 
-		data-fix='2'
-		class="bigger">
-	</div>
-	</td>
-	</tr>
-	<tr>
-	<td width=50% align="right">
-		<div class="bigger"> RL:</div>
-	</td>
-	<td width=50% align="left">
-	<div data-type="label"
-		data-device="RE_TEMP_Ruecklauf_Kessel" 
-		data-get="temperature"
-		data-unit="&deg;C"
-		data-limits='[0,60,70]' 
-		data-colors='["blue","green","red"]' 
-		data-fix='2'
-		class="bigger">
-	</div>
-	</td>
-	</tr>
-	<tr>
-	<td width=50% align="right">
-		<div class="bigger"> P:</div>
-	</td>
-	<td width=50% align="left">
-	<div data-type="label"
-		data-device="KNX10.I08_Gaszaehler_KNX" 
-		data-get="power"
-		data-unit="W"
-		data-limits='[0,60,70]' 
-		data-colors='["blue","green","red"]' 
+		data-device="Effekta" 
+		data-get="PV_input_actual_power"
 		data-part="1"
+		data-unit="W"
+		data-limits='[0]' 
+		data-colors='["blue"]' 
+		data-fix='0'
 		class="bigger">
 	</div>
 	</td>
 	</tr>
 	<tr>
-		<td colspan=2>
-	<div 
-		data-type="AUswitch"
-		data-cmd="set"
-		data-device="DF_Gaskessel_Handbetrieb"
-  		data-lock="global_FTUIFree:lock"
-		data-set-on="cmd_2"
-  		data-set-off="cmd_3"
-  		data-get="status"
-    		class="big"
-	></div>
-	<div 
-		data-type="label" 
-		data-device="KNX32.O04_Aktor_Gaskessel_Temperatursimulation"
-		data-get="active-low-status" 
-		data-limits='["on","off"]' 
-		data-colors='["green","red"]' 
-		class="bigger"
-	></div>
+	<td width=50% align="right">
+		<div class="bigger"> Pout:</div>
+	</td>
+	<td width=50% align="left"> 
+	<div data-type="label"
+		data-device="Effekta" 
+		data-get="AC_output_active_power"
+		data-part="1"
+		data-unit="W"
+		data-limits='[0]' 
+		data-colors='["blue"]' 
+		data-fix='0'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td width=50% align="right">
+
+		<div class="bigger"> Ubat:</div>
+	</td>
+	<td width=50% align="left">
+	<div data-type="label"
+		data-device="Effekta" 
+		data-get="Battery_actual_voltage"
+		data-part="1" 
+		data-unit="V"
+		data-limits='[0,47,49.5,53]' 
+		data-colors='["red","yellow","green","red"]' 
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<tr>
+	<td width=50% align="right">
+		<div class="bigger"> Ibat:</div>
+	</td>
+	<td width=50% align="left">
+	<div data-type="label"
+		data-device="Effekta" 
+		data-get="Battery_total_current"
+		data-part="1"
+		data-unit="A"
+		data-limits='[-100,-50,0,1,50]' 
+		data-colors='["red","yellow","blue","green","red"]' 
+		data-fix='0'
+		class="bigger">
+	</div>
 	</td>
 	</tr>
 
 </table>
 
-
 </li>
 
 
 <!-- ######################################################################################### -->
-<li data-row="5" data-col="4" data-sizex="1" data-sizey="1">ROW 5 | COL 4 | X 1 | Y 1
-	<div class="bigger">Heizkreis</div>
+<li data-row="5" data-col="4" data-sizex="1" data-sizey="1">ROW 5 | COL 4 | Heizkreis
 <table border="0" width=100%>
 	<tr>
 	<td width=50% align="right">
@@ -1211,8 +1206,7 @@ q
 </li> 
 
 <!-- ######################################################################################### -->
-<li data-row="5" data-col="5" data-sizex="1" data-sizey="1">ROW 5 | COL 5 | X 1 | Y 1
-	<div class="bigger">Zählerstände</div>
+<li data-row="5" data-col="5" data-sizex="1" data-sizey="1">ROW 5 | COL 5 | Zählerstände
 
 		<div class="bigger"> Strom:</div>
 	<div data-type="label"
@@ -1249,7 +1243,7 @@ q
 	></div>
 </li> 
 <!-- ######################################################################################### -->
-<li data-row="6" data-col="3" data-sizex="1" data-sizey="1">ROW 6 | COL 1 | X 1 | Y 1
+<li data-row="6" data-col="3" data-sizex="1" data-sizey="1">ROW 6 | COL 3 | X 1 | Y 1
 	<div class="bigger">auto</div>
 	<div
 		data-type="push"
@@ -1258,7 +1252,81 @@ q
 	></div>
 </li> 
 <!-- ######################################################################################### -->
-<li data-row="6" data-col="4" data-sizex="1" data-sizey="1">ROW 6 | COL 1 | X 1 | Y 1
+<li data-row="6" data-col="4" data-sizex="1" data-sizey="1">ROW 6 | COL 4 | Gas 
+<table border="0" width=100%>
+	<tr>
+	<td width=50% align="right">
+		<div class="bigger"> VL:</div>
+	</td>
+	<td width=50% align="left"> 
+	<div data-type="label"
+		data-device="RE_TEMP_Vorlauf_Kessel" 
+		data-get="temperature"
+		data-unit="&deg;C"
+		data-limits='[0,40,80,87]' 
+		data-colors='["blue","yellow","green","red"]' 
+		data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td width=50% align="right">
+		<div class="bigger"> RL:</div>
+	</td>
+	<td width=50% align="left">
+	<div data-type="label"
+		data-device="RE_TEMP_Ruecklauf_Kessel" 
+		data-get="temperature"
+		data-unit="&deg;C"
+		data-limits='[0,60,70]' 
+		data-colors='["blue","green","red"]' 
+		data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td width=50% align="right">
+		<div class="bigger"> P:</div>
+	</td>
+	<td width=50% align="left">
+	<div data-type="label"
+		data-device="KNX10.I08_Gaszaehler_KNX" 
+		data-get="power"
+		data-unit="W"
+		data-limits='[0,60,70]' 
+		data-colors='["blue","green","red"]' 
+		data-part="1"
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+		<td colspan=2>
+	<div 
+		data-type="AUswitch"
+		data-cmd="set"
+		data-device="DF_Gaskessel_Handbetrieb"
+  		data-lock="global_FTUIFree:lock"
+		data-set-on="cmd_2"
+  		data-set-off="cmd_3"
+  		data-get="status"
+    		class="big"
+	></div>
+	<div 
+		data-type="label" 
+		data-device="KNX32.O04_Aktor_Gaskessel_Temperatursimulation"
+		data-get="active-low-status" 
+		data-limits='["on","off"]' 
+		data-colors='["green","red"]' 
+		class="bigger"
+	></div>
+	</td>
+	</tr>
+
+</table>
+
 </li> 
 <!-- ######################################################################################### -->
 <li data-row="6" data-col="5" data-sizex="1" data-sizey="1">ROW 6 | COL 1 | X 1 | Y 1
