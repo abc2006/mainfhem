@@ -95,7 +95,7 @@ sub vz_read($$)
 	}
 
 	############################ neues vorgehen
-	my $buffer = $hash->{PARTIAL};
+	my $buffer = $hash->{helper}{PARTIAL};
 	Log3 $name, 5, "$name - received $data (buffer contains: $buffer)";
 	# concat received data to $buffer
 	$buffer .= $data;
@@ -138,8 +138,9 @@ sub vz_read($$)
 	  #MY_MODULE_ParseMessage($hash, $msg);
   	}
 
+	Log3($name, 5, "save buffer to PARTIAL");
 	  # update $hash->{PARTIAL} with the current buffer content
-	  $hash->{PARTIAL} = $buffer; 	
+	  $hash->{helper}{PARTIAL} = $buffer; 	
 	}
 
 	######################################################
@@ -160,40 +161,43 @@ sub vz_read($$)
 	my $fullframe= $1;
 	Log3($name, 5, "Full Frame content: " . $fullframe);
 	#$hash->{total_energy_pos} = index($hash->{buffer},"070100010800ff");
-	$hash->{total_energy}   = substr($fullframe,308,8);
-	$hash->{total_energy_1} = substr($fullframe,356,8);
-	$hash->{total_energy_2} = substr($fullframe,404,8);
-	$hash->{total_power}    = substr($fullframe,448,4);
-	$hash->{total_power_L1} = substr($fullframe,488,4);
-	$hash->{total_power_L2} = substr($fullframe,528,4);
-	$hash->{total_power_L3} = substr($fullframe,568,4);
+	$hash->{helper}{total_energy}   = substr($fullframe,308,8);
+	Log3($name, 5, "total_energy: " . $hash->{helper}{total_energy});
+	$hash->{helper}{total_energy_1} = substr($fullframe,356,8);
+	$hash->{helper}{total_energy_2} = substr($fullframe,404,8);
+	$hash->{helper}{total_power}    = substr($fullframe,448,4);
+	$hash->{helper}{total_power_L1} = substr($fullframe,488,4);
+	Log3($name, 5, "total Power L1 " . $hash->{helper}{total_power_L1});
+	$hash->{helper}{total_power_L2} = substr($fullframe,528,4);
+	Log3($name, 5, "total Power L2 " . $hash->{helper}{total_power_L2});
+	$hash->{helper}{total_power_L3} = substr($fullframe,568,4);
+	Log3($name, 5, "total Power L3 " . $hash->{helper}{total_power_L3});
 
 	my %readings; 
 	
 	readingsBeginUpdate($hash);
  	#readingsBulkUpdate($hash, "state", $val);
 
-    	$readings{total_energy}    = hex($hash->{total_energy})/10000;
-    	$readings{total_energy_1}  = hex($hash->{total_energy_1})/10000;
-    	$readings{total_energy_2}  = hex($hash->{total_energy_2})/10000;
-    	$readings{total_power}     = hex($hash->{total_power});
-    	$readings{total_power_L1}  = hex($hash->{total_power_L1});
-    	$readings{total_power_L2}  = hex($hash->{total_power_L2});
-    	$readings{total_power_L3}  = hex($hash->{total_power_L3});
-	
-	my $old_tot_ene = ReadingsVal("Stromzaehler","total_energy",0);
-	my $old_tot_ene_1 = ReadingsVal("Stromzaehler","total_energy_1",0);
-	my $old_tot_ene_2 = ReadingsVal("Stromzaehler","total_energy_2",0);
-
-	if($readings{total_energy} < $old_tot_ene){
-		$readings{total_energy} = $old_tot_ene;
-	}
-	if($readings{total_energy_1} < $old_tot_ene_1){
-		$readings{total_energy_1} = $old_tot_ene_1;
-	}
-	if($readings{total_energy_2} < $old_tot_ene_2){
-		$readings{total_energy_2} = $old_tot_ene_2;
-	}
+    	$readings{total_energy}    = hex($hash->{helper}{total_energy})/10000;
+    	$readings{total_energy_1}  = hex($hash->{helper}{total_energy_1})/10000;
+    	$readings{total_energy_2}  = hex($hash->{helper}{total_energy_2})/10000;
+    	$readings{total_power}     = hex($hash->{helper}{total_power});
+    	$readings{total_power_L1}  = hex($hash->{helper}{total_power_L1});
+    	$readings{total_power_L2}  = hex($hash->{helper}{total_power_L2});
+    	$readings{total_power_L3}  = hex($hash->{helper}{total_power_L3});
+##	my $old_tot_ene = ReadingsVal("Stromzaehler","total_energy",0);
+##	my $old_tot_ene_1 = ReadingsVal("Stromzaehler","total_energy_1",0);
+##	my $old_tot_ene_2 = ReadingsVal("Stromzaehler","total_energy_2",0);
+##
+##	if($readings{total_energy} < $old_tot_ene){
+##		$readings{total_energy} = $old_tot_ene;
+##	}
+##	if($readings{total_energy_1} < $old_tot_ene_1){
+##		$readings{total_energy_1} = $old_tot_ene_1;
+##	}
+##	if($readings{total_energy_2} < $old_tot_ene_2){
+##		$readings{total_energy_2} = $old_tot_ene_2;
+##	}
 
 
 
