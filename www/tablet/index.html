@@ -168,8 +168,8 @@
 	<div 
 		data-type="AUswitch"
 		data-cmd="setreading"
-		data-device="DF_move_heat"
-  		data-set="pump_mode1t3"
+		data-device="DF_1500to3000"
+  		data-set="pump_mode"
 		data-set-states='["man_off","auto","man_on"]'
 		data-states='["man_on","man_off","auto"]'
 		data-colors='["white","white","white"]'
@@ -178,8 +178,8 @@
 	></div>
 	<div 
 		data-type="label" 
-		data-device="DF_move_heat"
-		data-get="pump_mode1t3" 
+		data-device="DF_1500to3000"
+		data-get="pump_mode" 
 		data-limits='["man_on","man_off","auto"]' 
 		data-colors='["green","red","lightblue"]' 
 		class="bigger"
@@ -187,7 +187,7 @@
 	<div 
 		data-type="label" 
 		data-device="KNX32.O03_Aktor_UWP_1500_3000"
-		data-get="state" 
+		data-get="status" 
 		data-limits='["on","off"]' 
 		data-colors='["green","red"]' 
 		class="bigger"
@@ -1091,7 +1091,6 @@ q
 	</td>
 	</tr>
 	<tr>
-	<tr>
 	<td width=50% align="right">
 		<div class="bigger"> Ibat:</div>
 	</td>
@@ -1109,6 +1108,17 @@ q
 	</td>
 	</tr>
 
+	<tr>
+	<td colspan="2", width=100% align="center">
+	<div data-type="label"
+		data-device="Effekta" 
+		data-get="Device_Mode"
+		data-limits='["Line Mode","Battery Mode"]' 
+		data-colors='["red","green"]' 
+		class="bigger">
+	</div>
+	</td>
+	</tr>
 </table>
 
 </li>
