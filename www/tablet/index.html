@@ -169,7 +169,7 @@
 		data-type="AUswitch"
 		data-cmd="setreading"
 		data-device="DF_1500to3000"
-  		data-set="pump_mode"
+		data-set="pump_mode"		
 		data-set-states='["man_off","auto","man_on"]'
 		data-states='["man_on","man_off","auto"]'
 		data-colors='["white","white","white"]'
@@ -528,6 +528,21 @@
 
 
 <li data-row="3" data-col="5" data-sizex="1" data-sizey="1">ROW 3 | COL 5 | X 1 | Y 1
+	<div class="bigger"> Strom:</div>
+	<div data-type="label"
+		data-device="Stromzaehler" 
+		data-get="total_energy"
+		data-unit=" kWh"
+		data-fix=0
+		class="bigger">
+	</div>
+	<div class="bigger"> Gas:</div>
+	<div data-type="label"
+		data-device="KNX10.I08_Gaszaehler_KNX" 
+		data-get="total"
+		data-unit=" m3"
+		class="bigger">
+	</div>
 </li>
 
 <!-- ######################################################################################### -->
@@ -1119,13 +1134,119 @@ q
 	</div>
 	</td>
 	</tr>
+	<tr>
+	<td colspan="2", width=100% align="center">
+	<div data-type="label"
+		data-device="KNX02.O03_Aktor_UmschalterPVNetz" 
+		data-get="named_status"
+		data-limits='["Line Mode","PV Mode"]' 
+		data-colors='["red","green"]' 
+		class="bigger">
+	</div>
+	</td>
+	</tr>
 </table>
 
 </li>
 
-
 <!-- ######################################################################################### -->
-<li data-row="5" data-col="4" data-sizex="1" data-sizey="1">ROW 5 | COL 4 | Heizkreis
+<li data-row="5" data-col="4" data-sizex="1" data-sizey="1">ROW 5 | COL 4 | BMS 
+
+<a href="http://192.168.0.153:3000/" style="color:#FFFFFF;" >
+<table border="0" width=100%>
+	<tr>
+	<td width=50% align="right">
+		<div class="bigger"> kWh:</div>
+	</td>
+	<td width=50% align="left"> 
+	<div data-type="label"
+		data-device="BMS" 
+		data-get="1_kWh_BMS_left_total"
+		data-part="1"
+		data-unit="kWh"
+		data-limits='[0]' 
+		data-colors='["blue"]' 
+		data-fix='1'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td width=50% align="right">
+		<div class="bigger"> SoC:</div>
+	</td>
+	<td width=50% align="left"> 
+	<div data-type="label"
+		data-device="BMS" 
+		data-get="1_SOC_BMS_total"
+		data-part="1"
+		data-unit="%"
+		data-limits='[0,20,50,75]' 
+		data-colors='["red","orange","yellow","green"]' 
+		data-fix='1'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td width=50% align="right">
+		<div class="bigger"> Ubat:</div>
+	</td>
+	<td width=50% align="left"> 
+	<div data-type="label"
+		data-device="BMS" 
+		data-get="1_Spannung_total"
+		data-part="1"
+		data-unit="V"
+		data-limits='[0,48,51.5,53]' 
+		data-colors='["red","green","orange","red"]' 
+		data-fix='3'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td width=50% align="right">
+
+		<div class="bigger"> Ibat:</div>
+	</td>
+	<td width=50% align="left">
+	<div data-type="label"
+		data-device="BMS" 
+		data-get="1_Strom_total"
+		data-part="1" 
+		data-unit="A"
+		data-limits='[-1000,-75,0,1,75]' 
+		data-colors='["red","yellow","blue","green","red"]' 
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td width=50% align="right">
+		<div class="bigger"> Pbat:</div>
+	</td>
+	<td width=50% align="left">
+	<div data-type="label"
+		data-device="BMS" 
+		data-get="1_Power_total"
+		data-part="1"
+		data-unit="W"
+		data-limits='[-10000,-4000,0,1,4000]' 
+		data-colors='["red","yellow","blue","green","red"]' 
+		data-fix='0'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+</table>
+
+</a>
+
+
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="5" data-col="5" data-sizex="1" data-sizey="1">ROW 5 | COL 5 | Heizkreis
 <table border="0" width=100%>
 	<tr>
 	<td width=50% align="right">
@@ -1215,25 +1336,6 @@ q
 
 </li> 
 
-<!-- ######################################################################################### -->
-<li data-row="5" data-col="5" data-sizex="1" data-sizey="1">ROW 5 | COL 5 | Zählerstände
-
-		<div class="bigger"> Strom:</div>
-	<div data-type="label"
-		data-device="Stromzaehler" 
-		data-get="total_energy"
-		data-unit=" kWh"
-		data-fix=0
-		class="bigger">
-	</div>
-		<div class="bigger"> Gas:</div>
-	<div data-type="label"
-		data-device="KNX10.I08_Gaszaehler_KNX" 
-		data-get="total"
-		data-unit=" m3"
-		class="bigger">
-	</div>
-</li> 
 
 <li data-row="6" data-col="1" data-sizex="1" data-sizey="1">ROW 6 | COL 1 | X 1 | Y 1
 	<div class="bigger">wärmer</div>
