@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="widget_base_width" content="240">
+<meta name="widget_base_height" content="274">
+<!--<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">-->
+<meta name="gridster_disable" content="1"> <!-- das hier erlaubt (0) oder verbietet (1) das verschieben der Kacheln -->
+<!--<meta name="gridster_min_height" content="">-->
+<meta name="gridster_cols" content="5">
+<meta name="gridster_rows" content="5">
+<meta name="widget_margin" content="1">
+
+
+<meta name="longpoll" content="1"> <!-- 1=longpoll;0=shortpoll every 30sec -->
+<meta name="longpoll_type" content="websocket"> <!-- 1=longpoll;0=shortpoll every 30sec -->
+<meta name="longpoll_maxage" content="30"><!--wird in diesem Zeitraum kein Longpoll empfangen, wird die seite refreshed -->
+<meta name="debug" content="2"> <!-- verbose level 1-6 = output to console;0 = not output -->
+
+<meta name='toast_position' content='top-right'>
+<meta name='toast' content='2'>
+
+<link rel="stylesheet" href="lib/jquery.gridster.min.css" />
+<link rel="stylesheet" href="css/fhem-tablet-ui.css" />
+<link rel="stylesheet" href="lib/font-awesome.min.css" />
+<link rel="stylesheet" href="lib/jquery.toast.min.css" />
+
+<!-- define your personal style here, it wont be overwritten  -->
+<!-- link rel="stylesheet" href="css/fhem-green-ui.css" / -->
+<!-- link rel="stylesheet" href="css/fhem-tablet-ui-user.css" / -->
+<!-- 1200x1920-->
+<script src="../pgm2/jquery.min.js"></script>
+<script src="lib/jquery.toast.min.js"></script>
+<script src="lib/jquery.gridster.min.js"></script>
+<script src="js/fhem-tablet-ui.js" defer></script>
+
+<title>FTUI PV</title>
+</head>
+<body>
+<div class="gridster">
+<ul>
+<!-- https://www.w3schools.com/html/html_css.asp -->
+<!--https://wiki.selfhtml.org/wiki/CSS/Eigenschaften/Tabellenformatierung -->
+
+<!-- ######################################################################################### -->
+<li data-row="1" data-col="1" data-sizex="2" data-sizey="1">Home
+	<div class="bigger">	<a href="index.html">
+	<div 
+		data-type="clock" 
+		data-format="l" 
+		class="bigger top-space"></div>
+	<div 
+		data-type="clock"
+		data-format="d.m.Y"  
+		class=bigger  
+	></div>
+	<div 
+		data-type="clock"
+		data-format="H:i:s"  
+		class=bigger  
+	></div>
+	</a>
+	</div>
+</li>
+<!-- ######################################################################################### -->
+<li data-row="2" data-col="1" data-sizex="5" data-sizey="1">ROW 1 | COL 1 | X 1 | Y 1
+	<div style="text-align:center" 
+		class="bigger" 
+		data-type="readingsgroup" 
+		data-device="rg_BMS"
+  		data-max-update="1"
+	></div> 
+
+</li>
+<!-- ########################################################################################-->
+
+<li data-row="5" data-col="1" data-sizex="1" data-sizey="1"> BMS gesamt
+<table border="0" width=100%>
+	<tr>
+	<td width=40% align="right">
+		<div class="bigger"> SoC</div>
+	</td>
+	<td width=60% align="left"> 
+	<div data-type="label"
+		data-device="BMS" 
+		data-get="1_SOC_BMS_total"
+		data-part="1"
+		data-unit="%"
+		data-limits='[0,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90]'
+		data-colors='["#FF0000","#FF1500","#FF2900","#FF3E00","#FF5300","#FF6700","#FF7C00","#FF9000","#FFA500","#DFB000","#BFBC00","#9FC700","#80D200","#66DD00","#40E900","#20F400","#00FF00"]'
+		  data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div class="bigger" align="right"> Ah:</div>
+	</td>
+	<td width=60% align="left">
+	<div data-type="label"
+		data-device="BMS"
+		data-get="1_Ah_BMS_left_total"
+		data-part="1"
+		data-unit="&deg;C"
+		data-limits='[0,105,150,170]' 
+		data-colors='["blue","#00BFFF","green","red"]' 
+		data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div class="bigger" align="right"> U:</div>
+	</td>
+	<td width=60% align="left"> 
+	<div data-type="label"
+		data-device="BMS" 
+		data-get="1_Spannung_total"
+		data-part="1"
+		data-unit="V"
+		data-limits='[40,47,53.5]' 
+		data-colors='["red","green","red"]' 
+		data-fix='3'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div class="bigger" align="right"> I:</div>
+	</td>
+	<td width=60% align="left">
+	<div data-type="label"
+		data-device="BMS" 
+		data-get="1_Strom_total"
+		data-part="1"
+		data-unit="A"
+		data-limits='[-200,-75,0,1,75]' 
+		data-colors='["red","orange","blue","green","red"]' 
+		data-fix='1'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div class="bigger" align="right"> Temp:</div>
+	</td>
+	<td width=60% align="left">
+	<div data-type="label"
+		data-device="BMS" 
+		data-get="1_Temperature_total"
+		data-part="1"
+		data-unit="&deg;C"
+		data-limits='[0,15,25,35]' 
+		data-colors='["red","green","orange","red"]' 
+		data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div class="bigger" align="right"> P:</div>
+	</td>
+	<td width=60% align="left">
+	<div data-type="label"
+		data-device="BMS" 
+		data-get="1_Power_total"
+		data-part="1"
+		data-unit="W"
+		data-limits='[0,3500,4000]' 
+		data-colors='["green","yellow","red"]' 
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+</table>
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="5" data-col="2" data-sizex="1" data-sizey="1">ROW 5 | COL 2 | Pack 1
+
+<table border="0" width=100%>
+	<tr>
+	<td width=40% align="right">
+		<div class="bigger"> SoC</div>
+	</td>
+	<td width=60% align="left"> 
+	<div data-type="label"
+		data-device="BMS" 
+		data-get="Pack_1_SoC"
+		data-part="1"
+		data-unit="%"
+		data-limits='[0,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90]'
+		data-colors='["#FF0000","#FF1500","#FF2900","#FF3E00","#FF5300","#FF6700","#FF7C00","#FF9000","#FFA500","#DFB000","#BFBC00","#9FC700","#80D200","#66DD00","#40E900","#20F400","#00FF00"]'
+		  data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div class="bigger" align="right"> Ah:</div>
+	</td>
+	<td width=60% align="left">
+	<div data-type="label"
+		data-device="BMS"
+		data-get="Pack_1_Ah_left"
+		data-part="1"
+		data-unit="&deg;C"
+		data-limits='[0,105,150,170]' 
+		data-colors='["blue","#00BFFF","green","red"]' 
+		data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div class="bigger" align="right"> U:</div>
+	</td>
+	<td width=60% align="left"> 
+	<div data-type="label"
+		data-device="BMS" 
+		data-get="Pack_1_Spannung"
+		data-part="1"
+		data-unit="V"
+		data-limits='[40,47,53.5]' 
+		data-colors='["red","green","red"]' 
+		data-fix='3'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div class="bigger" align="right"> I:</div>
+	</td>
+	<td width=60% align="left">
+	<div data-type="label"
+		data-device="BMS" 
+		data-get="Pack_1_Strom"
+		data-part="1"
+		data-unit="A"
+		data-limits='[-200,-75,0,1,75]' 
+		data-colors='["red","orange","blue","green","red"]' 
+		data-fix='1'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div class="bigger" align="right"> Temp:</div>
+	</td>
+	<td width=60% align="left">
+	<div data-type="label"
+		data-device="BMS" 
+		data-get="Pack_1_Temp1"
+		data-part="1"
+		data-unit="&deg;C"
+		data-limits='[0,15,25,35]' 
+		data-colors='["red","green","orange","red"]' 
+		data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div class="bigger" align="right"> P:</div>
+	</td>
+	<td width=60% align="left">
+	<div data-type="label"
+		data-device="BMS" 
+		data-get=""
+		data-part="1"
+		data-unit="W"
+		data-limits='[0,3500,4000]' 
+		data-colors='["green","yellow","red"]' 
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+</table>
+</li>
+<!-- ######################################################################################### -->
+<li data-row="5" data-col="3" data-sizex="1" data-sizey="1">ROW 5 | COL 3 | Pack 2
+
+<table border="0" width=100%>
+	<tr>
+	<td width=40% align="right">
+		<div class="bigger"> SoC</div>
+	</td>
+	<td width=60% align="left"> 
+	<div data-type="label"
+		data-device="BMS" 
+		data-get="Pack_2_SoC"
+		data-part="1"
+		data-unit="%"
+		data-limits='[0,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90]'
+		data-colors='["#FF0000","#FF1500","#FF2900","#FF3E00","#FF5300","#FF6700","#FF7C00","#FF9000","#FFA500","#DFB000","#BFBC00","#9FC700","#80D200","#66DD00","#40E900","#20F400","#00FF00"]'
+		  data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div class="bigger" align="right"> Ah:</div>
+	</td>
+	<td width=60% align="left">
+	<div data-type="label"
+		data-device="BMS"
+		data-get="Pack_2_Ah_left"
+		data-part="1"
+		data-unit="&deg;C"
+		data-limits='[0,105,150,170]' 
+		data-colors='["blue","#00BFFF","green","red"]' 
+		data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div class="bigger" align="right"> U:</div>
+	</td>
+	<td width=60% align="left"> 
+	<div data-type="label"
+		data-device="BMS" 
+		data-get="Pack_2_Spannung"
+		data-part="1"
+		data-unit="V"
+		data-limits='[40,47,53.5]' 
+		data-colors='["red","green","red"]' 
+		data-fix='3'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div class="bigger" align="right"> I:</div>
+	</td>
+	<td width=60% align="left">
+	<div data-type="label"
+		data-device="BMS" 
+		data-get="Pack_2_Strom"
+		data-part="1"
+		data-unit="A"
+		data-limits='[-200,-75,0,1,75]' 
+		data-colors='["red","orange","blue","green","red"]' 
+		data-fix='1'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div class="bigger" align="right"> Temp:</div>
+	</td>
+	<td width=60% align="left">
+	<div data-type="label"
+		data-device="BMS" 
+		data-get="Pack_2_Temp1"
+		data-part="1"
+		data-unit="&deg;C"
+		data-limits='[0,15,25,35]' 
+		data-colors='["red","green","orange","red"]' 
+		data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div class="bigger" align="right"> P:</div>
+	</td>
+	<td width=60% align="left">
+	<div data-type="label"
+		data-device="BMS" 
+		data-get=""
+		data-part="1"
+		data-unit="W"
+		data-limits='[0,3500,4000]' 
+		data-colors='["green","yellow","red"]' 
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+</table>
+</li>
+
+<!-- ######################################################################################### -->
+<li data-row="5" data-col="4" data-sizex="1" data-sizey="1">ROW 5 | COL 4 | BMS Pack 3 
+
+<table border="0" width=100%>
+	<tr>
+	<td width=40% align="right">
+		<div class="bigger"> SoC</div>
+	</td>
+	<td width=60% align="left"> 
+	<div data-type="label"
+		data-device="BMS" 
+		data-get="Pack_3_SoC"
+		data-part="1"
+		data-unit="%"
+		data-limits='[0,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90]'
+		data-colors='["#FF0000","#FF1500","#FF2900","#FF3E00","#FF5300","#FF6700","#FF7C00","#FF9000","#FFA500","#DFB000","#BFBC00","#9FC700","#80D200","#66DD00","#40E900","#20F400","#00FF00"]'
+		  data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div class="bigger" align="right"> Ah:</div>
+	</td>
+	<td width=60% align="left">
+	<div data-type="label"
+		data-device="BMS"
+		data-get="Pack_3_Ah_left"
+		data-part="1"
+		data-unit="&deg;C"
+		data-limits='[0,105,150,170]' 
+		data-colors='["blue","#00BFFF","green","red"]' 
+		data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div class="bigger" align="right"> U:</div>
+	</td>
+	<td width=60% align="left"> 
+	<div data-type="label"
+		data-device="BMS" 
+		data-get="Pack_3_Spannung"
+		data-part="1"
+		data-unit="V"
+		data-limits='[40,47,53.5]' 
+		data-colors='["red","green","red"]' 
+		data-fix='3'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div class="bigger" align="right"> I:</div>
+	</td>
+	<td width=60% align="left">
+	<div data-type="label"
+		data-device="BMS" 
+		data-get="Pack_3_Strom"
+		data-part="1"
+		data-unit="A"
+		data-limits='[-200,-75,0,1,75]' 
+		data-colors='["red","orange","blue","green","red"]' 
+		data-fix='1'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div class="bigger" align="right"> Temp:</div>
+	</td>
+	<td width=60% align="left">
+	<div data-type="label"
+		data-device="BMS" 
+		data-get="Pack_3_Temp1"
+		data-part="1"
+		data-unit="&deg;C"
+		data-limits='[0,15,25,35]' 
+		data-colors='["red","green","orange","red"]' 
+		data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div class="bigger" align="right"> P:</div>
+	</td>
+	<td width=60% align="left">
+	<div data-type="label"
+		data-device="BMS" 
+		data-get=""
+		data-part="1"
+		data-unit="W"
+		data-limits='[0,3500,4000]' 
+		data-colors='["green","yellow","red"]' 
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+</table>
+
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="5" data-col="5" data-sizex="1" data-sizey="1">ROW 5 | COL 5 | Wechselrichter 
+
+
+
+
+<table border="0" width=100%>
+	<td width=50% align="right">
+		<div class="bigger"> PinSolar:</div>
+	</td>
+	<td width=50% align="left"> 
+	<div data-type="label"
+		data-device="Effekta" 
+		data-get="PV_input_actual_power"
+		data-part="1"
+		data-unit="W"
+		data-limits='[0]' 
+		data-colors='["blue"]' 
+		data-fix='0'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td width=50% align="right">
+		<div class="bigger"> Pout:</div>
+	</td>
+	<td width=50% align="left"> 
+	<div data-type="label"
+		data-device="Effekta" 
+		data-get="AC_output_active_power"
+		data-part="1"
+		data-unit="W"
+		data-limits='[0]' 
+		data-colors='["blue"]' 
+		data-fix='0'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td width=50% align="right">
+
+		<div class="bigger"> Ubat:</div>
+	</td>
+	<td width=50% align="left">
+	<div data-type="label"
+		data-device="Effekta" 
+		data-get="Battery_actual_voltage"
+		data-part="1" 
+		data-unit="V"
+		data-limits='[0,47,49.5,53]' 
+		data-colors='["red","yellow","green","red"]' 
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td width=50% align="right">
+		<div class="bigger"> Ibat:</div>
+	</td>
+	<td width=50% align="left">
+	<div data-type="label"
+		data-device="Effekta" 
+		data-get="Battery_total_current"
+		data-part="1"
+		data-unit="A"
+		data-limits='[-100,-50,0,1,50]' 
+		data-colors='["red","yellow","blue","green","red"]' 
+		data-fix='0'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+
+	<tr>
+	<td colspan="2", width=100% align="center">
+	<div data-type="label"
+		data-device="Effekta" 
+		data-get="Device_Mode"
+		data-limits='["Line Mode","Battery Mode"]' 
+		data-colors='["red","green"]' 
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td colspan="2", width=100% align="center">
+	<div data-type="label"
+		data-device="KNX02.O03_Aktor_UmschalterPVNetz" 
+		data-get="named_status"
+		data-limits='["Line Mode","PV Mode"]' 
+		data-colors='["red","green"]' 
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+</table>
+
+</li>
+
+<!-- ######################################################################################### -->
+
+
+</ul>
+</div>
+</body>
+</html>
