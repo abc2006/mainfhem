@@ -62,7 +62,12 @@
 	<div data-type="clock" data-format="l" class="bigger top-space"></div>
 	<div 
 		data-type="clock"
-		data-format="d.m.Y H:i:s"  
+		data-format="d.m.Y"  
+		class=bigger  
+	></div>
+	<div 
+		data-type="clock"
+		data-format="H:i:s"  
 		class=bigger  
 	></div>
 	<br />
@@ -1337,34 +1342,8 @@ q
 </li> 
 
 
-<li data-row="6" data-col="1" data-sizex="1" data-sizey="1">ROW 6 | COL 1 | X 1 | Y 1
-	<div class="bigger">wärmer</div>
-	<div
-		data-type="push"
-		data-fhem-cmd="set DF_move_mischer_man cmd_1"
-		class="bigger"
-	></div>
-</li> 
 <!-- ######################################################################################### -->
-<li data-row="6" data-col="2" data-sizex="1" data-sizey="1">ROW 6 | COL 2 | X 1 | Y 1
-	<div class="bigger">kälter</div>
-	<div
-		data-type="push"
-		data-fhem-cmd="set DF_move_mischer_man cmd_2"
-		class="bigger"
-	></div>
-</li> 
-<!-- ######################################################################################### -->
-<li data-row="6" data-col="3" data-sizex="1" data-sizey="1">ROW 6 | COL 3 | X 1 | Y 1
-	<div class="bigger">auto</div>
-	<div
-		data-type="push"
-		data-fhem-cmd="set DF_move_mischer_man cmd_3"
-		class="bigger"
-	></div>
-</li> 
-<!-- ######################################################################################### -->
-<li data-row="6" data-col="4" data-sizex="1" data-sizey="1">ROW 6 | COL 4 | Gas 
+<li data-row="6" data-col="1" data-sizex="1" data-sizey="1">ROW 6 | COL 4 | Gas 
 <table border="0" width=100%>
 	<tr>
 	<td width=50% align="right">
@@ -1441,7 +1420,40 @@ q
 
 </li> 
 <!-- ######################################################################################### -->
-<li data-row="6" data-col="5" data-sizex="1" data-sizey="1">ROW 6 | COL 1 | X 1 | Y 1
+<li data-row="6" data-col="2" data-sizex="1" data-sizey="1">ROW 6 | COL 2 | X 1 | Y 1
+	<div class="bigger">kälter</div>
+	<div
+		data-type="push"
+		data-fhem-cmd="set DF_move_mischer_man cmd_2"
+		class="bigger"
+	></div>
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="6" data-col="3" data-sizex="1" data-sizey="1">ROW 6 | COL 3 | X 1 | Y 1
+	<div class="bigger">reset effekta</div>
+	<div
+		data-type="push"
+		data-fhem-cmd="set pvfhem_remote cmd set Effekta reset"
+		class="bigger"
+	></div>
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="6" data-col="4" data-sizex="1" data-sizey="1">ROW 6 | COL 3 | X 1 | Y 1
+	<div class="bigger">reset pylontech</div>
+	<div
+		data-type="push"
+		data-fhem-cmd="set pvfhem_remote cmd set BMS reset"
+		class="bigger"
+	></div>
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="6" data-col="5" data-sizex="1" data-sizey="1">ROW 6 | COL 3 | X 1 | Y 1
+	<div class="bigger">reset Mischer</div>
+	<div
+		data-type="push"
+		data-fhem-cmd="set hzfhem_remote cmd set Relais2_FUBO_kalt on"
+		class="bigger"
+	></div>
 </li> 
 <!-- ######################################################################################### -->
 <li data-row="7" data-col="1" data-sizex="1" data-sizey="1">ROW 6 | COL 1 | X 1 | Y 1
