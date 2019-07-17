@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="widget_base_width" content="240">
+<meta name="widget_base_height" content="274">
+<!--<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">-->
+<meta name="gridster_disable" content="1"> <!-- das hier erlaubt (0) oder verbietet (1) das verschieben der Kacheln -->
+<!--<meta name="gridster_min_height" content="">-->
+<meta name="gridster_cols" content="5">
+<meta name="gridster_rows" content="7">
+<meta name="widget_margin" content="1">
+
+
+<meta name="longpoll" content="1"> <!-- 1=longpoll;0=shortpoll every 30sec -->
+<meta name="longpoll_type" content="websocket"> <!-- 1=longpoll;0=shortpoll every 30sec -->
+<meta name="longpoll_maxage" content="240"><!--wird in diesem Zeitraum kein Longpoll empfangen, wird die seite refreshed -->
+<meta name="debug" content="2"> <!-- verbose level 1-6 = output to console;0 = not output -->
+
+<meta name='toast_position' content='top-right'>
+<meta name='toast' content='2'>
+
+<link rel="stylesheet" href="lib/jquery.gridster.min.css" />
+<link rel="stylesheet" href="css/fhem-tablet-ui.css" />
+<link rel="stylesheet" href="lib/font-awesome.min.css" />
+<link rel="stylesheet" href="lib/jquery.toast.min.css" />
+
+<!-- define your personal style here, it wont be overwritten  -->
+<!-- link rel="stylesheet" href="css/fhem-green-ui.css" / -->
+<!-- link rel="stylesheet" href="css/fhem-tablet-ui-user.css" / -->
+<!-- 1200x1920-->
+<script src="../pgm2/jquery.min.js"></script>
+<script src="lib/jquery.toast.min.js"></script>
+<script src="lib/jquery.gridster.min.js"></script>
+<script src="js/fhem-tablet-ui.js" defer></script>
+
+<title>FTUI Dev</title>
+</head>
+<body>
+<div class="gridster">
+<ul>
+<!-- https://www.w3schools.com/html/html_css.asp -->
+<!--https://wiki.selfhtml.org/wiki/CSS/Eigenschaften/Tabellenformatierung -->
+
+<!-- ######################################################################################### -->
+<li data-row="1" data-col="1" data-sizex="2" data-sizey="1">Home
+        <div class="bigger">    <a href="index.html">
+        <div 
+                data-type="clock" 
+                data-format="l" 
+                class="bigger top-space"></div>
+        <div 
+                data-type="clock"
+                data-format="d.m.Y"  
+                class=bigger  
+        ></div>
+        <div 
+                data-type="clock"
+                data-format="H:i:s"  
+                class=bigger  
+        ></div>
+        </a>
+        </div>
+</li>
+
+
+
+<!-- ######################################################################################### -->
+<li data-row="1" data-col="2" data-sizex="1" data-sizey="1">ROW 1 | COL 2 | X 1 | Y 1
+	<div data-type="clock" data-format="l" class="bigger top-space"></div>
+	<div 
+		data-type="clock"
+		data-format="d.m.Y"  
+		class=bigger  
+	></div>
+	<div 
+		data-type="clock"
+		data-format="H:i:s"  
+		class=bigger  
+	></div>
+	<br />
+	<div 
+		class="bigger">LogDb
+	</div>
+	<div 
+		data-type="label" 
+		data-device="logdb"
+		data-get="state" 
+		data-limits='["connected","!connected"]' 
+		data-colors='["green","red"]' 
+		class="bigger"
+	></div>
+
+
+</li>
+<!-- ######################################################################################### -->
+<li data-row="1" data-col="3" data-sizex="1" data-sizey="1">ROW 1 | COL 4 | X 1 | Y 1
+<!--	<div style="font-size:2vw">Feuerwehr</div>-->
+	<div class="bigger">Feuerwehr</div>
+<!--	<div style="font-size:2vw"-->
+	<div 
+		data-type="label" 
+		data-device="DF_FFO_Alarm"
+		data-get="state" 
+		data-limits='["FME","none1","none3","auto"]' 
+		data-colors='["red","green","green","lightblue"]' 
+		class="bigger"
+	></div>
+	<div 
+		data-type="label" 
+		data-device="DF_FFO_Alarm"
+		data-get="LastAlarm" 
+		class="bigger"
+	></div>
+
+</li>
+<li data-row="1" data-col="4" data-sizex="1" data-sizey="1">ROW 1 | COL 5 | X 1 | Y 1
+	<div class="bigger">All Off!</div>
+	<div
+		data-type="push"
+		data-fhem-cmd="{SetAllOff()}"
+		class="bigger"
+	></div>
+</li>
+<!-- ######################################################################################### -->
+
+<li data-row="2" data-col="1" data-sizex="1" data-sizey="1">ROW 3 | COL 4 | X 1 | Y 1
+	<div 
+		data-type="popup" 
+		data-height="90%" 
+		data-width="60%"
+  		data-draggable="false"
+    		data-return-time="60"
+		>
+			<div 
+				data-type="switch"  
+    				class="bigger"
+			></div>
+		    	<div class="dialog">
+				<table>	
+					<tr><td>
+				<div 
+					data-type="switch"
+					data-cmd="set"
+					data-device="KNX01.O06_Aktor_Leuchte_DG_Flur"
+					data-get="status"
+					class="bigger"
+				></div>
+					</td><td class="bigger">
+					Leuchte Flur DG
+					</td><td></td></tr>
+					<tr><td>
+				<div 
+					data-type="switch"
+					data-cmd="set"
+					data-device="KNX01.O07_Aktor_Leuchte_DG_provisorisch"
+					data-get="status"
+					class="bigger"
+				></div>
+					</td><td class="bigger">
+					Leuchte DG provisorisch
+					</td><td></td></tr>
+					<tr><td>
+				<div 
+					data-type="switch"
+					data-cmd="set"
+					data-device="KNX32.O06_Aktor_Leuchte_Garage_Decke"
+					data-get="status"
+     					class="bigger"
+				></div>
+			
+					</td><td class="bigger">
+					Leuchte Garage
+					</td><td></td></tr>
+					<tr><td>
+				<div
+					data-type="switch"
+					data-cmd="set"	
+     					data-device="KNX21.O03_Aktor_DimAbs_WaLaWoZi"
+     					data-set="value"
+					data-set-on="100"
+     					data-set-off="0"
+	  			 	data-get="status"
+					data-get-on="[0-9]{1,3}"
+	  			 	data-get-off="0"
+	  				class="bigger"
+				></div>
+
+					</td><td class="bigger">
+					Leuchte Dimm WaLaWoZi
+					</td><td>
+				<div 
+					data-type="controller"
+					data-device="KNX21.O03_Aktor_DimAbs_WaLaWoZi"
+	  				data-max="100"
+       					data-min="0"
+       					class="bigger"
+				></div>
+					</td></tr>
+					<tr><td>
+				<div 
+					data-type="switch"
+					data-device="KNX01.O02_Aktor_Leuchte_Rumpel"
+					data-set="steuern"
+					data-get="status"
+					class="bigger"
+				></div>
+					</td><td class="bigger">
+					Leuchte Rumpel
+					</td><td></td></tr>
+					<tr><td>
+				<div 
+					data-type="switch"
+					data-cmd="set"
+					data-device="KNX01.O03_Aktor_Leuchte_HZGRaum"
+					data-set="steuern"
+					data-get="status"
+					class="bigger"
+				></div>
+					</td><td class="bigger">
+					Leuchte HZG Raum
+					</td><td></td></tr>
+					<tr><td>
+				<div 
+					data-type="switch"
+					data-device="KNX01.O04_Aktor_Leuchte_Ankleide"
+					class="bigger"
+				></div>
+					</td><td class="bigger">
+					Leuchte Ankleide
+					</td><td></td></tr>
+					<tr><td>
+				<div 
+					data-type="switch"
+					data-device="KNX01.O05_Aktor_Leuchte_Schlafzimmer"
+					class="bigger"
+				></div>
+					</td><td class="bigger">
+					Leuchte Schlafzimmer
+					</td><td></td></tr>
+					<tr><td>
+				<div 
+					data-type="switch"
+					data-device="KNX01.O01_Aktor_Leuchte_Flur_EG_OG"
+					data-set="steuern"
+					data-get="status"
+					class="bigger"
+				></div>
+					</td><td class="bigger">
+					Leuchte Flur OG
+					</td><td></td></tr>
+					<tr><td>
+				<div 
+					data-type="switch"
+					data-device="KNX01.O08_Aktor_Leuchte_Flur_EG_provisorisch"
+					class="bigger"
+				></div>
+					</td><td class="bigger">
+					Leuchte Flur EG
+					</td><td></td></tr>
+					<tr><td>
+				<div 
+					data-type="switch"
+					data-cmd="set"
+					data-device="KNX31.O02_Aktor_Leuchte_Buero_Decke"
+					data-get="status"
+					class="bigger"
+				></div>
+					</td><td class="bigger">
+					Leuchte Buero
+					</td><td></td></tr>
+					<tr><td>
+				<div 
+					data-type="switch"
+					data-cmd="set"
+					data-device="KNX31.O01_Aktor_Leuchte_Esszimmer_Decke"
+					data-get="status"
+					class="bigger"
+				></div>
+					</td><td class="bigger">
+					Leuchte Esszimmer Decke
+					</td><td></td></tr>
+					<tr><td>
+				<div 
+					data-type="switch"
+					data-cmd="set"
+					data-device="KNX31.O04_Aktor_Leuchte_Wohnzimmer_Decke"
+					data-get="status"
+					class="bigger"
+				></div>
+					</td><td class="bigger">
+					Leuchte Wohnzimmer Decke
+					</td><td></td></tr>
+					<tr><td>
+				<div 
+					data-type="switch"
+					data-cmd="set"
+					data-device="KNX31.O06_Aktor_Leuchte_Kueche_Decke"
+					data-get="status"
+     					class="bigger"
+				></div>
+			
+					</td><td class="bigger">
+					Leuchte Küche
+					</td><td></td></tr>
+					<tr><td>
+				<div 
+					data-type="switch"
+					data-cmd="set"
+					data-device="KNX31.O07_Aktor_Leuchte_Dusche_Decke"
+					data-get="status"
+     					class="bigger"
+				></div>
+			
+					</td><td class="bigger">
+					Leuchte Dusche
+					</td><td></td></tr>
+					<tr><td>
+				<div 
+					data-type="switch"
+					data-cmd="set"
+					data-device="KNX31.O08_Aktor_Leuchte_Bad_gross"
+					data-get="status"
+     					class="bigger"
+				></div>
+			
+					</td><td class="bigger">
+					Leuchte Bad
+					</td><td></td></tr>
+					<tr><td>
+				<div 
+					data-type="switch"
+					data-cmd="set"
+					data-device="KNX31.O05_Aktor_Leuchte_Wegelicht_Decke"
+					data-get="status"
+     					class="bigger"
+				></div>
+			
+					</td><td class="bigger">
+					Leuchte Wegelicht 
+					</td><td></td></tr>
+					<tr><td>
+				<div 
+					data-type="controller"
+					data-device="KNX21.O01_Aktor_DimAbs_Schlafzimmer"
+	  				data-max="100"
+       					data-min="0"
+       					class="bigger"
+				></div>
+			
+					</td><td class="bigger">
+					Leuchte Dimm Schlafzimmer 
+					</td><td></td></tr>
+					<tr><td>
+				<div 
+					data-type="controller"
+					data-device="KNX21.O02_Aktor_DimAbs_Badewanne"
+	  				data-max="100"
+       					data-min="0"
+       					class="bigger"
+				></div>
+			
+					</td><td class="bigger">
+					Leuchte Dimm Badewanne
+					</td><td></td></tr>
+					</table>
+			</div>
+	</div>
+
+</li>
+
+<!-- ######################################################################################### -->
+<li data-row="2" data-col="2" data-sizex="1" data-sizey="1">ROW 4 | COL 4 | X 1 | Y 1
+        <div data-type="thermostat" 
+                data-device="DF_calcVLSoll" 
+                data-valve=""
+                data-get="value"
+                data-set="value"
+                data-step="0.5"   
+                data-min="18"
+                data-max="30"
+		data-lock="global_FTUIFree:lock"
+                class="cell">
+        </div>
+        <div data-type="label" 
+                data-device="DF_calcVLSoll"
+                data-get="vltemp"
+                data-limits='[20,30,40]' 
+                data-colors='["#6699FF","#AA6900","#FF0000"]' 
+                data-unit="%B0C%0A" 
+                class="cell big">
+        </div>
+
+        <div data-type="label" 
+                data-device="PID_HZFHEM"
+                data-get="actuation"
+                data-unit="%B0" 
+                class="cell big">
+        </div>
+
+</li>
+<!-- ######################################################################################### -->
+<li data-row="2" data-col="3" data-sizex="1" data-sizey="1">ROW 4 | COL 5 | X 1 | Y 1
+        <div class="bigger">Ankleide:
+           	<div data-type="label" 
+                data-device="RE_TEMP_Ankleide"
+                data-get="temperature"
+                data-limits='[10,20,30]' 
+                data-colors='["#6699FF","#AA6900","#FF0000"]' 
+                data-unit="%B0C%0A"
+		class="inline">
+        	</div>
+        </div>
+
+       <div class="bigger">Bad:
+           	<div data-type="label" 
+                data-device="RE_TEMP_Bad"
+                data-get="temperature"
+                data-limits='[10,20,30]' 
+                data-colors='["#6699FF","#AA6900","#FF0000"]' 
+                data-unit="%B0C%0A"
+		class="inline">
+        	</div>
+        </div>
+
+       <div class="bigger">FlurOG:
+           	<div data-type="label" 
+                data-device="RE_TEMP_FlurOG"
+                data-get="temperature"
+                data-limits='[10,20,30]' 
+                data-colors='["#6699FF","#AA6900","#FF0000"]' 
+                data-unit="%B0C%0A"
+		class="inline">
+        	</div>
+        </div>
+
+        <div class="bigger">Schlafzimmer:
+           	<div data-type="label" 
+                data-device="RE_TEMP_Schlafzimmer"
+                data-get="temperature"
+                data-limits='[10,20,30]' 
+                data-colors='["#6699FF","#AA6900","#FF0000"]' 
+                data-unit="%B0C%0A"
+		class="inline">
+        	</div>
+        </div>
+
+       <div class="bigger">Wohnzimmer:
+           	<div data-type="label" 
+                data-device="RE_TEMP_WoZi"
+                data-get="temperature"
+                data-limits='[10,20,30]' 
+                data-colors='["#6699FF","#AA6900","#FF0000"]' 
+                data-unit="%B0C%0A"
+		class="inline">
+        	</div>
+        </div>
+
+
+</li>
+
+<!-- ######################################################################################### -->
+<li data-row="2" data-col="4" data-sizex="1" data-sizey="1">ROW 2 | COL 4 | Nippi 
+	<div class="bigger">Nippi</div>
+	<div
+		data-type="push"
+		data-fhem-cmd="set NEATO_Nippi startCleaning map"
+		class="bigger"
+	></div>
+	<div 
+		data-type="label" 
+		data-device="NEATO_Nippi"
+		data-get="state" 
+		class="bigger"
+	></div>
+
+</li> 
+<li data-row="2" data-col="5" data-sizex="1" data-sizey="1">ROW 2 | COL 5 | Turi 
+	<div class="bigger">Turi</div>
+	<div
+		data-type="push"
+		data-fhem-cmd="set NEATO_Turi startCleaning map"
+		class="bigger"
+	></div>
+	<div 
+		data-type="label" 
+		data-device="NEATO_Turi"
+		data-get="state" 
+		class="bigger"
+	></div>
+
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="6" data-col="2" data-sizex="1" data-sizey="1">ROW 6 | COL 2 | X 1 | Y 1
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="6" data-col="2" data-sizex="1" data-sizey="1">ROW 6 | COL 2 | X 1 | Y 1
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="5" data-col="2" data-sizex="1" data-sizey="1">ROW 5 | COL 2 |
+
+</li>
+<!-- ######################################################################################### -->
+<li data-row="5" data-col="3" data-sizex="1" data-sizey="1">ROW 5 | COL 3 | Solar PV
+
+</li>
+
+<!-- ######################################################################################### -->
+<li data-row="5" data-col="4" data-sizex="1" data-sizey="1">ROW 5 | COL 4 | BMS 
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="5" data-col="5" data-sizex="1" data-sizey="1">ROW 5 | COL 5 | Heizkreis
+
+</li> 
+
+
+<!-- ######################################################################################### -->
+<li data-row="6" data-col="1" data-sizex="1" data-sizey="1">ROW 6 | COL 4 | Gas 
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="6" data-col="2" data-sizex="1" data-sizey="1">ROW 6 | COL 2 | X 1 | Y 1
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="6" data-col="3" data-sizex="1" data-sizey="1">ROW 6 | COL 3 | X 1 | Y 1
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="6" data-col="4" data-sizex="1" data-sizey="1">ROW 6 | COL 3 | X 1 | Y 1
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="6" data-col="5" data-sizex="1" data-sizey="1">ROW 6 | COL 3 | X 1 | Y 1
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="7" data-col="1" data-sizex="1" data-sizey="1">ROW 6 | COL 1 | X 1 | Y 1
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="7" data-col="2" data-sizex="1" data-sizey="1">ROW 7 | COL 1 | X 1 | Y 1
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="7" data-col="3" data-sizex="1" data-sizey="1">ROW 7 | COL 1 | X 1 | Y 1
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="7" data-col="4" data-sizex="1" data-sizey="1">ROW 7 | COL 1 | X 1 | Y 1
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="7" data-col="5" data-sizex="1" data-sizey="1">ROW 7 | COL 1 | X 1 | Y 1
+
+	<div 
+		data-type="switch" 
+		data-device="global_FTUIFree" 
+		data-icon="fa-unlock-alt" 
+		data-set-on="on-for-timer 10" 
+		class="bigger">
+	</div>
+	<div 
+		data-type="label" 
+		class="bigger">Änderungsfreigabe</div>
+
+
+</li> 
+
+</ul>
+</div>
+</body>
+</html>
