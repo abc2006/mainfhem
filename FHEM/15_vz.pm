@@ -14,6 +14,7 @@ vz_Initialize($)
 
   $hash->{DefFn}     = "vz_Define";
   $hash->{UndefFn}   = "vz_Undef";
+  $hash->{SetFn}     = "vz_Set";
   $hash->{ReadFn}    = "vz_read";
   $hash->{ReadyFn}   = "vz_Ready";
   $hash->{AttrList}  = "Anschluss ".
@@ -75,6 +76,37 @@ vz_Undef($$)
   DevIo_CloseDev($hash);         
   RemoveInternalTimer($hash);
   return undef;
+}
+####################################
+sub vz_Set($@){
+ my ($hash, @a) = @_;
+ my $name = $hash->{NAME};
+ my $usage = "Unknown argument $a[1], choose one of reopen:noArg reset:noArg";
+ my $ret;
+	Log3($name,5, "vz argument $a[1] _Line: " . __LINE__);
+  	if ($a[1] eq "?"){
+	Log3($name,5, "vz argument fragezeichen" . __LINE__);
+	return $usage;
+	}
+
+	if($a[1] eq "reopen"){
+		if(DevIo_IsOpen($hash)){
+			Log3($name,1, "vz Device is open, closing ... Line: " . __LINE__);
+			DevIo_CloseDev($hash);
+			Log3($name,1, "vz Device closed Line: " . __LINE__);
+		} 
+		Log3($name,1, "vz_Set  Device is closed, trying to open Line: " . __LINE__);
+		$ret = DevIo_OpenDev($hash, 1, "vz_DoInit" );
+		while(!DevIo_IsOpen($hash)){
+			Log3($name,1, "vz_Set  Device is closed, opening failed, retrying" . __LINE__);
+			$ret = DevIo_OpenDev($hash, 1, "vz_DoInit" );
+			sleep 1;
+		}
+		##return "device opened";
+	} elsif ($a[1] eq "reset"){
+	}
+
+
 }
 
 #####################################
