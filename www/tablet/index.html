@@ -139,18 +139,8 @@
 	></div>
 </li>
 <!-- ######################################################################################### -->
-<li data-row="2" data-col="2" data-sizex="1" data-sizey="1"> UWP 3000to1500
-	<div 
-		data-type="AUswitch"
-		data-cmd="setreading"
-		data-device="DF_3000to1500"
-		data-set="pump_mode"		
-		data-set-states='["man_off","auto","man_on"]'
-		data-states='["man_on","man_off","auto"]'
-		data-colors='["white","white","white"]'
-		data-background-colors='["green","red","blue"]'
-		class="bigger"
-	></div>
+<li data-row="2" data-col="2" data-sizex="1" data-sizey="1"> 
+	<div class="bigger">UWP 3000to1500</div>
 	<div 
 		data-type="label" 
 		data-device="DF_3000to1500"
@@ -167,20 +157,7 @@
 		data-colors='["green","red"]' 
 		class="bigger"
 	></div>
-</li>
-<!-- ######################################################################################### -->
-<li data-row="2" data-col="3" data-sizex="1" data-sizey="1"> UWP 1500to3000
-	<div 
-		data-type="AUswitch"
-		data-cmd="setreading"
-		data-device="DF_1500to3000"
-		data-set="pump_mode"		
-		data-set-states='["man_off","auto","man_on"]'
-		data-states='["man_on","man_off","auto"]'
-		data-colors='["white","white","white"]'
-		data-background-colors='["green","red","blue"]'
-		class="bigger"
-	></div>
+	<div class="bigger">UWP 3000to1500</div>
 	<div 
 		data-type="label" 
 		data-device="DF_1500to3000"
@@ -199,37 +176,29 @@
 	></div>
 </li>
 <!-- ######################################################################################### -->
-<li data-row="2" data-col="4" data-sizex="1" data-sizey="1"> Heizung komplett
-	<div 
-		data-type="AUswitch"
-		data-cmd="set"
-		data-device="KNX02.O03_Aktor_Heizung_komplett"
-  		data-lock="global_FTUIFree:lock"
-		data-set="steuern"
-  		data-get="status"
-    		class="bigger"
-	></div>
-	<div 
-		data-type="label" 
-		data-device="KNX02.O03_Aktor_Heizung_komplett"
-		data-get="status" 
-		data-limits='["on","off"]' 
-		data-colors='["green","red"]' 
-		class="bigger"
-	></div>
-
-
+<li data-row="2" data-col="3" data-sizex="1" data-sizey="1">ROW 2 | COL 3 | X 1 | Y 1
+</li>
+<!-- ######################################################################################### -->
+<li data-row="2" data-col="4" data-sizex="1" data-sizey="1"> navigation_temporär 
+	<div class="bigger">	
+		<a href="index.html">INDEX</a><br />
+		<a href="hzg.html">HZG</a><br />
+		<a href="housekeeping.html">housekeeping</a><br />
+		<a href="pv.html">PV</a><br />
+		<a href="index.html">INDEX</a><br />
+		<a href="index.html">INDEX</a><br />
+	</div>
 </li>
 <!-- ######################################################################################### -->
 <li data-row="2" data-col="5" data-sizex="1" data-sizey="1">ROW 2 | COL 5 | X 1 | Y 1
-	<div data-type="departure"
+<!--	<div data-type="departure"
 		data-title="S1 Frankfurt"
 		data-device="NadineSbahnFFM_S1_morgens"
 		data-get="xFTUI_departure"
 		data-icon="fa-bus"
 		data-width="100%"
 		data-interval="60">
-	</div>
+</div> -->
 </li>
 <!-- ######################################################################################### -->
 <li data-row="3" data-col="1" data-sizex="1" data-sizey="2">ROW 3 | COL 1 | X 1 | Y 1
@@ -675,10 +644,10 @@
 <!--damit das mal dokumentiert ist: weiss, wenn kleiner als erster Wert. Erste farbe, wenn größer als erster Wert. Zweite farbe, wenn größer als zweiter Wert usw -->
 <table style="border:none;width:inherit;">
 	<tr>
-		<td>
+		<td class="big">
 			Heizzeit: 
 		</td>
-		<td>
+		<td class="big">
          		<div data-type="label" 
                 		data-device="DF_stored_heating_Energy"
              		   	data-get="timeleft"
@@ -689,10 +658,10 @@
 		</td>
 	</tr>
        	<tr>
-		<td>
+		<td class="big">
 			Duschzeit: 	
 		</td>
-		<td>
+		<td class="big">
 		       <div  	
 		  		data-type="label" 
                 		data-device="DF_stored_shower_Energy"
@@ -1129,6 +1098,23 @@ q
 	</tr>
 
 	<tr>
+	<td width=50% align="right">
+		<div class="bigger"> Temp:</div>
+	</td>
+	<td width=50% align="left">
+	<div data-type="label"
+		data-device="Effekta" 
+		data-get="Inverter_heat_sink_temperature"
+		data-part="1"
+		data-unit="&deg;C"
+		data-limits='[10,35,43,50]' 
+		data-colors='["green","yellow","orange","red"]' 
+		data-fix='0'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
 	<td colspan="2", width=100% align="center">
 	<div data-type="label"
 		data-device="Effekta" 
@@ -1239,6 +1225,23 @@ q
 		data-unit="W"
 		data-limits='[-10000,-4000,0,1,4000]' 
 		data-colors='["red","yellow","blue","green","red"]' 
+		data-fix='0'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td width=50% align="right">
+		<div class="bigger"> Tbat:</div>
+	</td>
+	<td width=50% align="left">
+	<div data-type="label"
+		data-device="BMS" 
+		data-get="1_Temperature_total"
+		data-part="1"
+		data-unit="&deg;C"
+		data-limits='[0,15,25,35]' 
+		data-colors='["red","green","orange","red"]' 
 		data-fix='0'
 		class="bigger">
 	</div>
