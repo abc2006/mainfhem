@@ -60,7 +60,7 @@ vz_Ready($)
 {
 	my ($hash) = @_;
   my $ret = DevIo_OpenDev($hash, 1, "vz_DoInit" );
-  Log3($hash->{name}, 1, "vz DevIO_OpenDev_Ready $ret"); 
+  Log3($hash->{name}, 5, "vz DevIO_OpenDev_Ready $ret"); 
   return $ret;
 
 
