@@ -24,6 +24,8 @@
 <link rel="stylesheet" href="css/fhem-tablet-ui.css" />
 <link rel="stylesheet" href="lib/font-awesome.min.css" />
 <link rel="stylesheet" href="lib/jquery.toast.min.css" />
+<link rel="stylesheet" href="/fhem/tablet/lib/openautomation.css" />
+<link rel="stylesheet" href="/fhem/tablet/lib/fhemSVG.css" />
 
 <!-- define your personal style here, it wont be overwritten  -->
 <!-- link rel="stylesheet" href="css/fhem-green-ui.css" / -->
@@ -219,12 +221,12 @@
 	<div 
 		data-type="AUswitch"
 		data-cmd="set"
-		data-device="KNX32.O05_Aktor_Tonstrom_WoEss"
+		data-device="KNX13.O02_Aktor_Tonstrom_WoEss"
 		class="bigger"
 	></div>
 	<div 
 		data-type="label" 
-		data-device="KNX32.O05_Aktor_Tonstrom_WoEss"
+		data-device="KNX13.O02_Aktor_Tonstrom_WoEss"
 		data-get="state" 
 		data-limits='["on","off"]' 
 		data-colors='["green","red"]' 
@@ -1115,7 +1117,10 @@ q
 	</td>
 	</tr>
 	<tr>
-	<td colspan="2", width=100% align="center">
+	<td width=30% align="right">
+		<div class="bigger"> DevMd:</div>
+	</td>
+	<td width=70% align="center">
 	<div data-type="label"
 		data-device="Effekta" 
 		data-get="Device_Mode"
@@ -1126,7 +1131,10 @@ q
 	</td>
 	</tr>
 	<tr>
-	<td colspan="2", width=100% align="center">
+	<td width=30% align="right">
+		<div class="bigger"> PVMd:</div>
+	</td>
+	<td width=70% align="center">
 	<div data-type="label"
 		data-device="KNX02.O03_Aktor_UmschalterPVNetz" 
 		data-get="named_status"
@@ -1347,89 +1355,10 @@ q
 
 <!-- ######################################################################################### -->
 <li data-row="6" data-col="1" data-sizex="1" data-sizey="1">ROW 6 | COL 4 | Gas 
-<table border="0" width=100%>
-	<tr>
-	<td width=50% align="right">
-		<div class="bigger"> VL:</div>
-	</td>
-	<td width=50% align="left"> 
-	<div data-type="label"
-		data-device="RE_TEMP_Vorlauf_Kessel" 
-		data-get="temperature"
-		data-unit="&deg;C"
-		data-limits='[0,40,80,87]' 
-		data-colors='["blue","yellow","green","red"]' 
-		data-fix='2'
-		class="bigger">
-	</div>
-	</td>
-	</tr>
-	<tr>
-	<td width=50% align="right">
-		<div class="bigger"> RL:</div>
-	</td>
-	<td width=50% align="left">
-	<div data-type="label"
-		data-device="RE_TEMP_Ruecklauf_Kessel" 
-		data-get="temperature"
-		data-unit="&deg;C"
-		data-limits='[0,60,70]' 
-		data-colors='["blue","green","red"]' 
-		data-fix='2'
-		class="bigger">
-	</div>
-	</td>
-	</tr>
-	<tr>
-	<td width=50% align="right">
-		<div class="bigger"> P:</div>
-	</td>
-	<td width=50% align="left">
-	<div data-type="label"
-		data-device="KNX10.I08_Gaszaehler_KNX" 
-		data-get="power"
-		data-unit="W"
-		data-limits='[0,60,70]' 
-		data-colors='["blue","green","red"]' 
-		data-part="1"
-		class="bigger">
-	</div>
-	</td>
-	</tr>
-	<tr>
-		<td colspan=2>
-	<div 
-		data-type="AUswitch"
-		data-cmd="set"
-		data-device="DF_Gaskessel_Handbetrieb"
-  		data-lock="global_FTUIFree:lock"
-		data-set-on="cmd_2"
-  		data-set-off="cmd_3"
-  		data-get="status"
-    		class="big"
-	></div>
-	<div 
-		data-type="label" 
-		data-device="KNX32.O04_Aktor_Gaskessel_Temperatursimulation"
-		data-get="active-low-status" 
-		data-limits='["on","off"]' 
-		data-colors='["green","red"]' 
-		class="bigger"
-	></div>
-	</td>
-	</tr>
-
-</table>
 
 </li> 
 <!-- ######################################################################################### -->
 <li data-row="6" data-col="2" data-sizex="1" data-sizey="1">ROW 6 | COL 2 | X 1 | Y 1
-	<div class="bigger">kälter</div>
-	<div
-		data-type="push"
-		data-fhem-cmd="set DF_move_mischer_man cmd_2"
-		class="bigger"
-	></div>
 </li> 
 <!-- ######################################################################################### -->
 <li data-row="6" data-col="3" data-sizex="1" data-sizey="1">ROW 6 | COL 3 | X 1 | Y 1
@@ -1463,9 +1392,111 @@ q
 </li> 
 <!-- ######################################################################################### -->
 <li data-row="7" data-col="2" data-sizex="1" data-sizey="1">ROW 7 | COL 1 | X 1 | Y 1
+	<div data-type="circlemenu" class="bigger">
+		<ul>
+			<li><div data-type="push" data-icon="oa-fts_window_2w"></div></li>
+			<li><div data-type="push" data-device="Rolladen_Wohnzimmer" data-set-on="open" data-icon="">Offen</div></li>
+			<li><div data-type="push" data-device="Rolladen_Wohnzimmer" data-set-on="closed" data-icon="">Zu</div></li>
+			<li><div data-type="push" data-device="Rolladen_Wohnzimmer" data-set-on="stop" data-icon="">stop</div></li>
+			<li><div data-type="push" data-device="Rolladen_Wohnzimmer" data-set-on="pct 15" data-icon="">15</div></li>
+		</ul>
+	</div>
+	<div data-type="label" data-device="Rolladen_Wohnzimmer" data-get="pct" data-unit="%" class="inline bigger">geschlossen</div>
 </li> 
 <!-- ######################################################################################### -->
 <li data-row="7" data-col="3" data-sizex="1" data-sizey="1">ROW 7 | COL 1 | X 1 | Y 1
+
+<div data-type="label" data-device="Rolladen_Wohnzimmer" data-get="pct" data-unit="%" class="top-space big thin"></div>
+	
+	<div data-type="popup" data-height="190px" data-width="250px">
+		<div data-type="link" data-color="grey" data-border-color="grey" data-icon="fa-sort" class="top-space round">
+			auf / ab
+		</div>
+	<div class="dialog">
+		<header>Rolladen_Wohnzimmer</header>
+		<div class="top-space inline">
+			<div data-type="switch" 
+				data-device="Rolladen_Wohnzimmer" 
+				data-get="pct"
+				data-get-on="25"
+				data-get-off="((?!25).)*"
+				data-set="pct" 
+				data-set-on="25"
+				data-set-off="25" 
+				data-on-color="white"
+				data-on-background-color="green"
+				data-icon="fa-minus">
+			</div>			
+			<div class="mini">25%</div>
+		</div>
+		<div class="top-space inline">
+			<div data-type="switch" 
+				data-device="Rolladen_Wohnzimmer" 
+				data-get="pct"
+				data-get-on="50"
+				data-get-off="((?!50).)*"
+				data-set="pct" 
+				data-set-on="50"
+				data-set-off="50" 
+				data-on-color="white"
+				data-on-background-color="green"
+				data-icon="fa-bars">
+			</div>			
+			<div class="mini">50%</div>
+		</div>
+		<div class="top-space inline">
+			<div data-type="switch" 
+				data-device="Rolladen_Wohnzimmer" 
+				data-get="pct"
+				data-get-on="75"
+				data-get-off="((?!75).)*"
+				data-set="pct" 
+				data-set-on="75"
+				data-set-off="75" 
+				data-on-color="white"
+				data-on-background-color="green"
+				data-icon="fa-align-justify">
+			</div>			
+			<div class="mini">75%</div>
+		</div>
+		<div class="newline"></div>
+		<div class="top-space inline">
+			<div data-type="switch" 
+				data-device="Rolladen_Wohnzimmer" 
+				data-get="pct"
+				data-get-on="0"
+				data-get-off="((?!0).)*"
+				data-set="pct" 
+				data-set-on="0"
+				data-set-off="0" 
+				data-on-color="white"
+				data-on-background-color="green"
+				data-icon="fa-chevron-down">
+			</div>
+			<div class="mini">zu</div>
+		</div>
+		<div class="top-space inline">
+			<div data-type="switch" 
+				data-device="Rolladen_Wohnzimmer" 
+				data-get="pct"
+				data-get-on="100"
+				data-get-off="((?!100).)*"
+				data-set="pct" 
+				data-set-on="100"
+				data-set-off="100" 
+				data-on-color="white"
+				data-on-background-color="green"
+				data-icon="fa-chevron-up">
+			</div>			
+				<div class="mini">auf</div>
+			</div>
+		</div>
+	</div>
+	</div>
+
+	<div data-type="slider" data-device="Rolladen_Wohnzimmer" data-get="pct" data-set="pct" data-height="113" class="top-space"></div>
+
+	<div data-type="symbol" data-device="Rolladen_Wohnzimmer" data-get="pct" data-states='[0,1]' data-colors='["red","green"]'  data-icon="fa-align-justify" class="small right"></div>
 </li> 
 <!-- ######################################################################################### -->
 <li data-row="7" data-col="4" data-sizex="1" data-sizey="1">ROW 7 | COL 1 | X 1 | Y 1
