@@ -71,8 +71,54 @@
 	></div> 
 
 </li>
+<!-- ######################################################################################### -->
+<li data-row="1" data-col="5" data-sizex="1" data-sizey="1">ROW 1 | COL 5 | X 1 | Y 1
+	<div> Erw. gestern </div>
+	<div data-type="label"
+		data-device="DF_Auswertungen_daíly" 
+		data-get="Prognose_gestern"
+		data-part="1"
+		data-unit="kWh"
+		class="bigger">
+	</div>
+	<div> ist gestern </div>
+	<div data-type="label"
+		data-device="DF_Auswertungen_daily" 
+		data-get="Ertrag_gestern"
+		data-part="1"
+		data-unit="kWh"
+		class="bigger">
+	</div>
+	<br />
+	<div> Erw. heute </div>
+	<div data-type="label"
+		data-device="wetter_prop" 
+		data-get="fc0_PVinput"
+		data-part="1"
+		data-unit="kWh"
+		class="bigger">
+	</div>
+
+	<div> ist heute </div>
+	<div data-type="label"
+		data-device="DF_Auswertungen_daily" 
+		data-get="Ertrag_heute"
+		data-part="1"
+		data-unit="kWh"
+		class="bigger">
+	</div>
+	<br />
+	<div> Erw. morgen </div>
+	<div data-type="label"
+		data-device="wetter_prop" 
+		data-get="fc1_PVinput"
+		data-part="1"
+		data-unit="kWh"
+		class="bigger">
+	</div>
+</li>
 <!-- ########################################################################################-->
-<li data-row="2" data-col="1" data-sizex="5" data-sizey="1">ROW 1 | COL 1 | X 1 | Y 1
+<li data-row="2" data-col="1" data-sizex="5" data-sizey="1">ROW 2 | COL 1 | X 1 | Y 1
 	<div style="text-align:center" 
 		class="bigger" 
 		data-type="readingsgroup" 
@@ -83,7 +129,125 @@
 </li>
 <!-- ########################################################################################-->
 
-<li data-row="5" data-col="1" data-sizex="1" data-sizey="1"> BMS gesamt
+<li data-row="3" data-col="1" data-sizex="1" data-sizey="1">ROW 3 | COL 1 | Wechselrichter 
+
+
+<table border="0" width=100%>
+	<td width=50% align="right">
+		<div class="bigger"> PinSolar:</div>
+	</td>
+	<td width=50% align="left"> 
+	<div data-type="label"
+		data-device="Effekta" 
+		data-get="PV_input_actual_power"
+		data-part="1"
+		data-unit="W"
+		data-limits='[0]' 
+		data-colors='["blue"]' 
+		data-fix='0'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td width=50% align="right">
+		<div class="bigger"> Pout:</div>
+	</td>
+	<td width=50% align="left"> 
+	<div data-type="label"
+		data-device="Effekta" 
+		data-get="AC_output_active_power"
+		data-part="1"
+		data-unit="W"
+		data-limits='[0]' 
+		data-colors='["blue"]' 
+		data-fix='0'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td width=50% align="right">
+
+		<div class="bigger"> Ubat:</div>
+	</td>
+	<td width=50% align="left">
+	<div data-type="label"
+		data-device="Effekta" 
+		data-get="Battery_actual_voltage"
+		data-part="1" 
+		data-unit="V"
+		data-limits='[0,47,49.5,53]' 
+		data-colors='["red","yellow","green","red"]' 
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td width=50% align="right">
+		<div class="bigger"> Ibat:</div>
+	</td>
+	<td width=50% align="left">
+	<div data-type="label"
+		data-device="Effekta" 
+		data-get="Battery_total_current"
+		data-part="1"
+		data-unit="A"
+		data-limits='[-100,-50,0,1,50]' 
+		data-colors='["red","yellow","blue","green","red"]' 
+		data-fix='0'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+
+	<tr>
+	<td width=50% align="right">
+		<div class="bigger"> Temp:</div>
+	</td>
+	<td width=50% align="left">
+	<div data-type="label"
+		data-device="Effekta" 
+		data-get="Inverter_heat_sink_temperature"
+		data-part="1"
+		data-unit="&deg;C"
+		data-limits='[10,35,43,50]' 
+		data-colors='["green","yellow","orange","red"]' 
+		data-fix='0'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td colspan="2", width=100% align="center">
+	<div data-type="label"
+		data-device="Effekta" 
+		data-get="Device_Mode"
+		data-limits='["Line Mode","Battery Mode"]' 
+		data-colors='["red","green"]' 
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td colspan="2", width=100% align="center">
+	<div data-type="label"
+		data-device="KNX02.O03_Aktor_UmschalterPVNetz" 
+		data-get="named_status"
+		data-limits='["Line Mode","PV Mode"]' 
+		data-colors='["red","green"]' 
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+</table>
+
+
+
+</li>
+
+<!-- ######################################################################################### -->
+<li data-row="3" data-col="2" data-sizex="1" data-sizey="1"> BMS gesamt
 <table border="0" width=100%>
 	<tr>
 	<td width=40% align="right">
@@ -189,7 +353,7 @@
 </table>
 </li> 
 <!-- ######################################################################################### -->
-<li data-row="5" data-col="2" data-sizex="1" data-sizey="1">ROW 5 | COL 2 | Pack 1
+<li data-row="3" data-col="3" data-sizex="1" data-sizey="1">ROW 3 | COL 3 | Pack 1
 
 <table border="0" width=100%>
 	<tr>
@@ -295,7 +459,7 @@
 </table>
 </li>
 <!-- ######################################################################################### -->
-<li data-row="5" data-col="3" data-sizex="1" data-sizey="1">ROW 5 | COL 3 | Pack 2
+<li data-row="3" data-col="4" data-sizex="1" data-sizey="1">ROW 3 | COL 4 | Pack 2
 
 <table border="0" width=100%>
 	<tr>
@@ -402,7 +566,7 @@
 </li>
 
 <!-- ######################################################################################### -->
-<li data-row="5" data-col="4" data-sizex="1" data-sizey="1">ROW 5 | COL 4 | BMS Pack 3 
+<li data-row="3" data-col="5" data-sizex="1" data-sizey="1">ROW 3 | COL 5 | BMS Pack 3 
 
 <table border="0" width=100%>
 	<tr>
@@ -509,109 +673,21 @@
 
 </li> 
 <!-- ######################################################################################### -->
-<li data-row="5" data-col="5" data-sizex="1" data-sizey="1">ROW 5 | COL 5 | Wechselrichter 
+
+<li data-row="4" data-col="1" data-sizex="5" data-sizey="1">ROW 4 | COL 1 | Stromzaehler 
+<div data-type="chart"
+	 data-device="Stromzaehler"
+	 data-get="total_power"
+         data-ptype="steps"
+  	 data-style='["ftui l0","ftui l1","ftui l2","ftui l3"]'
+         data-heigth="75%"
+	 data-logdevice="logdb"
+	 data-logfile="HISTORY"
+	 data-columnspec='["Stromzaehler:total_power_L1","Stromzaehler:total_power_L2","Stromzaehler:total_power_L3","Stromzaehler:total_power"]'>
+</div>
 
 
-
-
-<table border="0" width=100%>
-	<td width=50% align="right">
-		<div class="bigger"> PinSolar:</div>
-	</td>
-	<td width=50% align="left"> 
-	<div data-type="label"
-		data-device="Effekta" 
-		data-get="PV_input_actual_power"
-		data-part="1"
-		data-unit="W"
-		data-limits='[0]' 
-		data-colors='["blue"]' 
-		data-fix='0'
-		class="bigger">
-	</div>
-	</td>
-	</tr>
-	<tr>
-	<td width=50% align="right">
-		<div class="bigger"> Pout:</div>
-	</td>
-	<td width=50% align="left"> 
-	<div data-type="label"
-		data-device="Effekta" 
-		data-get="AC_output_active_power"
-		data-part="1"
-		data-unit="W"
-		data-limits='[0]' 
-		data-colors='["blue"]' 
-		data-fix='0'
-		class="bigger">
-	</div>
-	</td>
-	</tr>
-	<tr>
-	<td width=50% align="right">
-
-		<div class="bigger"> Ubat:</div>
-	</td>
-	<td width=50% align="left">
-	<div data-type="label"
-		data-device="Effekta" 
-		data-get="Battery_actual_voltage"
-		data-part="1" 
-		data-unit="V"
-		data-limits='[0,47,49.5,53]' 
-		data-colors='["red","yellow","green","red"]' 
-		class="bigger">
-	</div>
-	</td>
-	</tr>
-	<tr>
-	<td width=50% align="right">
-		<div class="bigger"> Ibat:</div>
-	</td>
-	<td width=50% align="left">
-	<div data-type="label"
-		data-device="Effekta" 
-		data-get="Battery_total_current"
-		data-part="1"
-		data-unit="A"
-		data-limits='[-100,-50,0,1,50]' 
-		data-colors='["red","yellow","blue","green","red"]' 
-		data-fix='0'
-		class="bigger">
-	</div>
-	</td>
-	</tr>
-
-	<tr>
-	<td colspan="2", width=100% align="center">
-	<div data-type="label"
-		data-device="Effekta" 
-		data-get="Device_Mode"
-		data-limits='["Line Mode","Battery Mode"]' 
-		data-colors='["red","green"]' 
-		class="bigger">
-	</div>
-	</td>
-	</tr>
-	<tr>
-	<td colspan="2", width=100% align="center">
-	<div data-type="label"
-		data-device="KNX02.O03_Aktor_UmschalterPVNetz" 
-		data-get="named_status"
-		data-limits='["Line Mode","PV Mode"]' 
-		data-colors='["red","green"]' 
-		class="bigger">
-	</div>
-	</td>
-	</tr>
-</table>
-
-</li>
-
-<!-- ######################################################################################### -->
-
-
+</li> 
 </ul>
 </div>
 </body>
