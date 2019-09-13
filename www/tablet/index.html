@@ -1101,11 +1101,25 @@ q
 	</tr>
 	<tr>
 	<td width=30% align="right">
-		<div class="bigger"> Eltako:</div>
+		<div class="bigger"> Eltako1:</div>
 	</td>
 	<td width=70% align="center">
 	<div data-type="label"
-		data-device="KNX02.O03_Aktor_UmschalterPVNetz" 
+		data-device="KNX33.O02_Aktor_NetzPV_einzel" 
+		data-get="named_status"
+		data-limits='["Line Mode","PV Mode"]' 
+		data-colors='["red","green"]' 
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td width=30% align="right">
+		<div class="bigger"> Eltako2:</div>
+	</td>
+	<td width=70% align="center">
+	<div data-type="label"
+		data-device="KNX33.O03_Aktor_NetzPV_doppel" 
 		data-get="named_status"
 		data-limits='["Line Mode","PV Mode"]' 
 		data-colors='["red","green"]' 
