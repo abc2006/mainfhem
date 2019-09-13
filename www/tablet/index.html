@@ -13,8 +13,8 @@
 
 
 <meta name="longpoll" content="1"> <!-- 1=longpoll;0=shortpoll every 30sec -->
-<meta name="longpoll_type" content="websocket"> <!-- 1=longpoll;0=shortpoll every 30sec -->
-<meta name="longpoll_maxage" content="240"><!--wird in diesem Zeitraum kein Longpoll empfangen, wird die seite refreshed -->
+<meta name="longpoll_type" content="ajax"> <!-- 1=longpoll;0=shortpoll every 30sec -->
+<meta name="longpoll_maxage" content="240"><!--wird in diesem Zeitraum kein Longpoll empfangen, wird die verbindung geschlossen und neu geöffnet -->
 <meta name="debug" content="2"> <!-- verbose level 1-6 = output to console;0 = not output -->
 
 <meta name='toast_position' content='top-right'>
@@ -179,9 +179,6 @@
 </li>
 <!-- ######################################################################################### -->
 <li data-row="2" data-col="3" data-sizex="1" data-sizey="1">ROW 2 | COL 3 | X 1 | Y 1
-</li>
-<!-- ######################################################################################### -->
-<li data-row="2" data-col="4" data-sizex="1" data-sizey="1"> navigation_temporär 
 	<div class="bigger">	
 		<a href="index.html">INDEX</a><br />
 		<a href="hzg.html">HZG</a><br />
@@ -192,15 +189,23 @@
 	</div>
 </li>
 <!-- ######################################################################################### -->
+<li data-row="2" data-col="4" data-sizex="1" data-sizey="1"> ROW 2 | COL 4 | X 1 | Y 1 
+<!--
+	
+	<div data-type="push" data-icon="oa-fts_window_2w"></div>
+			<li><div data-type="push" data-device="Rolladen_Wohnzimmer" data-set-on="open" data-icon="">Offen</div></li>
+			<li><div data-type="push" data-device="Rolladen_Wohnzimmer" data-set-on="closed" data-icon="">Zu</div></li>
+			<li><div data-type="push" data-device="Rolladen_Wohnzimmer" data-set-on="stop" data-icon="">stop</div></li>
+-->
+			</li>
+<!-- ######################################################################################### -->
 <li data-row="2" data-col="5" data-sizex="1" data-sizey="1">ROW 2 | COL 5 | X 1 | Y 1
-<!--	<div data-type="departure"
-		data-title="S1 Frankfurt"
-		data-device="NadineSbahnFFM_S1_morgens"
-		data-get="xFTUI_departure"
-		data-icon="fa-bus"
-		data-width="100%"
-		data-interval="60">
-</div> -->
+<!--
+	<div data-type="push" data-icon="oa-fts_window_2w"></div>
+			<li><div data-type="push" data-device="Rolladen_Schlafzimmer" data-set-on="open" data-icon="">Offen</div></li>
+			<li><div data-type="push" data-device="Rolladen_Schlafzimmer" data-set-on="closed" data-icon="">Zu</div></li>
+			<li><div data-type="push" data-device="Rolladen_Schlafzimmer" data-set-on="stop" data-icon="">stop</div></li>
+-->
 </li>
 <!-- ######################################################################################### -->
 <li data-row="3" data-col="1" data-sizex="1" data-sizey="2">ROW 3 | COL 1 | X 1 | Y 1
@@ -222,14 +227,13 @@
 		data-type="AUswitch"
 		data-cmd="set"
 		data-device="KNX13.O02_Aktor_Tonstrom_WoEss"
-		class="bigger"
+		data-get="status"
+  		class="bigger"
 	></div>
 	<div 
 		data-type="label" 
 		data-device="KNX13.O02_Aktor_Tonstrom_WoEss"
-		data-get="state" 
-		data-limits='["on","off"]' 
-		data-colors='["green","red"]' 
+		data-get="current" 
 		class="bigger"
 	></div>
 
@@ -1066,41 +1070,6 @@ q
 	</tr>
 	<tr>
 	<td width=50% align="right">
-
-		<div class="bigger"> Ubat:</div>
-	</td>
-	<td width=50% align="left">
-	<div data-type="label"
-		data-device="Effekta" 
-		data-get="Battery_actual_voltage"
-		data-part="1" 
-		data-unit="V"
-		data-limits='[0,47,49.5,53]' 
-		data-colors='["red","yellow","green","red"]' 
-		class="bigger">
-	</div>
-	</td>
-	</tr>
-	<tr>
-	<td width=50% align="right">
-		<div class="bigger"> Ibat:</div>
-	</td>
-	<td width=50% align="left">
-	<div data-type="label"
-		data-device="Effekta" 
-		data-get="Battery_total_current"
-		data-part="1"
-		data-unit="A"
-		data-limits='[-100,-50,0,1,50]' 
-		data-colors='["red","yellow","blue","green","red"]' 
-		data-fix='0'
-		class="bigger">
-	</div>
-	</td>
-	</tr>
-
-	<tr>
-	<td width=50% align="right">
 		<div class="bigger"> Temp:</div>
 	</td>
 	<td width=50% align="left">
@@ -1118,7 +1087,7 @@ q
 	</tr>
 	<tr>
 	<td width=30% align="right">
-		<div class="bigger"> DevMd:</div>
+		<div class="bigger"> Effekta:</div>
 	</td>
 	<td width=70% align="center">
 	<div data-type="label"
@@ -1132,7 +1101,7 @@ q
 	</tr>
 	<tr>
 	<td width=30% align="right">
-		<div class="bigger"> PVMd:</div>
+		<div class="bigger"> Eltako:</div>
 	</td>
 	<td width=70% align="center">
 	<div data-type="label"
@@ -1248,7 +1217,9 @@ q
 		data-get="1_Temperature_total"
 		data-part="1"
 		data-unit="&deg;C"
-		data-limits='[0,15,25,35]' 
+		data-limits='[10,35,43,50]' 
+		data-colors='["green","yellow","orange","red"]' 
+		data-limits='[0,15,37,45]' 
 		data-colors='["red","green","orange","red"]' 
 		data-fix='0'
 		class="bigger">
@@ -1354,7 +1325,7 @@ q
 
 
 <!-- ######################################################################################### -->
-<li data-row="6" data-col="1" data-sizex="1" data-sizey="1">ROW 6 | COL 4 | Gas 
+<li data-row="6" data-col="1" data-sizex="1" data-sizey="1">ROW 6 | COL 1 | Gas 
 
 </li> 
 <!-- ######################################################################################### -->
@@ -1370,7 +1341,7 @@ q
 	></div>
 </li> 
 <!-- ######################################################################################### -->
-<li data-row="6" data-col="4" data-sizex="1" data-sizey="1">ROW 6 | COL 3 | X 1 | Y 1
+<li data-row="6" data-col="4" data-sizex="1" data-sizey="1">ROW 6 | COL 4 | X 1 | Y 1
 	<div class="bigger">reset pylontech</div>
 	<div
 		data-type="push"
@@ -1379,7 +1350,7 @@ q
 	></div>
 </li> 
 <!-- ######################################################################################### -->
-<li data-row="6" data-col="5" data-sizex="1" data-sizey="1">ROW 6 | COL 3 | X 1 | Y 1
+<li data-row="6" data-col="5" data-sizex="1" data-sizey="1">ROW 6 | COL 5 | X 1 | Y 1
 	<div class="bigger">reset Mischer</div>
 	<div
 		data-type="push"
@@ -1388,33 +1359,43 @@ q
 	></div>
 </li> 
 <!-- ######################################################################################### -->
-<li data-row="7" data-col="1" data-sizex="1" data-sizey="1">ROW 6 | COL 1 | X 1 | Y 1
+<li data-row="7" data-col="1" data-sizex="1" data-sizey="1">Rolladen Schlafzimmer
+	<div data-type="circlemenu" class="bigger">
+		<ul>
+			<li><div data-type="push" data-icon="oa-fts_window_2w"></div></li>
+			<li><div data-type="push" data-device="Rolladen_Schlafzimmer" data-set-on="open" data-icon="">Offen</div></li>
+			<li><div data-type="push" data-device="Rolladen_Schlafzimmer" data-set-on="closed" data-icon="">Zu</div></li>
+			<li><div data-type="push" data-device="Rolladen_Schlafzimmer" data-set-on="stop" data-icon="">stop</div></li>
+		</ul>
+	</div>
+	geöffnet zu:<br />
+	<div data-type="label" data-device="Rolladen_Schlafzimmer" data-get="pct" data-unit="%" class="inline bigger">geschlossen</div>
 </li> 
 <!-- ######################################################################################### -->
-<li data-row="7" data-col="2" data-sizex="1" data-sizey="1">ROW 7 | COL 1 | X 1 | Y 1
+<li data-row="7" data-col="2" data-sizex="1" data-sizey="1">Rolladen Wohnzimmer
 	<div data-type="circlemenu" class="bigger">
 		<ul>
 			<li><div data-type="push" data-icon="oa-fts_window_2w"></div></li>
 			<li><div data-type="push" data-device="Rolladen_Wohnzimmer" data-set-on="open" data-icon="">Offen</div></li>
 			<li><div data-type="push" data-device="Rolladen_Wohnzimmer" data-set-on="closed" data-icon="">Zu</div></li>
 			<li><div data-type="push" data-device="Rolladen_Wohnzimmer" data-set-on="stop" data-icon="">stop</div></li>
-			<li><div data-type="push" data-device="Rolladen_Wohnzimmer" data-set-on="pct 15" data-icon="">15</div></li>
 		</ul>
 	</div>
+	geöffnet zu:<br />
 	<div data-type="label" data-device="Rolladen_Wohnzimmer" data-get="pct" data-unit="%" class="inline bigger">geschlossen</div>
 </li> 
 <!-- ######################################################################################### -->
-<li data-row="7" data-col="3" data-sizex="1" data-sizey="1">ROW 7 | COL 1 | X 1 | Y 1
+<li data-row="7" data-col="3" data-sizex="1" data-sizey="1">ROW 7 | COL 3 | X 1 | Y 1
 
-<div data-type="label" data-device="Rolladen_Wohnzimmer" data-get="pct" data-unit="%" class="top-space big thin"></div>
-	
+<!--<div data-type="label" data-device="Rolladen_Wohnzimmer" data-get="pct" data-unit="%" class="top-space big thin"></div>
+-->	
+
 	<div data-type="popup" data-height="190px" data-width="250px">
-		<div data-type="link" data-color="grey" data-border-color="grey" data-icon="fa-sort" class="top-space round">
-			auf / ab
-		</div>
+	
+	 	<div data-type="link" data-color="grey" data-border-color="grey" data-icon="fa-sort" class="top-space round">auf / ab</div>
 	<div class="dialog">
-		<header>Rolladen_Wohnzimmer</header>
-		<div class="top-space inline">
+	<!--	<header>Rolladen_Wohnzimmer</header>
+	-->	<div class="top-space inline">
 			<div data-type="switch" 
 				data-device="Rolladen_Wohnzimmer" 
 				data-get="pct"
@@ -1492,17 +1473,20 @@ q
 			</div>
 		</div>
 	</div>
+	<!--
 	</div>
-
-	<div data-type="slider" data-device="Rolladen_Wohnzimmer" data-get="pct" data-set="pct" data-height="113" class="top-space"></div>
-
-	<div data-type="symbol" data-device="Rolladen_Wohnzimmer" data-get="pct" data-states='[0,1]' data-colors='["red","green"]'  data-icon="fa-align-justify" class="small right"></div>
+	-->
+	
+	<!--<div data-type="slider" data-device="Rolladen_Wohnzimmer" data-get="pct" data-set="pct" data-height="113" class="top-space"></div>
+	-->
+	<!--<div data-type="symbol" data-device="Rolladen_Wohnzimmer" data-get="pct" data-states='[0,1]' data-colors='["red","green"]'  data-icon="fa-align-justify" class="small right"></div>
+	-->
 </li> 
 <!-- ######################################################################################### -->
-<li data-row="7" data-col="4" data-sizex="1" data-sizey="1">ROW 7 | COL 1 | X 1 | Y 1
+<li data-row="7" data-col="4" data-sizex="1" data-sizey="1">ROW 7 | COL 4 | X 1 | Y 1
 </li> 
 <!-- ######################################################################################### -->
-<li data-row="7" data-col="5" data-sizex="1" data-sizey="1">ROW 7 | COL 1 | X 1 | Y 1
+<li data-row="7" data-col="5" data-sizex="1" data-sizey="1">ROW 7 | COL 5 | X 1 | Y 1
 
 	<div 
 		data-type="switch" 
