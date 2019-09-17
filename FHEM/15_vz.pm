@@ -197,14 +197,38 @@ sub vz_read($$)
 	Log3($name, 5, "total_energy: " . $hash->{helper}{total_energy});
 	$hash->{helper}{total_energy_1} = substr($fullframe,356,8);
 	$hash->{helper}{total_energy_2} = substr($fullframe,404,8);
-	$hash->{helper}{total_power}    = substr($fullframe,448,4);
-	$hash->{helper}{total_power_L1} = substr($fullframe,488,4);
+	
+	if ( substr($fullframe,448,4) < 32767 ){
+		$hash->{helper}{total_power}    = substr($fullframe,448,4);
+	}else {
+		$hash->{helper}{total_power}    = substr($fullframe,448,4)-65535;
+	}
+	
+	
+	if ( substr($fullframe,488,4) < 32767 ){
+		$hash->{helper}{total_power_L1}    = substr($fullframe,488,4);
+	}else {
+		$hash->{helper}{total_power_L1}    = substr($fullframe,488,4)-65535;
+	}
+	
 	Log3($name, 5, "total Power L1 " . $hash->{helper}{total_power_L1});
-	$hash->{helper}{total_power_L2} = substr($fullframe,528,4);
+	
+	
+	if ( substr($fullframe,528,4) < 32767 ){
+		$hash->{helper}{total_power_L2}    = substr($fullframe,528,4);
+	}else {
+		$hash->{helper}{total_power_L2}    = substr($fullframe,528,4)-65535;
+	}
 	Log3($name, 5, "total Power L2 " . $hash->{helper}{total_power_L2});
-	$hash->{helper}{total_power_L3} = substr($fullframe,568,4);
+	
+	if ( substr($fullframe,568,4) < 32767 ){
+		$hash->{helper}{total_power_L3}    = substr($fullframe,568,4);
+	}else {
+		$hash->{helper}{total_power_L3}    = substr($fullframe,568,4)-65535;
+	}
 	Log3($name, 5, "total Power L3 " . $hash->{helper}{total_power_L3});
-
+	
+	
 	my %readings; 
 	
 	readingsBeginUpdate($hash);
