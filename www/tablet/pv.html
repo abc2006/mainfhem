@@ -110,7 +110,7 @@
 </li>
 <!-- ######################################################################################### -->
 <li data-row="1" data-col="4" data-sizex="2" data-sizey="2">ROW 1 | COL 4 | X 2 | Y 2
-	<div style="text-align:center" 
+	<div style="text-align:left" 
 		data-type="readingsgroup" 
 		data-device="rg_KNX_Solar"
   		data-max-update="1"
@@ -119,7 +119,35 @@
 </li>
 <!-- ########################################################################################-->
 <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">ROW 2 | COL 1 | X 1 | Y 1
-
+<table border="0" width=100%>
+	<tr>
+        <td width=30% align="right">
+                <div class="bigger"> Eltako1:</div>
+        </td>
+        <td width=70% align="center">
+        <div data-type="label"
+                data-device="KNX33.O02_Aktor_NetzPV_einzel"
+                data-get="named_status"
+                data-limits='["Line Mode","PV Mode"]'
+                data-colors='["red","green"]'
+                class="bigger">
+        </div>
+        </td>
+        </tr>
+        <tr>
+        <td width=30% align="right">
+                <div class="bigger"> Eltako2:</div>
+        </td>
+        <td width=70% align="center">
+        <div data-type="label"
+                data-device="KNX33.O03_Aktor_NetzPV_doppel"
+                data-get="named_status"
+                data-limits='["Line Mode","PV Mode"]'
+                data-colors='["red","green"]'
+                class="bigger">
+        </div>
+        </td>
+	</table> 
 </li>
 <!-- ########################################################################################-->
 <li data-row="2" data-col="2" data-sizex="1" data-sizey="1">ROW 2 | COL 2 | X 1 | Y 1
@@ -226,17 +254,6 @@
 		data-device="Effekta" 
 		data-get="Device_Mode"
 		data-limits='["Line Mode","Battery Mode"]' 
-		data-colors='["red","green"]' 
-		class="bigger">
-	</div>
-	</td>
-	</tr>
-	<tr>
-	<td colspan="2", width=100% align="center">
-	<div data-type="label"
-		data-device="KNX02.O03_Aktor_UmschalterPVNetz" 
-		data-get="named_status"
-		data-limits='["Line Mode","PV Mode"]' 
 		data-colors='["red","green"]' 
 		class="bigger">
 	</div>
@@ -682,10 +699,11 @@
 	 data-get="total_power"
          data-ptype="steps"
   	 data-style='["ftui l0","ftui l1","ftui l2","ftui l3"]'
-         data-heigth="75%"
 	 data-logdevice="logdb"
 	 data-logfile="HISTORY"
-	 data-columnspec='["Stromzaehler:total_power_L1","Stromzaehler:total_power_L2","Stromzaehler:total_power_L3","Stromzaehler:total_power"]'>
+	 data-columnspec='["Stromzaehler:total_power_L1","Stromzaehler:total_power_L2","Stromzaehler:total_power_L3","Stromzaehler:total_power"]'
+  class="fullsize normal"
+  >
 </div>
 
 
