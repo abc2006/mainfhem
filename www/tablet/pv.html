@@ -147,6 +147,61 @@
                 class="bigger">
         </div>
         </td>
+	</tr>
+	<tr>
+	<td>
+		<div 
+			data-type="AUswitch"
+   			data-cmd="set"
+      			data-device="KNX33.O02_Aktor_NetzPV_einzel"
+	 		data-set="steuern"
+    			data-set-states='["Netz","PV"]'
+    			data-states='["PV","Netz"]'
+    			data-colors='["green","red"]'
+    			data-background-colors='["yellow","blue"]'
+  		></div>
+	</td>
+	<td>
+		<div 
+			data-type="AUswitch"
+   			data-cmd="set"
+      			data-device="KNX33.O03_Aktor_NetzPV_doppel"
+	 		data-set="steuern"
+    			data-set-states='["Netz","PV"]'
+    			data-states='["PV","Netz"]'
+    			data-colors='["green","red"]'
+    			data-background-colors='["yellow","blue"]'
+  		></div>
+	</td>
+	</tr>
+        <tr>
+        <td width=30% align="right">
+                <div class="bigger"> PV_In:</div>
+        </td>
+        <td width=70% align="center">
+        <div data-type="label"
+                data-device="KNX02.O11_Aktor_PV_In"
+                data-get="steuern"
+                data-limits='["on","off"]'
+                data-colors='["red","green"]'
+                class="bigger">
+        </div>
+        </td>
+	</tr>
+	<tr>
+	<td>
+		<div 
+			data-type="AUswitch"
+      			data-device="KNX02.O11_Aktor_PV_In"
+	 		data-set="steuern"
+    			data-get="steuern"
+    			data-set-states='["on","off"]'
+    			data-states='["off","on"]'
+    			data-colors='["green","red"]'
+    			data-background-colors='["yellow","blue"]'
+  		></div>
+	</td>
+	</tr>
 	</table> 
 </li>
 <!-- ########################################################################################-->
@@ -294,7 +349,7 @@
 		data-device="BMS"
 		data-get="1_Ah_BMS_left_total"
 		data-part="1"
-		data-unit="&deg;C"
+		data-unit="Ah"
 		data-limits='[0,105,150,170]' 
 		data-colors='["blue","#00BFFF","green","red"]' 
 		data-fix='2'
