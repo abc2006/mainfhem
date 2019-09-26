@@ -207,10 +207,83 @@
 <!-- ########################################################################################-->
 <li data-row="2" data-col="2" data-sizex="1" data-sizey="1">ROW 2 | COL 2 | X 1 | Y 1
 
+<table border="0" width=100%>
+	<tr>
+        <td width=30% align="right">
+                <div class="bigger"> Effekta:</div>
+        </td>
+        <td width=70% align="center">
+		<div 
+			data-type="push"
+   			data-cmd="set hzfhem_remote cmd set Effekta reset"
+  		></div>
+	</td>
+	</tr>
+        <tr>
+        <td width=30% align="right">
+                <div class="bigger"> BMS:</div>
+        </td>
+        <td width=70% align="center">
+		<div 
+			data-type="push"
+   			data-cmd="set hzfhem_remote cmd set BMS reset"
+  		></div>
+	</td>
+	</tr>
+        <tr>
+        <td width=30% align="right">
+                <div class="bigger"> DF:</div>
+        </td>
+        <td width=70% align="center">
+		<div 
+			data-type="push"
+   			data-cmd="set DF_reconnect_pvF2F cmd_1"
+  		></div>
+        </td>
+	</tr>
+	</table> 
 </li>
 <!-- ########################################################################################-->
 <li data-row="2" data-col="3" data-sizex="1" data-sizey="1">ROW 2 | COL 3 | X 1 | Y 1
 
+<table border="0" width=100%>
+	<tr>
+        <td width=30% align="right">
+                <div class="bigger"> Effekta:</div>
+        </td>
+        <td width=70% align="center">
+        <div data-type="label"
+                data-device="Effekta"
+                data-get="_status"
+                class="bigger timestamp">
+        </div>
+        </td>
+        </tr>
+        <tr>
+        <td width=30% align="right">
+                <div class="bigger"> BMS:</div>
+        </td>
+        <td width=70% align="center">
+        <div data-type="label"
+                data-device="BMS"
+                data-get="_status"
+                class="bigger timestamp">
+        </div>
+        </td>
+	</tr>
+        <tr>
+        <td width=30% align="right">
+                <div class="bigger"> DF:</div>
+        </td>
+        <td width=70% align="center">
+        <div data-type="label"
+                data-device="DF_reconnect_pvF2F"
+                data-get="wait_timer"
+                class="bigger timestamp">
+        </div>
+        </td>
+	</tr>
+	</table> 
 </li>
 <!-- ########################################################################################-->
 
