@@ -184,28 +184,56 @@
 		<a href="hzg.html">HZG</a><br />
 		<a href="housekeeping.html">housekeeping</a><br />
 		<a href="pv.html">PV</a><br />
-		<a href="index.html">INDEX</a><br />
+		<a href="http://192.168.0.30:8083/fhem">FHEM</a><br />
 		<a href="index.html">INDEX</a><br />
 	</div>
 </li>
 <!-- ######################################################################################### -->
 <li data-row="2" data-col="4" data-sizex="1" data-sizey="1"> ROW 2 | COL 4 | X 1 | Y 1 
-<!--
-	
-	<div data-type="push" data-icon="oa-fts_window_2w"></div>
-			<li><div data-type="push" data-device="Rolladen_Wohnzimmer" data-set-on="open" data-icon="">Offen</div></li>
-			<li><div data-type="push" data-device="Rolladen_Wohnzimmer" data-set-on="closed" data-icon="">Zu</div></li>
-			<li><div data-type="push" data-device="Rolladen_Wohnzimmer" data-set-on="stop" data-icon="">stop</div></li>
--->
+	<div data-type="clock" data-format="l" class="bigger top-space"></div>
+	<div 
+		data-type="clock"
+		data-format="d.m.Y"  
+		class=bigger  
+	></div>
+	<div 
+		data-type="clock"
+		data-format="H:i:s"  
+		class=bigger  
+	></div>
+	<br />
+	<div 
+		class="bigger">LogDb
+	</div>
+	<div 
+		data-type="label" 
+		data-device="logdb"
+		data-get="state" 
+		data-limits='["connected","!connected"]' 
+		data-colors='["green","red"]' 
+		class="bigger"
+	></div>
 			</li>
 <!-- ######################################################################################### -->
 <li data-row="2" data-col="5" data-sizex="1" data-sizey="1">ROW 2 | COL 5 | X 1 | Y 1
-<!--
-	<div data-type="push" data-icon="oa-fts_window_2w"></div>
-			<li><div data-type="push" data-device="Rolladen_Schlafzimmer" data-set-on="open" data-icon="">Offen</div></li>
-			<li><div data-type="push" data-device="Rolladen_Schlafzimmer" data-set-on="closed" data-icon="">Zu</div></li>
-			<li><div data-type="push" data-device="Rolladen_Schlafzimmer" data-set-on="stop" data-icon="">stop</div></li>
--->
+	<div class="bigger">Aussentemperatur</div>
+	<div 	data-type="label" 
+		data-device="RE_TEMP_AUSSEN"
+		data-get="temperature" 
+		data-limits='[-73,0,30]' 
+		data-colors='["#6699FF","#AA6900","#FF0000"]' 
+		data-unit="&deg;C" 
+		class="bigger"
+	></div>
+	<div class="bigger">Aussen_AVG</div>
+	<div 	data-type="label" 
+		data-device="RE_TEMP_AUSSEN"
+		data-get="AVG" 
+		data-limits='[-73,0,30]' 
+		data-colors='["#6699FF","#AA6900","#FF0000"]' 
+		data-unit="&deg;C" 
+		class="bigger"
+	></div>
 </li>
 <!-- ######################################################################################### -->
 <li data-row="3" data-col="1" data-sizex="1" data-sizey="2">ROW 3 | COL 1 | X 1 | Y 1
@@ -226,6 +254,7 @@
 	<div 
 		data-type="AUswitch"
 		data-cmd="set"
+  		data-set="steuern"
 		data-device="KNX13.O02_Aktor_Tonstrom_WoEss"
 		data-get="status"
   		class="bigger"
@@ -243,18 +272,28 @@
 	<div 
 		data-type="AUswitch"
 		data-cmd="set"
+  		data-get="status"
+    		data-set="steuern"
 		data-device="KNX32.O01_Aktor_Zirkulation_WW"
 		class="bigger"
 	></div>
 	<div 
 		data-type="label" 
 		data-device="KNX32.O01_Aktor_Zirkulation_WW"
-		data-get="state" 
+		data-get="status"
 		data-limits='["on","off"]' 
 		data-colors='["green","red"]' 
 		class="bigger"
 	></div>
 
+	<div 
+		data-type="label" 
+		data-device="RE_TEMP_Ruecklauf_Zirkulation"
+		data-get="temperature"
+		data-limits='[0,60,75]' 
+		data-colors='["blue","green","red"]' 
+		class="bigger"
+	></div>
 </li>
 <!-- ######################################################################################### -->
 
@@ -1180,8 +1219,8 @@ q
 		data-get="1_Spannung_total"
 		data-part="1"
 		data-unit="V"
-		data-limits='[0,48,51.5,53]' 
-		data-colors='["red","green","orange","red"]' 
+		data-limits='[0,48,53.5]' 
+		data-colors='["red","green","red"]' 
 		data-fix='3'
 		class="bigger">
 	</div>
@@ -1339,11 +1378,31 @@ q
 
 
 <!-- ######################################################################################### -->
-<li data-row="6" data-col="1" data-sizex="1" data-sizey="1">ROW 6 | COL 1 | Gas 
+<li data-row="6" data-col="1" data-sizex="1" data-sizey="1">Rolladen Schlafzimmer  
+	<div data-type="circlemenu" class="bigger">
+		<ul>
+			<li><div data-type="push" data-icon="oa-fts_window_2w"></div></li>
+			<li><div data-type="push" data-device="Rolladen_Schlafzimmer" data-set-on="open" data-icon="">Offen</div></li>
+			<li><div data-type="push" data-device="Rolladen_Schlafzimmer" data-set-on="closed" data-icon="">Zu</div></li>
+			<li><div data-type="push" data-device="Rolladen_Schlafzimmer" data-set-on="stop" data-icon="">stop</div></li>
+		</ul>
+	</div>
+	geöffnet zu:<br />
+	<div data-type="label" data-device="Rolladen_Schlafzimmer" data-get="pct" data-unit="%" class="inline bigger">geschlossen</div>
 
 </li> 
 <!-- ######################################################################################### -->
-<li data-row="6" data-col="2" data-sizex="1" data-sizey="1">ROW 6 | COL 2 | X 1 | Y 1
+<li data-row="6" data-col="2" data-sizex="1" data-sizey="1">Rolladen Wohnzimmer
+	<div data-type="circlemenu" class="bigger">
+		<ul>
+			<li><div data-type="push" data-icon="oa-fts_window_2w"></div></li>
+			<li><div data-type="push" data-device="Rolladen_Wohnzimmer" data-set-on="open" data-icon="">Offen</div></li>
+			<li><div data-type="push" data-device="Rolladen_Wohnzimmer" data-set-on="closed" data-icon="">Zu</div></li>
+			<li><div data-type="push" data-device="Rolladen_Wohnzimmer" data-set-on="stop" data-icon="">stop</div></li>
+		</ul>
+	</div>
+	geöffnet zu:<br />
+	<div data-type="label" data-device="Rolladen_Wohnzimmer" data-get="pct" data-unit="%" class="inline bigger">geschlossen</div>
 </li> 
 <!-- ######################################################################################### -->
 <li data-row="6" data-col="3" data-sizex="1" data-sizey="1">ROW 6 | COL 3 | X 1 | Y 1
@@ -1373,30 +1432,10 @@ q
 	></div>
 </li> 
 <!-- ######################################################################################### -->
-<li data-row="7" data-col="1" data-sizex="1" data-sizey="1">Rolladen Schlafzimmer
-	<div data-type="circlemenu" class="bigger">
-		<ul>
-			<li><div data-type="push" data-icon="oa-fts_window_2w"></div></li>
-			<li><div data-type="push" data-device="Rolladen_Schlafzimmer" data-set-on="open" data-icon="">Offen</div></li>
-			<li><div data-type="push" data-device="Rolladen_Schlafzimmer" data-set-on="closed" data-icon="">Zu</div></li>
-			<li><div data-type="push" data-device="Rolladen_Schlafzimmer" data-set-on="stop" data-icon="">stop</div></li>
-		</ul>
-	</div>
-	geöffnet zu:<br />
-	<div data-type="label" data-device="Rolladen_Schlafzimmer" data-get="pct" data-unit="%" class="inline bigger">geschlossen</div>
+<li data-row="7" data-col="1" data-sizex="1" data-sizey="1">ROW 7 | COL 1 | X 1 | Y 1
 </li> 
 <!-- ######################################################################################### -->
-<li data-row="7" data-col="2" data-sizex="1" data-sizey="1">Rolladen Wohnzimmer
-	<div data-type="circlemenu" class="bigger">
-		<ul>
-			<li><div data-type="push" data-icon="oa-fts_window_2w"></div></li>
-			<li><div data-type="push" data-device="Rolladen_Wohnzimmer" data-set-on="open" data-icon="">Offen</div></li>
-			<li><div data-type="push" data-device="Rolladen_Wohnzimmer" data-set-on="closed" data-icon="">Zu</div></li>
-			<li><div data-type="push" data-device="Rolladen_Wohnzimmer" data-set-on="stop" data-icon="">stop</div></li>
-		</ul>
-	</div>
-	geöffnet zu:<br />
-	<div data-type="label" data-device="Rolladen_Wohnzimmer" data-get="pct" data-unit="%" class="inline bigger">geschlossen</div>
+<li data-row="7" data-col="2" data-sizex="1" data-sizey="1">ROW 7 | COL 2 | X 1 | Y 1
 </li> 
 <!-- ######################################################################################### -->
 <li data-row="7" data-col="3" data-sizex="1" data-sizey="1">ROW 7 | COL 3 | X 1 | Y 1
