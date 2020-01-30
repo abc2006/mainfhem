@@ -156,21 +156,49 @@
 </li>  
 <!-- ######################################################################################### -->
 <li data-row="2" data-col="3" data-sizex="1" data-sizey="1">ROW 2 | COL 3 | X 1 | Y 1
+	<div class=bigger>Pumpe HZG Main und FuBo EG</div>
+	<div 
+		data-type="AUswitch"
+		data-cmd="set"
+		data-device=""
+  		data-lock="global_FTUIFree:lock"
+		data-set="steuern"
+  		data-get="status"
+    		class="bigger"
+	></div>
+	<div 
+		data-type="label" 
+		data-device=""
+		data-get="status" 
+		data-limits='["on","off"]' 
+		data-colors='["green","red"]' 
+		class="bigger"
+	></div>
 </li> 
 <!-- ######################################################################################### -->
 <li data-row="2" data-col="4" data-sizex="1" data-sizey="1">ROW 2 | COL 4 | X 1 | Y 1
+
+	<div class=bigger>Pumpe WT Garage Pool</div>
+	<div 
+		data-type="AUswitch"
+		data-cmd="set"
+		data-device=""
+  		data-lock="global_FTUIFree:lock"
+		data-set="steuern"
+  		data-get="status"
+    		class="bigger"
+	></div>
+	<div 
+		data-type="label" 
+		data-device=""
+		data-get="status" 
+		data-limits='["on","off"]' 
+		data-colors='["green","red"]' 
+		class="bigger"
+	></div>
 </li> 
 <!-- ######################################################################################### -->
 <li data-row="2" data-col="5" data-sizex="1" data-sizey="1">ROW 2 | COL 5 | X 1 | Y 1
-</li> 
-<!-- ######################################################################################### -->
-<li data-row="3" data-col="3" data-sizex="1" data-sizey="1">ROW 3 | COL 3 | X 1 | Y 1
-</li> 
-<!-- ######################################################################################### -->
-<li data-row="3" data-col="4" data-sizex="1" data-sizey="1">ROW 3 | COL 4 | X 1 | Y 1
-</li> 
-<!-- ######################################################################################### -->
-<li data-row="3" data-col="5" data-sizex="1" data-sizey="1">ROW 3 | COL 5 | X 1 | Y 1
 	<div class="bigger"> Gas gestern, letzte woche, letzter Monat, letztes Jahr, vorletztes jahr</div>
 	<div class="bigger"> Gas:</div>
 	<div data-type="label"
@@ -179,6 +207,203 @@
 		data-unit=" m3"
 		class="bigger">
 	</div>
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="3" data-col="3" data-sizex="1" data-sizey="1">PID Mischer:
+
+<table border="0" width=100%>
+	<!-- ####################### -->
+	<td colspan="2" align="center"> 
+	<div data-type="label"
+		data-device="PID_HZFHEM" 
+		data-get="state"
+		data-limits='["stopped","processing","idle"]' 
+		data-colors='["red","orange","green"]' 
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<!-- ####################### -->
+	<tr>
+	<td width=40% align="right">
+		<div class="bigger">A:</div>
+	</td>
+	<td width=60% align="left"> 
+	<div data-type="label"
+		data-device="PID_HZFHEM" 
+		data-get="actuation"
+		data-part="1"
+		data-limits='[0,90,180,270]' 
+		data-colors='["blue","yellow","orange","red"]' 
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<!-- ####################### -->
+	<tr>
+	<td width=40% align="right">
+		<div class="bigger">delta:</div>
+	</td>
+	<td width=60% align="left"> 
+	<div data-type="label"
+		data-device="PID_HZFHEM" 
+		data-get="delta"
+		data-part="1"
+		data-limits='[0,3,5]' 
+		data-colors='["green","yellow","red"]' 
+  		data-fix='3'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<!-- ####################### -->
+	<tr>
+	<td width=40% align="right">
+		<div class="bigger">P:</div>
+	</td>
+	<td width=60% align="left"> 
+	<div data-type="label"
+		data-device="PID_HZFHEM" 
+		data-get="p_p"
+		data-part="1"
+		data-limits='[0,36,60]' 
+		data-colors='["green","yellow","red"]' 
+  		data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<!-- ####################### -->
+	<tr>
+	<td width=40% align="right">
+		<div class="bigger">I:</div>
+	</td>
+	<td width=60% align="left"> 
+	<div data-type="label"
+		data-device="PID_HZFHEM" 
+		data-get="p_i"
+		data-part="1"
+		data-limits='[0,30,100]' 
+		data-colors='["green","yellow","red"]'
+  		data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<!-- ####################### -->
+	<tr>
+	<td width=40% align="right">
+		<div class="bigger">D:</div>
+	</td>
+	<td width=60% align="left"> 
+	<div data-type="label"
+		data-device="PID_HZFHEM" 
+		data-get="p_d"
+		data-part="1"
+		data-limits='[0,1,20]' 
+		data-colors='["green","yellow","red"]' 
+  		data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+</table>
+	
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="3" data-col="4" data-sizex="1" data-sizey="1">ROW 3 | COL 4 | X 1 | Y 1
+	<div class=big>start/stop PID</div>
+	<div 
+		data-type="AUswitch"
+		data-cmd="set"
+		data-device="PID_HZFHEM"
+  		data-lock="global_FTUIFree:lock"
+		data-set-on="start"
+  		data-get-on="processing|idle"
+    		data-set-off="stop"
+    		data-get-off="stopped"
+      		data-on-color="green"
+		data-off-color="red"      		
+    		class="bigger"
+	></div>
+	<div class=big>reset PID</div>
+	<div
+		data-type="push"
+  		data-lock="global_FTUIFree:lock"
+       		data-fhem-cmd="set PID_HZFHEM reset"
+		class="bigger"
+	></div>
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="3" data-col="5" data-sizex="1" data-sizey="1">Mischer_HZG
+<table border="0" width=100%>
+	<!-- ####################### -->
+	<tr>
+	<td width=40% align="right">
+		<div class="bigger">End:</div>
+	</td>
+	<td width=60% align="left"> 
+	<div data-type="label"
+		data-device="Mischer_HZG" 
+		data-get="Endschalter"
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<!-- ####################### -->
+	<tr>
+	<td width=40% align="right">
+		<div class="bigger">pos:</div>
+	</td>
+	<td width=60% align="left"> 
+	<div data-type="label"
+		data-device="Mischer_HZG" 
+		data-get="p_actual"
+		data-limits='[0,90,180,270]' 
+		data-colors='["blue","yellow","orange","red"]' 
+		data-fix='2'
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<!-- ####################### -->
+	<tr>
+	<td width=60% align="right">
+		<div class="bigger">R_kalt:</div>
+	</td>
+	<td width=40% align="left"> 
+	<div data-type="label"
+		data-device="Relais2_FUBO_kalt" 
+		data-get="state"
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<!-- ####################### -->
+	<tr>
+	<td width=60% align="right">
+		<div class="bigger">R_warm:</div>
+	</td>
+	<td width=40% align="left"> 
+	<div data-type="label"
+		data-device="Relais1_FUBO_warm" 
+		data-get="state"
+		class="bigger">
+	</div>
+	</td>
+	</tr>
+	<tr>
+	<td colspan="2" align="center"> 
+	reset Mischer
+	<div
+		data-type="push"
+  		data-lock="global_FTUIFree:lock"
+		data-fhem-cmd="set hzfhem_remote cmd set Relais2_FUBO_kalt on"
+		class="bigger"
+	></div>
+	</td>
+	</tr>
+</table>
 </li>
 <!-- ######################################################################################### -->
 <li data-row="4" data-col="1" data-sizex="1" data-sizey="1"> UWP 3000to1500
@@ -818,12 +1043,6 @@
 </li> 
 <!-- ######################################################################################### -->
 <li data-row="6" data-col="5" data-sizex="1" data-sizey="1">ROW 6 | COL 5 | X 1 | Y 1
-	<div class="bigger">reset Mischer</div>
-	<div
-		data-type="push"
-		data-fhem-cmd="set hzfhem_remote cmd set Relais2_FUBO_kalt on"
-		class="bigger"
-	></div>
 </li> 
 <!-- ######################################################################################### -->
 <li data-row="7" data-col="1" data-sizex="1" data-sizey="1">ROW 7 | COL 1 | X 1 | Y 1
