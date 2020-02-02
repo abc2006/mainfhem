@@ -121,10 +121,10 @@
 <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">ROW 2 | COL 1 | X 1 | Y 1
 <table border="0" width=100%>
 	<tr>
-        <td width=30% align="right">
-                <div class="bigger"> Eltako1:</div>
+        <td width=20% align="left">
+                <div class="bigger"> K1:</div>
         </td>
-        <td width=70% align="center">
+        <td width=80% align="left">
         <div data-type="label"
                 data-device="KNX33.O02_Aktor_NetzPV_einzel"
                 data-get="named_status"
@@ -135,10 +135,10 @@
         </td>
         </tr>
         <tr>
-        <td width=30% align="right">
-                <div class="bigger"> Eltako2:</div>
+        <td width=20% align="left">
+                <div class="bigger"> K2:</div>
         </td>
-        <td width=70% align="center">
+        <td width=80% align="left">
         <div data-type="label"
                 data-device="KNX33.O03_Aktor_NetzPV_doppel"
                 data-get="named_status"
@@ -150,22 +150,30 @@
 	</tr>
 	<tr>
 	<td>
-		<div 
-			data-type="AUswitch"
-   			data-cmd="set"
-      			data-device="DF_switch_PV_Line"
-    			data-set-states='["Netz","PV"]'
-    			data-states='["PV","Netz"]'
-    			data-colors='["green","red"]'
-    			data-background-colors='["yellow","blue"]'
-  		></div>
 	</td>
         </tr>
         <tr>
-        <td width=30% align="right">
-                <div class="bigger"> PV_In:</div>
+        <td width=33% align="center">
+                <div class="bigger"> Mode:</div>
+        <div data-type="label"
+                data-device="DF_switch_PV_Line"
+                data-get="state"
+                data-limits='["cmd_1","cmd_2","cmd_3","cmd_4"]'
+                data-colors='["red","green","blue","blue"]'
+                class="bigger">
+        </div>
+	<div 
+		data-type="AUswitch"
+   		data-cmd="set"
+      		data-device="DF_switch_PV_Line"
+    		data-set-states='["Netz","PV"]'
+    		data-states='["PV","Netz"]'
+    		data-colors='["green","red"]'
+    		data-background-colors='["yellow","blue"]'
+  	></div>
         </td>
-        <td width=70% align="center">
+        <td width=33% align="center">
+                <div class="bigger"> PVin:</div>
         <div data-type="label"
                 data-device="KNX02.O11_Aktor_PV_In"
                 data-get="steuern"
@@ -173,21 +181,37 @@
                 data-colors='["red","green"]'
                 class="bigger">
         </div>
+	<div 
+		data-type="AUswitch"
+      		data-device="KNX02.O11_Aktor_PV_In"
+ 		data-set="steuern"
+  		data-get="steuern"
+    		data-set-states='["on","off"]'
+    		data-states='["off","on"]'
+    		data-colors='["green","red"]'
+    		data-background-colors='["yellow","blue"]'
+  	></div>
         </td>
-	</tr>
-	<tr>
-	<td>
-		<div 
-			data-type="AUswitch"
-      			data-device="KNX02.O11_Aktor_PV_In"
-	 		data-set="steuern"
-    			data-get="steuern"
-    			data-set-states='["on","off"]'
-    			data-states='["off","on"]'
-    			data-colors='["green","red"]'
-    			data-background-colors='["yellow","blue"]'
-  		></div>
-	</td>
+        <td width=33% align="center">
+                <div class="bigger"> WR:</div>
+        <div data-type="label"
+                data-device="KNX33.O08_Aktor_EffektaWR"
+                data-get="steuern"
+                data-limits='["on","off"]'
+                data-colors='["green","red"]'
+                class="bigger">
+        </div>
+	<div 
+		data-type="AUswitch"
+      		data-device="KNX33.O08_Aktor_EffektaWR"
+ 		data-set="steuern"
+  		data-get="steuern"
+    		data-set-states='["on","off"]'
+    		data-states='["off","on"]'
+    		data-colors='["red","green"]'
+    		data-background-colors='["blue","yellow"]'
+  	></div>
+        </td>
 	</tr>
 	</table> 
 </li>
