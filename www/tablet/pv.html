@@ -84,7 +84,7 @@
 	<div> Erw. heute </div>
 	<div data-type="label"
 		data-device="wetter_prop" 
-		data-get="fc0_PVinput"
+		data-get="fc0_PVinput2"
 		data-part="1"
 		data-unit="kWh"
 		class="bigger">
@@ -102,7 +102,7 @@
 	<div> Erw. morgen </div>
 	<div data-type="label"
 		data-device="wetter_prop" 
-		data-get="fc1_PVinput"
+		data-get="fc1_PVinput2"
 		data-part="1"
 		data-unit="kWh"
 		class="bigger">
@@ -127,8 +127,8 @@
         <td width=80% align="left">
         <div data-type="label"
                 data-device="KNX33.O02_Aktor_NetzPV_einzel"
-                data-get="named_status"
-                data-limits='["Line Mode","PV Mode"]'
+                data-get="short_status"
+                data-limits='["Line","PV"]'
                 data-colors='["red","green"]'
                 class="bigger">
         </div>
@@ -141,8 +141,8 @@
         <td width=80% align="left">
         <div data-type="label"
                 data-device="KNX33.O03_Aktor_NetzPV_doppel"
-                data-get="named_status"
-                data-limits='["Line Mode","PV Mode"]'
+                data-get="short_status"
+                data-limits='["Line","PV"]'
                 data-colors='["red","green"]'
                 class="bigger">
         </div>
@@ -175,7 +175,7 @@
         <td width=33% align="center">
                 <div class="bigger"> PVin:</div>
         <div data-type="label"
-                data-device="KNX02.O11_Aktor_PV_In"
+                data-device="KNX50.O02_Aktor_PV_in"
                 data-get="steuern"
                 data-limits='["on","off"]'
                 data-colors='["red","green"]'
@@ -183,7 +183,7 @@
         </div>
 	<div 
 		data-type="AUswitch"
-      		data-device="KNX02.O11_Aktor_PV_In"
+      		data-device="KNX50.O02_Aktor_PV_in"
  		data-set="steuern"
   		data-get="steuern"
     		data-set-states='["on","off"]'
