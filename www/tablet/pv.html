@@ -64,49 +64,84 @@
 </li>
 <!-- ######################################################################################### -->
 <li data-row="1" data-col="3" data-sizex="1" data-sizey="1">ROW 1 | COL 3 | X 1 | Y 1
-	<div> Erw. gestern </div>
-	<div data-type="label"
-		data-device="DF_Auswertungen_daily" 
-		data-get="Prognose_gestern"
-		data-part="1"
-		data-unit="kWh"
-		class="bigger">
-	</div>
-	<div> ist gestern </div>
-	<div data-type="label"
-		data-device="DF_Auswertungen_daily" 
-		data-get="Solararbeit_gestern"
-		data-part="1"
-		data-unit="Wh"
-		class="bigger">
-	</div>
-	<br />
-	<div> Erw. heute </div>
-	<div data-type="label"
-		data-device="DF_Auswertungen_daily" 
-		data-get="PV_estimation"
-		data-part="1"
-		data-unit="Wh"
-		class="bigger">
-	</div>
-
-	<div> ist heute </div>
-	<div data-type="label"
-		data-device="DF_Auswertungen_daily" 
-		data-get="PV_total"
-		data-part="1"
-		data-unit="Wh"
-		class="bigger">
-	</div>
-	<br />
-	<div> Erw. morgen </div>
-	<div data-type="label"
-		data-device="wetter_prop" 
-		data-get="fc1_PVinput2"
-		data-part="1"
-		data-unit="kWh"
-		class="bigger">
-	</div>
+<table border="0" width=100%>
+	<tr>
+        <td width=50% align="center">
+	erw
+	</td>
+        <td width=50% align="center">
+	ist	
+	</td>
+	</tr>	
+	<tr>
+        <td colspan=2 align="center">gestern</td>
+	</tr>
+	<tr>
+		<td>
+			<div data-type="label"
+				data-device="DF_Auswertungen_daily" 
+				data-get="Prognose_gestern_0500"
+				data-part="1"
+				data-unit="kWh"
+				class="big">
+			</div>
+		</td>
+		<td>	
+			<div data-type="label"
+				data-device="DF_Auswertungen_daily" 
+				data-get="Solararbeit_gestern"
+				data-part="1"
+				data-unit="Wh"
+				class="big">
+			</div>
+	</tr>
+	<tr>
+        <td colspan=2 align="center">heute</td>
+	</tr>
+	<tr>
+		<td>
+			<div data-type="label"
+				data-device="DF_Auswertungen_daily" 
+				data-get="PV_estimation"
+				data-part="1"
+				data-unit="Wh"
+				class="big">
+			</div>
+		</td>
+		<td>
+			<div data-type="label"
+				data-device="DF_Auswertungen_daily" 
+				data-get="PV_total"
+				data-part="1"
+				data-unit="Wh"
+				class="big">
+			</div>
+		</td>
+	</tr>
+	<tr>
+        <td colspan=2 align="center">morgen</td>
+	</tr>
+	<tr>
+		<td>
+			<div data-type="label"
+				data-device="DF_Auswertungen_daily"
+				data-get="PV_estimation_tomorrow"
+				data-part="1"
+				data-unit="Wh"
+				class="big">
+			</div>
+	</td>
+	<td>
+			<div data-type="label"
+				data-device="DF_eventaggregator"
+				data-get="solpow2_wh"
+				data-part="1"
+				data-unit="Wh"
+				class="big">
+			</div>
+	</td>
+	</tr>
+</table>
 </li>
 <!-- ######################################################################################### -->
 <li data-row="1" data-col="4" data-sizex="2" data-sizey="2">ROW 1 | COL 4 | X 2 | Y 2
