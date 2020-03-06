@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="widget_base_width" content="240">
+<meta name="widget_base_height" content="274">
+<!--<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">-->
+<meta name="gridster_disable" content="1"> <!-- das hier erlaubt (0) oder verbietet (1) das verschieben der Kacheln -->
+<!--<meta name="gridster_min_height" content="">-->
+<meta name="gridster_cols" content="5">
+<meta name="gridster_rows" content="7">
+<meta name="widget_margin" content="1">
+
+
+<meta name="longpoll" content="1"> <!-- 1=longpoll;0=shortpoll every 30sec -->
+<meta name="longpoll_type" content="websocket"> <!-- 1=longpoll;0=shortpoll every 30sec -->
+<meta name="longpoll_maxage" content="240"><!--wird in diesem Zeitraum kein Longpoll empfangen, wird die seite refreshed -->
+<meta name="debug" content="2"> <!-- verbose level 1-6 = output to console;0 = not output -->
+
+<meta name='toast_position' content='top-right'>
+<meta name='toast' content='2'>
+
+<link rel="stylesheet" href="lib/jquery.gridster.min.css" />
+<link rel="stylesheet" href="css/fhem-tablet-ui.css" />
+<link rel="stylesheet" href="lib/font-awesome.min.css" />
+<link rel="stylesheet" href="lib/jquery.toast.min.css" />
+
+<!-- define your personal style here, it wont be overwritten  -->
+<!-- link rel="stylesheet" href="css/fhem-green-ui.css" / -->
+<!-- link rel="stylesheet" href="css/fhem-tablet-ui-user.css" / -->
+<!-- 1200x1920-->
+<script src="../pgm2/jquery.min.js"></script>
+<script src="lib/jquery.toast.min.js"></script>
+<script src="lib/jquery.gridster.min.js"></script>
+<script src="js/fhem-tablet-ui.js" defer></script>
+
+<title>FTUI WAMA</title>
+</head>
+<body>
+<div class="gridster">
+<ul>
+<!-- https://www.w3schools.com/html/html_css.asp -->
+<!--https://wiki.selfhtml.org/wiki/CSS/Eigenschaften/Tabellenformatierung -->
+
+<!-- ######################################################################################### -->
+<li data-row="1" data-col="1" data-sizex="2" data-sizey="1">Home
+	<div class="bigger">	<a href="index.html">
+	<div 
+		data-type="clock" 
+		data-format="l" 
+		class="bigger top-space"></div>
+	<div 
+		data-type="clock"
+		data-format="d.m.Y"  
+		class=bigger  
+	></div>
+	<div 
+		data-type="clock"
+		data-format="H:i:s"  
+		class=bigger  
+	></div>
+	</a>
+	</div>
+</li>
+<!-- ######################################################################################### -->
+<li data-row="1" data-col="3" data-sizex="1" data-sizey="1">ROW 1 | COL 3 | X 1 | Y 1
+</li>
+<!-- ######################################################################################### -->
+<li data-row="1" data-col="4" data-sizex="1" data-sizey="1">Aktor Wama
+	<div 
+		data-type="AUswitch"
+		data-cmd="set"
+		data-device="KNX02.O06_Aktor_WAMA"
+		data-set="steuern"
+		data-get="steuern"
+  		class="bigger"
+	></div>
+	<div 
+		data-type="label" 
+		data-device="KNX02.O06_Aktor_WAMA"
+		data-get="status" 
+		data-limits='["on","off"]' 
+		data-colors='["green","red"]' 
+		class="bigger"
+	></div>
+
+</li>
+<!-- ######################################################################################### -->
+<li data-row="1" data-col="5" data-sizex="1" data-sizey="1"> 
+</li>
+<!-- ######################################################################################### -->
+<li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
+	<div class=bigger>Start frühestens</div>
+	<div 
+		data-type="datetimepicker"
+		data-device="DF_WAMA_autostart"
+    		data-datepicker="false"
+      		data-step="10"
+  		class="bigger"
+	></div>
+</li>
+<!-- ######################################################################################### -->
+<li data-row="2" data-col="2" data-sizex="1" data-sizey="1">
+	<div class=bigger>Start spätestens</div>
+	<div 
+		data-type="datetimepicker"
+		data-device="DF_WAMA_autostart"
+    		data-datepicker="false"
+      		data-step="10"
+  		class="bigger"
+	></div>
+</li>  
+<!-- ######################################################################################### -->
+<li data-row="2" data-col="3" data-sizex="1" data-sizey="1">ROW 2 | COL 3 | X 1 | Y 1
+<table border="0" width=100%>
+        <tr>
+        <td width=40% align="right">
+                <div class="bigger"> P:</div>
+        </td>
+        <td width=60% align="left">
+        <div data-type="label"
+                data-device="KNX02.O06_Aktor_WAMA"
+                data-get="power"
+                data-part="1"
+                data-unit="VA"
+                class="bigger">
+        </div>
+        </td>
+        </tr>
+        <tr>
+        <td>
+                <div class="bigger" align="right"> I:</div>
+        </td>
+        <td width=60% align="left">
+        <div data-type="label"
+                data-device="KNX02.O06_Aktor_WAMA"
+                data-get="current"
+                data-part="1"
+                data-unit="mA"
+                class="bigger">
+        </div>
+        </td>
+        </tr>
+        <tr>
+        <td>
+                <div class="bigger" align="right"> :</div>
+        </td>
+        <td width=60% align="left">
+        <div data-type="label"
+                data-device=""
+                data-get="1_Strom_total"
+                data-part="1"
+                data-unit="A"
+                data-limits='[-200,-75,0,1,75]'
+                data-colors='["red","orange","blue","green","red"]'
+                data-fix='1'
+                class="bigger">
+        </div>
+        </td>
+        </tr>
+        <tr>
+        <td>
+                <div class="bigger" align="right"> :</div>
+        </td>
+        <td width=60% align="left">
+        <div data-type="label"
+                data-device=""
+                data-get="1_Temperature_total"
+                data-part="1"
+                data-unit="&deg;C"
+                data-limits='[0,15,25,35]'
+                data-colors='["red","green","orange","red"]'
+                data-fix='2'
+                class="bigger">
+        </div>
+        </td>
+        </tr>
+        <tr>
+        <td>
+                <div class="bigger" align="right"> :</div>
+        </td>
+        <td width=60% align="left">
+        <div data-type="label"
+                data-device=""
+                data-get="1_Power_total"
+                data-part="1"
+                data-unit="W"
+                data-limits='[0,3500,4000]'
+                data-colors='["green","yellow","red"]'
+                class="bigger">
+        </div>
+        </td>
+        </tr>
+</table>
+
+
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="2" data-col="4" data-sizex="1" data-sizey="1">
+
+	<div class=bigger>Start frühestens SoC</div>
+	<div 
+		data-type="select"
+		data-device="DF_WAMA_autostart"
+    		data-set="start_soc"
+      		data-get="start_soc"
+      		data-items=["10","20","30","40","50","60","70","80","90"]
+      		data-cmd="setreading"
+		data-quote=""
+  		class="bigger"
+	></div>
+
+</li> 
+<!-- ######################################################################################### -->
+<li data-row="3" data-col="5" data-sizex="1" data-sizey="1">
+
+	<div class=bigger>Start frühestens SoC</div>
+	<div 
+		data-type="select"
+		data-device="DF_WAMA_autostart"
+    		data-set="start_soc"
+      		data-get="start_soc"
+      		data-items=["10","20","30","40","50","60","70","80","90"]
+      		data-cmd="setreading"
+		data-quote=""
+  		class="bigger"
+	></div>
+
+</li> 
+
+</ul>
+</div>
+</body>
+</html>
