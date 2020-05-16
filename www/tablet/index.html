@@ -170,7 +170,7 @@
 	></div>
 	<div 
 		data-type="label" 
-		data-device="KNX32.O03_Aktor_UWP_1500_3000"
+		data-device="KNX32.O01_Aktor_UWP_1500_3000"
 		data-get="status" 
 		data-limits='["on","off"]' 
 		data-colors='["green","red"]' 
@@ -179,13 +179,25 @@
 </li>
 <!-- ######################################################################################### -->
 <li data-row="2" data-col="3" data-sizex="1" data-sizey="1">ROW 2 | COL 3 | X 1 | Y 1
-	<div class="bigger">	
-		<a href="index.html">INDEX</a><br />
-		<a href="hzg.html">HZG</a><br />
-		<a href="housekeeping.html">housekeeping</a><br />
-		<a href="pv.html">PV</a><br />
-		<a href="http://192.168.0.30:8083/fhem">FHEM</a><br />
-		<a href="index.html">INDEX</a><br />
+	<div 
+		data-type="popup" 
+		data-height="90%" 
+		data-width="60%"
+  		data-draggable="false"
+    		data-return-time="60"
+		>
+			<div class="bigger"> Navigation- <br/> Popup <br/><br/><br/><br/><br/><br/></div>
+			<div class="dialog bigger">	
+			<a href="index.html"><div>INDEX<br /><br /><br /></div></a>
+			<a href="hzg.html"><div><br /><br />Heizung<br /><br /><br /></div></a>
+			<a href="housekeeping.html"><div><br /><br />housekeeping<br /><br /><br /></div></a>
+			<a href="pv.html"><div><br /><br />Photovoltaik<br /><br /><br /></div></a>
+			<a href="wama.html"><div><br /><br />Waschmaschine<br /><br /><br /></div></a>
+			<a href="http://192.168.0.30:8083/fhem"><div><br /><br />newFHEM<br /><br /><br /></div></a>
+			<a href="http://192.168.0.31:8083/fhem"><div><br /><br />hvFHEM<br /><br /><br /></div></a>
+			<a href="http://192.168.0.32:8083/fhem"><div><br /><br />hzFHEM<br /><br /><br /></div></a>
+			<a href="http://192.168.0.32:8083/fhem"><div><br /><br />pvFHEM<br /><br /><br /></div></a>
+		</div>
 	</div>
 </li>
 <!-- ######################################################################################### -->
@@ -274,12 +286,12 @@
 		data-cmd="set"
   		data-get="status"
     		data-set="steuern"
-		data-device="KNX32.O01_Aktor_Zirkulation_WW"
+		data-device="KNX31.O03_Aktor_Zirkulation_WW"
 		class="bigger"
 	></div>
 	<div 
 		data-type="label" 
-		data-device="KNX32.O01_Aktor_Zirkulation_WW"
+		data-device="KNX31.O03_Aktor_Zirkulation_WW"
 		data-get="status"
 		data-limits='["on","off"]' 
 		data-colors='["green","red"]' 
@@ -307,10 +319,11 @@
 
 
 <li data-row="3" data-col="4" data-sizex="1" data-sizey="1">ROW 3 | COL 4 | X 1 | Y 1
+	<div class="bigger">Licht</div>
 	<div 
 		data-type="popup" 
 		data-height="90%" 
-		data-width="60%"
+		data-width="30%"
   		data-draggable="false"
     		data-return-time="60"
 		>
@@ -324,7 +337,7 @@
 				<div 
 					data-type="switch"
 					data-cmd="set"
-					data-device="KNX01.O06_Aktor_Leuchte_DG_Flur"
+					data-device="KNX01.O06_Aktor_Leuchte_Flur_DG"
 					data-get="status"
 					class="bigger"
 				></div>
@@ -355,28 +368,20 @@
 					Leuchte Garage
 					</td><td></td></tr>
 					<tr><td>
-				<div
-					data-type="switch"
-					data-cmd="set"	
-     					data-device="KNX21.O03_Aktor_DimAbs_WaLaWoZi"
-     					data-set="value"
-					data-set-on="100"
-     					data-set-off="0"
-	  			 	data-get="status"
-					data-get-on="[0-9]{1,3}"
-	  			 	data-get-off="0"
-	  				class="bigger"
-				></div>
-
-					</td><td class="bigger">
-					Leuchte Dimm WaLaWoZi
-					</td><td>
 				<div 
 					data-type="controller"
 					data-device="KNX21.O03_Aktor_DimAbs_WaLaWoZi"
-	  				data-max="100"
-       					data-min="0"
+	  				data-max="20"
+       					data-min="6"
        					class="bigger"
+				></div>
+					</td><td class="bigger">
+					Leuchte Dimm WaLaWoZi
+				<div 
+					data-type="label" 
+					data-device="KNX21.O03_Aktor_DimAbs_WaLaWoZi"
+					data-get="state"
+					class="bigger"
 				></div>
 					</td></tr>
 					<tr><td>
@@ -423,7 +428,7 @@
 					<tr><td>
 				<div 
 					data-type="switch"
-					data-device="KNX01.O01_Aktor_Leuchte_Flur_EG_OG"
+					data-device="KNX01.O01_Aktor_Leuchte_Flur_OG"
 					data-set="steuern"
 					data-get="status"
 					class="bigger"
@@ -434,7 +439,7 @@
 					<tr><td>
 				<div 
 					data-type="switch"
-					data-device="KNX01.O08_Aktor_Leuchte_Flur_EG_provisorisch"
+					data-device="KNX01.O08_Aktor_Leuchte_Flur_EG"
 					class="bigger"
 				></div>
 					</td><td class="bigger">
@@ -1415,31 +1420,38 @@ q
 	<div data-type="label" data-device="Rolladen_Wohnzimmer" data-get="pct" data-unit="%" class="inline bigger">geschlossen</div>
 </li> 
 <!-- ######################################################################################### -->
-<li data-row="6" data-col="3" data-sizex="1" data-sizey="1">ROW 6 | COL 3 | X 1 | Y 1
-	<div class="bigger">reset effekta</div>
-	<div
-		data-type="push"
-		data-fhem-cmd="set pvfhem_remote cmd set Effekta reset"
-		class="bigger"
-	></div>
+<li data-row="6" data-col="3" data-sizex="1" data-sizey="1">Rolladen Esszimmer
+	<div data-type="circlemenu" class="bigger">
+		<ul>
+			<li><div data-type="push" data-icon="oa-fts_window_2w"></div></li>
+			<li><div data-type="push" data-device="Rolladen_Esszimmer" data-set-on="open" data-icon="">Offen</div></li>
+			<li><div data-type="push" data-device="Rolladen_Esszimmer" data-set-on="closed" data-icon="">Zu</div></li>
+			<li><div data-type="push" data-device="Rolladen_Esszimmer" data-set-on="stop" data-icon="">stop</div></li>
+			<li><div data-type="push" data-device="Rolladen_Esszimmer" data-set-on="pct 60" data-icon="">60</div></li>
+		</ul>
+	</div>
+	geöffnet zu:<br />
+	<div data-type="label" data-device="Rolladen_Esszimmer" data-get="pct" data-unit="%" class="inline bigger">geschlossen</div>
 </li> 
 <!-- ######################################################################################### -->
-<li data-row="6" data-col="4" data-sizex="1" data-sizey="1">ROW 6 | COL 4 | X 1 | Y 1
-	<div class="bigger">reset pylontech</div>
-	<div
-		data-type="push"
-		data-fhem-cmd="set pvfhem_remote cmd set BMS reset"
+<li data-row="6" data-col="4" data-sizex="1" data-sizey="1"> Garten Allgemein Strom
+	<div 
+		data-type="AUswitch"
+		data-cmd="set"
+  		data-set="steuern"
+		data-device="KNX13.O10_Aktor_Garten_allgemein"
+		data-get="status"
+  		class="bigger"
+	></div>
+	<div 
+		data-type="label" 
+		data-device="KNX13.O10_Aktor_Garten_allgemein"
+		data-get="current" 
 		class="bigger"
 	></div>
 </li> 
 <!-- ######################################################################################### -->
 <li data-row="6" data-col="5" data-sizex="1" data-sizey="1">ROW 6 | COL 5 | X 1 | Y 1
-	<div class="bigger">reset Mischer</div>
-	<div
-		data-type="push"
-		data-fhem-cmd="set hzfhem_remote cmd set Relais2_FUBO_kalt on"
-		class="bigger"
-	></div>
 </li> 
 <!-- ######################################################################################### -->
 <li data-row="7" data-col="1" data-sizex="1" data-sizey="1">ROW 7 | COL 1 | X 1 | Y 1
@@ -1449,101 +1461,6 @@ q
 </li> 
 <!-- ######################################################################################### -->
 <li data-row="7" data-col="3" data-sizex="1" data-sizey="1">ROW 7 | COL 3 | X 1 | Y 1
-
-<!--<div data-type="label" data-device="Rolladen_Wohnzimmer" data-get="pct" data-unit="%" class="top-space big thin"></div>
--->	
-
-	<div data-type="popup" data-height="190px" data-width="250px">
-	
-	 	<div data-type="link" data-color="grey" data-border-color="grey" data-icon="fa-sort" class="top-space round">auf / ab</div>
-	<div class="dialog">
-	<!--	<header>Rolladen_Wohnzimmer</header>
-	-->	<div class="top-space inline">
-			<div data-type="switch" 
-				data-device="Rolladen_Wohnzimmer" 
-				data-get="pct"
-				data-get-on="25"
-				data-get-off="((?!25).)*"
-				data-set="pct" 
-				data-set-on="25"
-				data-set-off="25" 
-				data-on-color="white"
-				data-on-background-color="green"
-				data-icon="fa-minus">
-			</div>			
-			<div class="mini">25%</div>
-		</div>
-		<div class="top-space inline">
-			<div data-type="switch" 
-				data-device="Rolladen_Wohnzimmer" 
-				data-get="pct"
-				data-get-on="50"
-				data-get-off="((?!50).)*"
-				data-set="pct" 
-				data-set-on="50"
-				data-set-off="50" 
-				data-on-color="white"
-				data-on-background-color="green"
-				data-icon="fa-bars">
-			</div>			
-			<div class="mini">50%</div>
-		</div>
-		<div class="top-space inline">
-			<div data-type="switch" 
-				data-device="Rolladen_Wohnzimmer" 
-				data-get="pct"
-				data-get-on="75"
-				data-get-off="((?!75).)*"
-				data-set="pct" 
-				data-set-on="75"
-				data-set-off="75" 
-				data-on-color="white"
-				data-on-background-color="green"
-				data-icon="fa-align-justify">
-			</div>			
-			<div class="mini">75%</div>
-		</div>
-		<div class="newline"></div>
-		<div class="top-space inline">
-			<div data-type="switch" 
-				data-device="Rolladen_Wohnzimmer" 
-				data-get="pct"
-				data-get-on="0"
-				data-get-off="((?!0).)*"
-				data-set="pct" 
-				data-set-on="0"
-				data-set-off="0" 
-				data-on-color="white"
-				data-on-background-color="green"
-				data-icon="fa-chevron-down">
-			</div>
-			<div class="mini">zu</div>
-		</div>
-		<div class="top-space inline">
-			<div data-type="switch" 
-				data-device="Rolladen_Wohnzimmer" 
-				data-get="pct"
-				data-get-on="100"
-				data-get-off="((?!100).)*"
-				data-set="pct" 
-				data-set-on="100"
-				data-set-off="100" 
-				data-on-color="white"
-				data-on-background-color="green"
-				data-icon="fa-chevron-up">
-			</div>			
-				<div class="mini">auf</div>
-			</div>
-		</div>
-	</div>
-	<!--
-	</div>
-	-->
-	
-	<!--<div data-type="slider" data-device="Rolladen_Wohnzimmer" data-get="pct" data-set="pct" data-height="113" class="top-space"></div>
-	-->
-	<!--<div data-type="symbol" data-device="Rolladen_Wohnzimmer" data-get="pct" data-states='[0,1]' data-colors='["red","green"]'  data-icon="fa-align-justify" class="small right"></div>
-	-->
 </li> 
 <!-- ######################################################################################### -->
 <li data-row="7" data-col="4" data-sizex="1" data-sizey="1">ROW 7 | COL 4 | X 1 | Y 1
