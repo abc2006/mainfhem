@@ -90,12 +90,12 @@
 	<div 
 		data-type="AUswitch"
 		data-cmd="set"
-		data-device="KNX32.O01_Aktor_Zirkulation_WW"
+		data-device="KNX31.O03_Aktor_Zirkulation_WW"
 		class="bigger"
 	></div>
 	<div 
 		data-type="label" 
-		data-device="KNX32.O01_Aktor_Zirkulation_WW"
+		data-device="KNX31.O03_Aktor_Zirkulation_WW"
 		data-get="state" 
 		data-limits='["on","off"]' 
 		data-colors='["green","red"]' 
@@ -315,7 +315,7 @@
 	<div class=big>start/stop PID</div>
 	<div 
 		data-type="AUswitch"
-		data-cmd="set"
+		data-cmd="set hzfhem_remote cmd set"
 		data-device="PID_HZFHEM"
   		data-lock="global_FTUIFree:lock"
 		data-set-on="start"
@@ -330,7 +330,7 @@
 	<div
 		data-type="push"
   		data-lock="global_FTUIFree:lock"
-       		data-fhem-cmd="set PID_HZFHEM reset"
+		data-fhem-cmd="set hzfhem_remote cmd set PID_HZFHEM reset"
 		class="bigger"
 	></div>
 </li> 
@@ -344,7 +344,7 @@
 	</td>
 	<td width=60% align="left"> 
 	<div data-type="label"
-		data-device="Mischer_HZG" 
+		data-device="DF_ftui_hzfhem" 
 		data-get="Endschalter"
 		class="bigger">
 	</div>
@@ -357,9 +357,9 @@
 	</td>
 	<td width=60% align="left"> 
 	<div data-type="label"
-		data-device="Mischer_HZG" 
-		data-get="p_actual"
-		data-limits='[0,90,180,270]' 
+		data-device="DF_ftui_hzfhem" 
+		data-get="position"
+		data-limits='[0,50,100,150]' 
 		data-colors='["blue","yellow","orange","red"]' 
 		data-fix='2'
 		class="bigger">
@@ -458,7 +458,7 @@
 	></div>
 	<div 
 		data-type="label" 
-		data-device="KNX32.O03_Aktor_UWP_1500_3000"
+		data-device="KNX32.O01_Aktor_UWP_1500_3000"
 		data-get="status" 
 		data-limits='["on","off"]' 
 		data-colors='["green","red"]' 
