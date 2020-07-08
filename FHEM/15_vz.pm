@@ -213,10 +213,34 @@ sub vz_read($$)
     	$readings{total_energy}    = hex($hash->{helper}{total_energy})/10000;
     	$readings{total_energy_1}  = hex($hash->{helper}{total_energy_1})/10000;
     	$readings{total_energy_2}  = hex($hash->{helper}{total_energy_2})/10000;
-    	$readings{total_power}     = hex($hash->{helper}{total_power});
-    	$readings{total_power_L1}  = hex($hash->{helper}{total_power_L1});
-    	$readings{total_power_L2}  = hex($hash->{helper}{total_power_L2});
-    	$readings{total_power_L3}  = hex($hash->{helper}{total_power_L3});
+    	
+
+
+
+
+	if(hex($hash->{helper}{total_power}) < 32767){
+		$readings{total_power}     = hex($hash->{helper}{total_power});
+	} else{ 
+		$readings{total_power}     = hex($hash->{helper}{total_power})-65534;
+	}
+
+	if( hex($hash->{helper}{total_power_L1}) < 32767){
+	    	$readings{total_power_L1}  = hex($hash->{helper}{total_power_L1});
+	} else { 
+	    	$readings{total_power_L1}  = hex($hash->{helper}{total_power_L1})-65534;
+	}
+
+	if( hex($hash->{helper}{total_power_L2}) < 32767){
+	    	$readings{total_power_L2}  = hex($hash->{helper}{total_power_L2});
+	} else { 
+	    	$readings{total_power_L2}  = hex($hash->{helper}{total_power_L2})-65534;
+	}
+	
+	if( hex($hash->{helper}{total_power_L3}) < 32767){
+		$readings{total_power_L3}  = hex($hash->{helper}{total_power_L3});
+	} else {
+		$readings{total_power_L3}  = hex($hash->{helper}{total_power_L3})-65534;
+	}	
 ##	my $old_tot_ene = ReadingsVal("Stromzaehler","total_energy",0);
 ##	my $old_tot_ene_1 = ReadingsVal("Stromzaehler","total_energy_1",0);
 ##	my $old_tot_ene_2 = ReadingsVal("Stromzaehler","total_energy_2",0);
