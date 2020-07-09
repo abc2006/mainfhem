@@ -42,48 +42,38 @@ if(@a < 3 || @a > 5){
 	
 
   my $ret = DevIo_OpenDev($hash, 0, "vz_DoInit" );
-  Log3($name, 1, "vz DevIO_OpenDev_Define $ret"); 
+  Log3($name, 1, "vz DevIO_OpenDev_Define $ret Line: " . __LINE__); 
   return $ret;
 }
 
 
-sub
-vz_DoInit($)
-{
- Log3 undef, 2, "DoInitfkt";
+sub vz_DoInit($) {
+ Log3(undef, 2, "DoInitfkt Line: " . __LINE__);
 }
 ###########################################
 #_ready-function for reconnecting the Device
 # function is called, when connection is down.
-sub
-vz_Ready($)
-{
+sub vz_Ready($) {
 	my ($hash) = @_;
+	my $name = $hash->{NAME}
   my $ret = DevIo_OpenDev($hash, 1, "vz_DoInit" );
-  Log3($hash->{name}, 5, "vz DevIO_OpenDev_Ready $ret"); 
+  Log3($name, 5, "vz DevIO_OpenDev_Ready $ret Line: " . __LINE__); 
   return $ret;
-
-
 }
-
-
-
 #####################################
-sub
-vz_Undef($$)
-{
+sub vz_Undef($$) {
   my ($hash, $name) = @_;
   DevIo_CloseDev($hash);         
-  RemoveInternalTimer($hash);
+##  RemoveInternalTimer($hash);
   return undef;
 }
 ####################################
 sub vz_Set($@){
  my ($hash, @a) = @_;
  my $name = $hash->{NAME};
- my $usage = "Unknown argument $a[1], choose one of reopen:noArg reset:noArg";
+ my $usage = "Unknown argument $a[1], choose one of reopen:noArg ";
  my $ret;
-	Log3($name,5, "vz argument $a[1] _Line: " . __LINE__);
+	Log3($name,3, "vz argument $a[1] _Line: " . __LINE__);
   	if ($a[1] eq "?"){
 	Log3($name,5, "vz argument fragezeichen" . __LINE__);
 	return $usage;
@@ -95,40 +85,34 @@ sub vz_Set($@){
 			DevIo_CloseDev($hash);
 			Log3($name,1, "vz Device closed Line: " . __LINE__);
 		} 
-		Log3($name,1, "vz_Set  Device is closed, trying to open Line: " . __LINE__);
+		Log3($name,3, "vz_Set  Device is closed, trying to open Line: " . __LINE__);
 		$ret = DevIo_OpenDev($hash, 1, "vz_DoInit" );
 		while(!DevIo_IsOpen($hash)){
 			Log3($name,1, "vz_Set  Device is closed, opening failed, retrying" . __LINE__);
 			$ret = DevIo_OpenDev($hash, 1, "vz_DoInit" );
-			sleep 1;
+			#sleep 1;
 		}
 		##return "device opened";
-	} elsif ($a[1] eq "reset"){
-	}
-
-
+	} 
 }
-
 #####################################
-sub vz_read($$)
-{
+sub vz_read($$) {
 
 	my ($hash) = @_;
 	my $name = $hash->{NAME};
-	
+	Log3($name,4,"vz read _Line: " . __LINE__);
 	# read from serial device
 	my $buf = DevIo_SimpleRead($hash);
 	my $data = $buf; ## kompatibilität bewahren
 	if(!defined($buf) || $buf eq ""){
 	# wird beim versuch, Daten zu lesen, eine geschlossene Verbindung erkannt, wird *undef* zurückgegeben. Es erfolgt ein neuer Verbindungsversuch?
-	Log3($name,1, "vz SimpleRead fehlgeschlagen, was soll ich jetzt tun?");
-
-	return "";
+	Log3($name,2,"vz SimpleRead fehlgeschlagen, was soll ich jetzt tun? _Line: " . __LINE__);
+	return;
 	}
 
 	############################ neues vorgehen
 	my $buffer = $hash->{helper}{PARTIAL};
-	Log3 $name, 5, "$name - received $data (buffer contains: $buffer)";
+	Log3($name,4,"$name - received $data (buffer contains: $buffer) _Line: " . __LINE__);
 	# concat received data to $buffer
 	$buffer .= $data;
 
@@ -137,73 +121,57 @@ sub vz_read($$)
 	{
 	  my $msg;
     
-	  Log3 $name, 5, "$name - buffer contains: $buffer";
-	  Log3 $name, 5, "$name - msg contains: $msg)";
+	  Log3($name,5,"$name - buffer contains: $buffer Line: " . __LINE__);
+	  Log3($name,5,"$name - msg contains: $msg) Line: " . __LINE__);
 	  # extract the complete message ($msg), everything else is assigned to $buffer
 	  ($msg, $buffer) = split("1b1b1b1b1a", $buffer, 2);
     
-	  Log3 $name, 5, "$name - after split, buffer now contains: $buffer";
-	  Log3 $name, 5, "$name - after split, msg now contains: $msg)";
+	  Log3($name,5,"$name - after split, buffer now contains: $buffer _Line: " . __LINE__);
+	  Log3($name,5,"$name - after split, msg now contains: $msg) _Line: " . __LINE__);
 
 	  # remove trailing whitespaces
 	  chomp $msg;
     
-	  Log3 $name, 5, "$name - after chomp (maybe obsolete), msg now contains: $msg)";
+	  Log3($name,5,"$name - after chomp (maybe obsolete), msg now contains: $msg) _Line: " . __LINE__);
 
 	# did we really get a full frame?
 	if ($msg =~ "(1b1b1b1b01010101(.*)1b1b1b1b1a)" && length($msg gt 572)) 
 	{
-	my $fullframe= $1;
-	Log3($name, 5, "Full Frame content: " . $fullframe);
-	#$hash->{total_energy_pos} = index($hash->{buffer},"070100010800ff");
-#	$hash->{total_energy}   = substr($fullframe,308,8);
-	my $temp   = substr($fullframe,308,8);
-	Log3 $name, 5, "$name - total_energy: $temp )";
-#	$hash->{total_energy_1} = substr($fullframe,356,8);
-#	$hash->{total_energy_2} = substr($fullframe,404,8);
-#	$hash->{total_power}    = substr($fullframe,448,4);
-#	$hash->{total_power_L1} = substr($fullframe,488,4);
-#	$hash->{total_power_L2} = substr($fullframe,528,4);
-#	$hash->{total_power_L3} = substr($fullframe,568,4);
-
-	  # parse the extracted message
-	  #MY_MODULE_ParseMessage($hash, $msg);
+		my $fullframe= $1;
+		Log3($name,4,"Full Frame content: $fullframe _Line: " . __LINE__);
+		my $temp   = substr($fullframe,308,8);
+		Log3($name,4,"$name - total_energy: $temp ) _Line: " . __LINE__);
   	}
 
-	Log3($name, 5, "save buffer to PARTIAL");
+	Log3($name,4,"save buffer to PARTIAL _Line: " . __LINE__);
 	  # update $hash->{PARTIAL} with the current buffer content
 	  $hash->{helper}{PARTIAL} = $buffer; 	
 	}
 
 	######################################################
-
-
-
-
-
 	# convert to hex string to make parsing with regex easier
 	#$hash->{buffer} .= $buf;	
 	$hash->{buffer} .= unpack ('H*', $buf);	
-	Log3($name, 5, "Current buffer content: " . $hash->{buffer});
+	Log3($name,5,"Current buffer content: $hash->{buffer} Line: " . __LINE__);
 	
 
 	# did we already get a full frame?
 	if ($hash->{buffer} =~ "(1b1b1b1b01010101(.*)1b1b1b1b1a)") 
 	{
 	my $fullframe= $1;
-	Log3($name, 5, "Full Frame content: " . $fullframe);
+	Log3($name,4,"Full Frame content: $fullframe _Line: " . __LINE__);
 	#$hash->{total_energy_pos} = index($hash->{buffer},"070100010800ff");
 	$hash->{helper}{total_energy}   = substr($fullframe,308,8);
-	Log3($name, 5, "total_energy: " . $hash->{helper}{total_energy});
+	Log3($name,4,"total_energy: $hash->{helper}{total_energy} _Line: " . __LINE__);
 	$hash->{helper}{total_energy_1} = substr($fullframe,356,8);
 	$hash->{helper}{total_energy_2} = substr($fullframe,404,8);
 	$hash->{helper}{total_power}    = substr($fullframe,448,4);
 	$hash->{helper}{total_power_L1} = substr($fullframe,488,4);
-	Log3($name, 5, "total Power L1 " . $hash->{helper}{total_power_L1});
+	Log3($name,4,"total Power L1 $hash->{helper}{total_power_L1} _Line: " . __LINE__);
 	$hash->{helper}{total_power_L2} = substr($fullframe,528,4);
-	Log3($name, 5, "total Power L2 " . $hash->{helper}{total_power_L2});
+	Log3($name,4,"total Power L2 $hash->{helper}{total_power_L2} _Line: " . __LINE__);
 	$hash->{helper}{total_power_L3} = substr($fullframe,568,4);
-	Log3($name, 5, "total Power L3 " . $hash->{helper}{total_power_L3});
+	Log3($name,4,"total Power L3 $hash->{helper}{total_power_L3} _Line: " . __LINE__);
 
 	my %readings; 
 	
@@ -213,10 +181,6 @@ sub vz_read($$)
     	$readings{total_energy}    = hex($hash->{helper}{total_energy})/10000;
     	$readings{total_energy_1}  = hex($hash->{helper}{total_energy_1})/10000;
     	$readings{total_energy_2}  = hex($hash->{helper}{total_energy_2})/10000;
-    	
-
-
-
 
 	if(hex($hash->{helper}{total_power}) < 32767){
 		$readings{total_power}     = hex($hash->{helper}{total_power});
@@ -241,65 +205,6 @@ sub vz_read($$)
 	} else {
 		$readings{total_power_L3}  = hex($hash->{helper}{total_power_L3})-65534;
 	}	
-##	my $old_tot_ene = ReadingsVal("Stromzaehler","total_energy",0);
-##	my $old_tot_ene_1 = ReadingsVal("Stromzaehler","total_energy_1",0);
-##	my $old_tot_ene_2 = ReadingsVal("Stromzaehler","total_energy_2",0);
-##
-##	if($readings{total_energy} < $old_tot_ene){
-##		$readings{total_energy} = $old_tot_ene;
-##	}
-##	if($readings{total_energy_1} < $old_tot_ene_1){
-##		$readings{total_energy_1} = $old_tot_ene_1;
-##	}
-##	if($readings{total_energy_2} < $old_tot_ene_2){
-##		$readings{total_energy_2} = $old_tot_ene_2;
-##	}
-
-
-
-
-#	if($old_tot_ene = 0)
-#	{
-#	 $readings{ERR_tot_ene} =  "Fehler ReadingsVal";
-#	}
-#	elsif(abs($old_tot_ene - $readings{total_energy}) > 2 &&)
-#	{
-#         $readings{total_energy} = $old_tot_ene;
-#	 $readings{ERR_tot_ene} =  "Fehler Difference";
-#	}
-#	else {
-#	 $readings{ERR_tot_ene} = "Fehlerfrei";
-#	}
-#
-#	if($old_tot_ene = 0)
-#	{
-#	 $readings{ERR_tot_ene_1} =  "Fehler ReadingsVal";
-# 	}
-#	elsif(abs($old_tot_ene_1 - $readings{total_energy_1}) > 2)
-#	{
-#         $readings{total_energy_1} = $old_tot_ene_1;
-#	 $readings{ERR_tot_ene_1} = "Fehler Difference";
-#	}	
-#	else {
-#	 $readings{ERR_tot_ene_1} = "Fehlerfrei";
-#	}
-#
-#	if($old_tot_ene = 0)
-#	{
-#	 $readings{ERR_tot_ene_2} = "Fehler ReadingsVal";
-#	}
-#	elsif(abs($old_tot_ene_2 - $readings{total_energy_2}) > 2)
-#	{
-#         $readings{total_energy_2} = $old_tot_ene_2;
-#	 $readings{ERR_tot_ene_2} = "Fehler Difference";
-#	}	
-#	else {
-#	 $readings{ERR_tot_ene_2} = "Fehlerfrei";
-#	}
-#
-#	$readings{nAME} = $name;
-##	$readings{dEVICE} = $device;
-#	$readings{hASH} = $hash;
 
 	    foreach my $k (keys %readings) {
       readingsBulkUpdate($hash, $k, $readings{$k});
