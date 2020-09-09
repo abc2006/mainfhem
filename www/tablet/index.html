@@ -196,7 +196,7 @@
 			<a href="http://192.168.0.30:8083/fhem"><div><br /><br />newFHEM<br /><br /><br /></div></a>
 			<a href="http://192.168.0.31:8083/fhem"><div><br /><br />hvFHEM<br /><br /><br /></div></a>
 			<a href="http://192.168.0.32:8083/fhem"><div><br /><br />hzFHEM<br /><br /><br /></div></a>
-			<a href="http://192.168.0.32:8083/fhem"><div><br /><br />pvFHEM<br /><br /><br /></div></a>
+			<a href="http://192.168.0.33:8083/fhem"><div><br /><br />pvFHEM<br /><br /><br /></div></a>
 		</div>
 	</div>
 </li>
@@ -267,7 +267,7 @@
 		data-type="AUswitch"
 		data-cmd="set"
   		data-set="steuern"
-		data-device="KNX13.O02_Aktor_Tonstrom_WoEss"
+		data-device="gendev_Tonstrom"
 		data-get="status"
   		class="bigger"
 	></div>
@@ -316,246 +316,9 @@
 	></div>
 </li>
 <!-- ######################################################################################### -->
-
-
 <li data-row="3" data-col="4" data-sizex="1" data-sizey="1">ROW 3 | COL 4 | X 1 | Y 1
-	<div class="bigger">Licht</div>
-	<div 
-		data-type="popup" 
-		data-height="90%" 
-		data-width="30%"
-  		data-draggable="false"
-    		data-return-time="60"
-		>
-			<div 
-				data-type="switch"  
-    				class="bigger"
-			></div>
-		    	<div class="dialog">
-				<table>	
-					<tr><td>
-				<div 
-					data-type="switch"
-					data-cmd="set"
-					data-device="KNX01.O06_Aktor_Leuchte_Flur_DG"
-					data-get="status"
-					class="bigger"
-				></div>
-					</td><td class="bigger">
-					Leuchte Flur DG
-					</td><td></td></tr>
-					<tr><td>
-				<div 
-					data-type="switch"
-					data-cmd="set"
-					data-device="KNX01.O07_Aktor_Leuchte_DG_provisorisch"
-					data-get="status"
-					class="bigger"
-				></div>
-					</td><td class="bigger">
-					Leuchte DG provisorisch
-					</td><td></td></tr>
-					<tr><td>
-				<div 
-					data-type="switch"
-					data-cmd="set"
-					data-device="KNX02.O08_Aktor_Leuchte_Garage_Decke"
-					data-get="status"
-     					class="bigger"
-				></div>
-			
-					</td><td class="bigger">
-					Leuchte Garage
-					</td><td></td></tr>
-					<tr><td>
-				<div 
-					data-type="controller"
-					data-device="KNX21.O03_Aktor_DimAbs_WaLaWoZi"
-	  				data-max="20"
-       					data-min="6"
-       					class="bigger"
-				></div>
-					</td><td class="bigger">
-					Leuchte Dimm WaLaWoZi
-				<div 
-					data-type="label" 
-					data-device="KNX21.O03_Aktor_DimAbs_WaLaWoZi"
-					data-get="state"
-					class="bigger"
-				></div>
-					</td></tr>
-					<tr><td>
-				<div 
-					data-type="switch"
-					data-device="KNX01.O02_Aktor_Leuchte_Rumpel"
-					data-set="steuern"
-					data-get="status"
-					class="bigger"
-				></div>
-					</td><td class="bigger">
-					Leuchte Rumpel
-					</td><td></td></tr>
-					<tr><td>
-				<div 
-					data-type="switch"
-					data-cmd="set"
-					data-device="KNX01.O03_Aktor_Leuchte_HZGRaum"
-					data-set="steuern"
-					data-get="status"
-					class="bigger"
-				></div>
-					</td><td class="bigger">
-					Leuchte HZG Raum
-					</td><td></td></tr>
-					<tr><td>
-				<div 
-					data-type="switch"
-					data-device="KNX01.O04_Aktor_Leuchte_Ankleide"
-					class="bigger"
-				></div>
-					</td><td class="bigger">
-					Leuchte Ankleide
-					</td><td></td></tr>
-					<tr><td>
-				<div 
-					data-type="switch"
-					data-device="KNX01.O05_Aktor_Leuchte_Schlafzimmer"
-					class="bigger"
-				></div>
-					</td><td class="bigger">
-					Leuchte Schlafzimmer
-					</td><td></td></tr>
-					<tr><td>
-				<div 
-					data-type="switch"
-					data-device="KNX01.O01_Aktor_Leuchte_Flur_OG"
-					data-set="steuern"
-					data-get="status"
-					class="bigger"
-				></div>
-					</td><td class="bigger">
-					Leuchte Flur OG
-					</td><td></td></tr>
-					<tr><td>
-				<div 
-					data-type="switch"
-					data-device="KNX01.O08_Aktor_Leuchte_Flur_EG"
-					class="bigger"
-				></div>
-					</td><td class="bigger">
-					Leuchte Flur EG
-					</td><td></td></tr>
-					<tr><td>
-				<div 
-					data-type="switch"
-					data-cmd="set"
-					data-device="KNX31.O02_Aktor_Leuchte_Buero_Decke"
-					data-get="status"
-					class="bigger"
-				></div>
-					</td><td class="bigger">
-					Leuchte Buero
-					</td><td></td></tr>
-					<tr><td>
-				<div 
-					data-type="switch"
-					data-cmd="set"
-					data-device="KNX31.O01_Aktor_Leuchte_Esszimmer_Decke"
-					data-get="status"
-					class="bigger"
-				></div>
-					</td><td class="bigger">
-					Leuchte Esszimmer Decke
-					</td><td></td></tr>
-					<tr><td>
-				<div 
-					data-type="switch"
-					data-cmd="set"
-					data-device="KNX31.O04_Aktor_Leuchte_Wohnzimmer_Decke"
-					data-get="status"
-					class="bigger"
-				></div>
-					</td><td class="bigger">
-					Leuchte Wohnzimmer Decke
-					</td><td></td></tr>
-					<tr><td>
-				<div 
-					data-type="switch"
-					data-cmd="set"
-					data-device="KNX31.O06_Aktor_Leuchte_Kueche_Decke"
-					data-get="status"
-     					class="bigger"
-				></div>
-			
-					</td><td class="bigger">
-					Leuchte Küche
-					</td><td></td></tr>
-					<tr><td>
-				<div 
-					data-type="switch"
-					data-cmd="set"
-					data-device="KNX31.O07_Aktor_Leuchte_Dusche_Decke"
-					data-get="status"
-     					class="bigger"
-				></div>
-			
-					</td><td class="bigger">
-					Leuchte Dusche
-					</td><td></td></tr>
-					<tr><td>
-				<div 
-					data-type="switch"
-					data-cmd="set"
-					data-device="KNX31.O08_Aktor_Leuchte_Bad_gross"
-					data-get="status"
-     					class="bigger"
-				></div>
-			
-					</td><td class="bigger">
-					Leuchte Bad
-					</td><td></td></tr>
-					<tr><td>
-				<div 
-					data-type="switch"
-					data-cmd="set"
-					data-device="KNX31.O05_Aktor_Leuchte_Wegelicht_Decke"
-					data-get="status"
-     					class="bigger"
-				></div>
-			
-					</td><td class="bigger">
-					Leuchte Wegelicht 
-					</td><td></td></tr>
-					<tr><td>
-				<div 
-					data-type="controller"
-					data-device="KNX21.O01_Aktor_DimAbs_Schlafzimmer"
-	  				data-max="100"
-       					data-min="0"
-       					class="bigger"
-				></div>
-			
-					</td><td class="bigger">
-					Leuchte Dimm Schlafzimmer 
-					</td><td></td></tr>
-					<tr><td>
-				<div 
-					data-type="controller"
-					data-device="KNX21.O02_Aktor_DimAbs_Badewanne"
-	  				data-max="100"
-       					data-min="0"
-       					class="bigger"
-				></div>
-			
-					</td><td class="bigger">
-					Leuchte Dimm Badewanne
-					</td><td></td></tr>
-					</table>
-			</div>
-	</div>
-
+<div data-template="template_licht.html"></div>
 </li>
-
 <!-- ######################################################################################### -->
 
 
@@ -1009,16 +772,19 @@
 </li> 
 <!-- ######################################################################################### -->
 <li data-row="5" data-col="2" data-sizex="1" data-sizey="1">ROW 5 | COL 2 | Klopumpe
-	<div class="bigger"> Läuft 20 Sekunden</div>
-
+	<div>Heizluefter</div>
 	<div 
-		data-type="push"
-		data-device="KNX13.O08_Aktor_Keller2_Steckdose"
-  		data-set="steuern"
-  		data-set-on="on-for-timer 20"
+		data-type="AUswitch"
+		data-device="DF_Keller_Heizluefter"
   		class="bigger"
 	></div>
-
+	<div>Klima</div>
+	<div 
+		data-type="AUswitch"
+		data-device="DF_Keller_Klima"
+  		data-lock="global_FTUIFree:lock"
+ 		class="bigger"
+	></div>
 </li>	
 <!-- ######################################################################################### -->
 <li data-row="5" data-col="3" data-sizex="1" data-sizey="1">ROW 5 | COL 3 | Solar PV
@@ -1052,52 +818,6 @@
 		data-unit="W"
 		data-limits='[0,1,100]' 
 		data-colors='["blue","yellow","green"]' 
-		data-fix='0'
-		class="bigger">
-	</div>
-	</td>
-	</tr>
-	<tr>
-	<td width=50% align="right">
-		<div class="bigger"> PV2:</div>
-	</td>
-	<td width=50% align="left">
-	<div data-type="label"
-		data-device="fsp10k" 
-		data-get="Solar_input_power"
-		data-part="1"
-		data-unit="W"
-		data-limits='[0,1,100]' 
-		data-colors='["blue","yellow","green"]' 
-		data-fix='0'
-		class="bigger">
-	</div>
-	</td>
-	</tr>
-	<td width=50% align="right">
-		<div class="bigger"> L1_:</div>
-	</td>
-	<td width=50% align="left"> 
-	<div data-type="label"
-		data-device="Stromzaehler" 
-		data-get="total_power_L"
-		data-part="1"
-		data-unit="W"
-		data-fix='0'
-		class="bigger">
-	</div>
-	</td>
-	</tr>
-	<tr>
-	<td width=50% align="right">
-		<div class="bigger"> L2_:</div>
-	</td>
-	<td width=50% align="left"> 
-	<div data-type="label"
-		data-device="Stromzaehler" 
-		data-get="total_power_L"
-		data-part="1"
-		data-unit="W"
 		data-fix='0'
 		class="bigger">
 	</div>
@@ -1204,7 +924,7 @@
 		data-get="1_Strom_total"
 		data-part="1" 
 		data-unit="A"
-		data-limits='[-1000,-75,0,1,75]' 
+		data-limits='[-1000,-200,0,1,200]' 
 		data-colors='["red","yellow","blue","green","red"]' 
 		class="bigger">
 	</div>
@@ -1220,7 +940,7 @@
 		data-get="1_Power_total"
 		data-part="1"
 		data-unit="W"
-		data-limits='[-10000,-4000,0,1,4000]' 
+		data-limits='[-100000,-10000,0,1,10000]' 
 		data-colors='["red","yellow","blue","green","red"]' 
 		data-fix='0'
 		class="bigger">
@@ -1423,155 +1143,15 @@
 </li> 
 <!-- ######################################################################################### -->
 <li data-row="7" data-col="1" data-sizex="1" data-sizey="1">ROW 7 | COL 1 | X 1 | Y 1
-<table border="0" width=100%>
-	<td width=50% align="right">
-		<div class="bigger"> PinSolar:</div>
-	</td>
-	<td width=50% align="left"> 
-	<div data-type="label"
-		data-device="Effekta" 
-		data-get="PV_input_actual_power"
-		data-part="1"
-		data-unit="W"
-		data-limits='[0]' 
-		data-colors='["blue"]' 
-		data-fix='0'
-		class="bigger">
-	</div>
-	</td>
-	</tr>
-	<tr>
-	<td width=50% align="right">
-		<div class="bigger"> Pout:</div>
-	</td>
-	<td width=50% align="left"> 
-	<div data-type="label"
-		data-device="Effekta" 
-		data-get="AC_output_active_power"
-		data-part="1"
-		data-unit="W"
-		data-limits='[0]' 
-		data-colors='["blue"]' 
-		data-fix='0'
-		class="bigger">
-	</div>
-	</td>
-	</tr>
-	<tr>
-	<td width=50% align="right">
-		<div class="bigger"> Temp:</div>
-	</td>
-	<td width=50% align="left">
-	<div data-type="label"
-		data-device="Effekta" 
-		data-get="Inverter_heat_sink_temperature"
-		data-part="1"
-		data-unit="&deg;C"
-		data-limits='[10,35,43,50]' 
-		data-colors='["green","yellow","orange","red"]' 
-		data-fix='0'
-		class="bigger">
-	</div>
-	</td>
-	</tr>
-	<tr>
-	<td width=30% align="right">
-		<div class="bigger"> Effekta:</div>
-	</td>
-	<td width=70% align="center">
-	<div data-type="label"
-		data-device="Effekta" 
-		data-get="Device_Mode"
-		data-limits='["Line Mode","Battery Mode"]' 
-		data-colors='["red","green"]' 
-		class="bigger">
-	</div>
-	</td>
-	</tr>
-	<tr>
-	<td width=30% align="right">
-		<div class="bigger"> Eltako1:</div>
-	</td>
-	<td width=70% align="center">
-	<div data-type="label"
-		data-device="KNX33.O02_Aktor_NetzPV_einzel" 
-		data-get="named_status"
-		data-limits='["Line Mode","PV Mode"]' 
-		data-colors='["red","green"]' 
-		class="bigger">
-	</div>
-	</td>
-	</tr>
-	<tr>
-	<td width=30% align="right">
-		<div class="bigger"> Eltako2:</div>
-	</td>
-	<td width=70% align="center">
-	<div data-type="label"
-		data-device="KNX33.O03_Aktor_NetzPV_doppel" 
-		data-get="named_status"
-		data-limits='["Line Mode","PV Mode"]' 
-		data-colors='["red","green"]' 
-		class="bigger">
-	</div>
-	</td>
-	</tr>
-</table>
-
 </li> 
 <!-- ######################################################################################### -->
 <li data-row="7" data-col="2" data-sizex="1" data-sizey="1">ROW 7 | COL 2 | X 1 | Y 1
-	<div class="bigger">Heizstab L1</div>
-	<div 
-		data-type="AUswitch"
-		data-cmd="set"
-  		data-set="steuern"
-		data-device="KNX02.O09_Aktor_Heizstab_L1"
-		data-get="status"
-  		class="bigger"
-	></div>
-	<div 
-		data-type="label" 
-		data-device="KNX02.O09_Aktor_Heizstab_L1"
-		data-get="current" 
-		class="bigger"
-	></div>
 </li> 
 <!-- ######################################################################################### -->
 <li data-row="7" data-col="3" data-sizex="1" data-sizey="1">ROW 7 | COL 3 | X 1 | Y 1
-	<div class="bigger">Heizstab L2</div>
-	<div 
-		data-type="AUswitch"
-		data-cmd="set"
-  		data-set="steuern"
-		data-device="KNX02.O04_Aktor_Heizstab_L2"
-		data-get="status"
-  		class="bigger"
-	></div>
-	<div 
-		data-type="label" 
-		data-device="KNX02.O04_Aktor_Heizstab_L2"
-		data-get="current" 
-		class="bigger"
-	></div>
 </li> 
 <!-- ######################################################################################### -->
 <li data-row="7" data-col="4" data-sizex="1" data-sizey="1">ROW 7 | COL 4 | X 1 | Y 1
-	<div class="bigger">Heizstab L3</div>
-	<div 
-		data-type="AUswitch"
-		data-cmd="set"
-  		data-set="steuern"
-		data-device="KNX02.O10_Aktor_Heizstab_L3"
-		data-get="status"
-  		class="bigger"
-	></div>
-	<div 
-		data-type="label" 
-		data-device="KNX02.O10_Aktor_Heizstab_L3"
-		data-get="current" 
-		class="bigger"
-	></div>
 </li> 
 <!-- ######################################################################################### -->
 <li data-row="7" data-col="5" data-sizex="1" data-sizey="1">ROW 7 | COL 5 | X 1 | Y 1
