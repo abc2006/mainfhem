@@ -100,7 +100,7 @@ sub vz_read($$) {
 
 	my ($hash) = @_;
 	my $name = $hash->{NAME};
-	Log3($name,4,"vz read _Line: " . __LINE__);
+	Log3($name,5,"vz read _Line: " . __LINE__);
 	$hash->{CONNECTION} = "reading";
 	# read from serial device
 	my $readbuf = DevIo_SimpleRead($hash);
@@ -136,15 +136,45 @@ sub vz_analyzeAnswer{
 #	##Analyze des Antwortstringes: ohne header 
 #Header byte 1-8
 #1b 1b 1b 1b 01 01 01 01
-#
+
+	
+#7 = Liste 1
+#6 = 6 Einträge
+	#05	= Liste1/Eintrag1, länge des Eintrages 5 Byte
+		#00
+		#00
+		#0e
+		#f5
+
+	#62	= L1E2, Länge des Eintrages 2 Byte
+	#00
+	#62 	=L1 E3/6 Dritter Eintrag von 6 erste Liste, Länge 2 Byte 
+	#00
+	#7	= L1E4/6 Vierter Eintrag erste Liste ->Neue Liste 2
+	#2	= 2 Einträge
+		#63 Erster Eintrag Liste 2, Länge 3 Byte
+		#0101
+		#7 	Zweiter Eintrag zweite Liste, neue Liste 3
+		#6	= 6 Einträge
+			#01 Erster Eintrag
+			#01 Zweiter Eintrag
+			#05000004fd dritter Eintrag
+			#0b090149534b00044ff146 # vierter Eintrag
+			#01 # fünfter Eintrag
+			#01 # 6. Eintrag
+	#631c08 L1E5/6
+	#00 L1E6/6
+	#7 Neue Liste
+	#6 6 Einträge
+	#0500000ef66200620072
+	#63070177010b090149534b000
+	#44ff146070100620affff7262
+	#016500000af87977078181c78
+	#203ff
 #Byte 9-25
-#760512d4996b6200620072630101760101
 #Byte 26-50
-#050646ddcd0b090149534b0003d1ebf9010163539a00760512
 #Byte 51-75
-#d4996c620062007263070177010b090149534b0003d1ebf907
 #Byte 76-98
-#0100620affff7262016509ad243d7a77078181c78203ff
 ############################
 #Byte 99-102
 #01 01 01 01 
@@ -244,30 +274,258 @@ sub vz_analyzeAnswer{
 
 
 
-
+	my $feed;
+	my $need;
 	my ($hash) = @_;
 	my $name = $hash->{NAME};
 	Log3($name,4,"vz analyzeAnswer _Line: " . __LINE__);
-	
+		
   	$hash->{helper}{fullframe_ascii} = pack ('H*', $hash->{helper}{fullframe_hex});	
 	Log3($name,5,"vz Current hex frame: $hash->{helper}{fullframe_hex} Line: " . __LINE__);
 	Log3($name,5,"vz Current ascii frame: $hash->{helper}{fullframe_ascii} Line: " . __LINE__);
 	my $fullframe= $hash->{helper}{fullframe_hex}; 	
-	my %readings; 
-	
-	$readings{total_energy}   = hex(substr($fullframe,308,8))/10000;
-	Log3($name,4,"vz total_energy: $readings{total_energy} _Line: " . __LINE__);
-	$readings{total_energy_1} = hex(substr($fullframe,356,8))/10000;
-	$readings{total_energy_2} = hex(substr($fullframe,404,8))/10000;
-	$readings{total_power}    = hex(substr($fullframe,448,4));
-	$readings{total_power_L1} = hex(substr($fullframe,488,4));
-	Log3($name,4,"vz total Power L1 $readings{total_power_L1} _Line: " . __LINE__);
-	$readings{total_power_L2} = hex(substr($fullframe,528,4));
-	Log3($name,4,"vz total Power L2 $readings{total_power_L2} _Line: " . __LINE__);
-	$readings{total_power_L3} = hex(substr($fullframe,568,4));
-	Log3($name,4,"vz total Power L3 $readings{total_power_L3} _Line: " . __LINE__);
-	
+	my %readings; 	
+	# dann fangen wir doch mal vorne an.	
+	## read 1-0:1.8.0 Bezug Gesamt
+	if ($fullframe=~ m/^.*7707(0100010800ff)(65000101\w{2})(\w{2})62(\w{2})52(\w{2})69(\w{16})/ )
+	{
+		#77 = GetList Response, 7 Einträge
+		#07 = erster Eintrag, 7 Byte lang
+		#$1=obj-Name 
+			Log3($name,4,"vz 1.8.0 objName: $1 _Line: " . __LINE__);
+		# zweiter Eintrag, 5 Byte lang	
+		#$2=Status 
+			Log3($name,4,"vz 1.8.0 Status: $2 _Line: " . __LINE__);
+		#dritter Eintrag, ein Byte lang
+		#$3= valTime
+			Log3($name,4,"vz 1.8.0 valTime: $3 _Line: " . __LINE__);
+		#vierter Eintrag, 2 Byte lang
+		#62$4 Teil zwei= unit (1E = Wh)
+			Log3($name,4,"vz 1.8.0 unit (1E=Wh): $4 _Line: " . __LINE__);
+		#Fünfter Eintrag
+		#52S5=scaler (int8) = 3 = *1000 // ah, hier kommen dann die ganzen kWh raus
+			Log3($name,4,"vz 1.8.0 scaler *10^$5 _Line: " . __LINE__);
+		#sechster Eintrag
+		#69 S6=value (*1000 = Wh; /1000=kWh
+			Log3($name,4,"vz 1.8.0 Value*scaler=Wh/1000=kWh: $6 _Line: " . __LINE__);
+	my $rawscaler = $5;
+	##make it signed
+	my $exp = hex($rawscaler);
+	$exp -=0x100 if $exp >= 0x80;
+	Log3($name,4,"vz 1.8.0 exp: $exp  _Line: " . __LINE__);
+	## calc scaling value
+	my $scaler = 10**$exp;
+	Log3($name,4,"vz 1.8.0 scaler: $scaler  _Line: " . __LINE__);
+	$need = $scaler*hex($6)/1000; # /1000 um aus Wh kWh zu machen
+	Log3($name,3,"vz 1.8.0 final: $need  _Line: " . __LINE__);
+	$readings{total_energy_need}   = $need;
+	}
+	## read 1-0:2.8.0 Bezug Gesamt
+	if ($fullframe=~ m/^.*7707(0100020800ff)(01)(01)62(\w{2})52(\w{2})69(\w{16})/ )
+	{
+		#77 = GetList Response, 7 Einträge
+		#07 = erster Eintrag, 7 Byte lang
+		#$1=obj-Name 
+			Log3($name,4,"vz 2.8.0 objName: $1 _Line: " . __LINE__);
+		# zweiter Eintrag, 5 Byte lang	
+		#$2=Status 
+			Log3($name,4,"vz 2.8.0 Status: $2 _Line: " . __LINE__);
+		#dritter Eintrag, ein Byte lang
+		#$3= valTime
+			Log3($name,4,"vz 2.8.0 valTime: $3 _Line: " . __LINE__);
+		#vierter Eintrag, 2 Byte lang
+		#62$4 Teil zwei= unit (1E = Wh)
+			Log3($name,4,"vz 2.8.0 unit (1E=Wh): $4 _Line: " . __LINE__);
+		#Fünfter Eintrag
+		#52S5=scaler (int8) = 3 = *1000 // ah, hier kommen dann die ganzen kWh raus
+			Log3($name,4,"vz 2.8.0 scaler *10^$5 _Line: " . __LINE__);
+		#sechster Eintrag
+		#69 S6=value (*1000 = Wh; /1000=kWh
+			Log3($name,4,"vz 2.8.0 Value*scaler=Wh/1000=kWh: $6 _Line: " . __LINE__);
+	my $rawscaler = $5;
+	##make it signed
+	my $exp = hex($rawscaler);
+	$exp -=0x100 if $exp >= 0x80;
+	Log3($name,4,"vz 2.8.0 exp: $exp  _Line: " . __LINE__);
+	## calc scaling value
+	my $scaler = 10**$exp;
+	Log3($name,4,"vz 2.8.0 scaler: $scaler  _Line: " . __LINE__);
+	$feed = $scaler*hex($6)/1000; # /1000 um aus Wh kWh zu machen
+	Log3($name,3,"vz 2.8.0 final: $feed  _Line: " . __LINE__);
+	$readings{total_energy_feed}   = $feed;
+	}
 
+	## read 1-0:16.7.0 Wirkleistung Gesamt
+	if ($fullframe=~ m/^.*7707(0100100700ff)(01)(01)62(\w{2})52(\w{2})55(\w{8})/ )
+	{
+		#77 = GetList Response, 7 Einträge
+		#07 = erster Eintrag, 7 Byte lang
+		#$1=obj-Name 
+			Log3($name,4,"vz 16.7.0 objName: $1 _Line: " . __LINE__);
+		# zweiter Eintrag, 5 Byte lang	
+		#$2=Status 
+			Log3($name,4,"vz 16.7.0 Status: $2 _Line: " . __LINE__);
+		#dritter Eintrag, ein Byte lang
+		#$3= valTime
+			Log3($name,4,"vz 16.7.0 valTime: $3 _Line: " . __LINE__);
+		#vierter Eintrag, 2 Byte lang
+		#62$4 Teil zwei= unit (1b = W)
+			Log3($name,4,"vz 16.7.0 unit (1b=W): $4 _Line: " . __LINE__);
+		#Fünfter Eintrag
+		#52S5=scaler (int8)
+			Log3($name,4,"vz 16.7.0 scaler *10^$5 _Line: " . __LINE__);
+		#sechster Eintrag
+		#55 S6=value 
+			Log3($name,4,"vz 16.7.0 Value: $6 _Line: " . __LINE__);
+	my $rawscaler = $5;
+	##make it signed
+	my $exp = hex($rawscaler);
+	$exp -=0x100 if $exp >= 0x80;
+	Log3($name,4,"vz 16.7.0 exp: $exp  _Line: " . __LINE__);
+	## calc scaling value
+	my $scaler = 10**$exp;
+	Log3($name,4,"vz 16.7.0 scaler: $scaler  _Line: " . __LINE__);
+	$total_power = $scaler*hex($6);
+	Log3($name,3,"vz 16.7.0 final: $total_power  _Line: " . __LINE__);
+	$readings{total_power}   = $total_power;
+	}
+
+	## read 1-0:36.7.0 Wirkleistung L1
+	if ($fullframe=~ m/^.*7707(0100100700ff)(01)(01)62(\w{2})52(\w{2})55(\w{8})/ )
+	{
+		#77 = GetList Response, 7 Einträge
+		#07 = erster Eintrag, 7 Byte lang
+		#$1=obj-Name 
+			Log3($name,4,"vz 36.7.0 objName: $1 _Line: " . __LINE__);
+		# zweiter Eintrag, 5 Byte lang	
+		#$2=Status 
+			Log3($name,4,"vz 36.7.0 Status: $2 _Line: " . __LINE__);
+		#dritter Eintrag, ein Byte lang
+		#$3= valTime
+			Log3($name,4,"vz 36.7.0 valTime: $3 _Line: " . __LINE__);
+		#vierter Eintrag, 2 Byte lang
+		#62$4 Teil zwei= unit (1b = W)
+			Log3($name,4,"vz 36.7.0 unit (1b=W): $4 _Line: " . __LINE__);
+		#Fünfter Eintrag
+		#52S5=scaler (int8)
+			Log3($name,4,"vz 36.7.0 scaler *10^$5 _Line: " . __LINE__);
+		#sechster Eintrag
+		#55 S6=value 
+			Log3($name,4,"vz 36.7.0 Value: $6 _Line: " . __LINE__);
+	my $rawscaler = $5;
+	##make it signed
+	my $exp = hex($rawscaler);
+	$exp -=0x100 if $exp >= 0x80;
+	Log3($name,4,"vz 36.7.0 exp: $exp  _Line: " . __LINE__);
+	## calc scaling value
+	my $scaler = 10**$exp;
+	Log3($name,4,"vz 36.7.0 scaler: $scaler  _Line: " . __LINE__);
+	$total_power_L1 = $scaler*hex($6);
+	Log3($name,3,"vz 36.7.0 final: $total_power_L1  _Line: " . __LINE__);
+	$readings{total_power_L1}   = $total_power_L1;
+	}
+
+
+	## read 1-0:56.7.0 Wirkleistung L2
+	if ($fullframe=~ m/^.*7707(0100100700ff)(01)(01)62(\w{2})52(\w{2})55(\w{8})/ )
+	{
+		#77 = GetList Response, 7 Einträge
+		#07 = erster Eintrag, 7 Byte lang
+		#$1=obj-Name 
+			Log3($name,4,"vz 56.7.0 objName: $1 _Line: " . __LINE__);
+		# zweiter Eintrag, 5 Byte lang	
+		#$2=Status 
+			Log3($name,4,"vz 56.7.0 Status: $2 _Line: " . __LINE__);
+		#dritter Eintrag, ein Byte lang
+		#$3= valTime
+			Log3($name,4,"vz 56.7.0 valTime: $3 _Line: " . __LINE__);
+		#vierter Eintrag, 2 Byte lang
+		#62$4 Teil zwei= unit (1b = W)
+			Log3($name,4,"vz 56.7.0 unit (1b=W): $4 _Line: " . __LINE__);
+		#Fünfter Eintrag
+		#52S5=scaler (int8)
+			Log3($name,4,"vz 56.7.0 scaler *10^$5 _Line: " . __LINE__);
+		#sechster Eintrag
+		#55 S6=value 
+			Log3($name,4,"vz 56.7.0 Value*scaler=Wh/1000=kWh: $6 _Line: " . __LINE__);
+	my $rawscaler = $5;
+	##make it signed
+	my $exp = hex($rawscaler);
+	$exp -=0x100 if $exp >= 0x80;
+	Log3($name,4,"vz 56.7.0 exp: $exp  _Line: " . __LINE__);
+	## calc scaling value
+	my $scaler = 10**$exp;
+	Log3($name,4,"vz 56.7.0 scaler: $scaler  _Line: " . __LINE__);
+	$total_power_L2 = $scaler*hex($6); 
+	Log3($name,3,"vz 56.7.0 final: $total_power_L2  _Line: " . __LINE__);
+	$readings{total_power_L2}   = $total_power_L2;
+	}
+
+
+	## read 1-0:76.7.0 Wirkleistung L3 
+	if ($fullframe=~ m/^.*7707(0100100700ff)(01)(01)62(\w{2})52(\w{2})55(\w{8})/ )
+	{
+		#77 = GetList Response, 7 Einträge
+		#07 = erster Eintrag, 7 Byte lang
+		#$1=obj-Name 
+			Log3($name,4,"vz 76.7.0 objName: $1 _Line: " . __LINE__);
+		# zweiter Eintrag, 5 Byte lang	
+		#$2=Status 
+			Log3($name,4,"vz 76.7.0 Status: $2 _Line: " . __LINE__);
+		#dritter Eintrag, ein Byte lang
+		#$3= valTime
+			Log3($name,4,"vz 76.7.0 valTime: $3 _Line: " . __LINE__);
+		#vierter Eintrag, 2 Byte lang
+		#62$4 Teil zwei= unit (1b = W)
+			Log3($name,4,"vz 76.7.0 unit (1b=W): $4 _Line: " . __LINE__);
+		#Fünfter Eintrag
+		#52S5=scaler (int8) 
+			Log3($name,4,"vz 76.7.0 scaler *10^$5 _Line: " . __LINE__);
+		#sechster Eintrag
+		#55 S6=value
+			Log3($name,4,"vz 76.7.0 Value*scaler=Wh/1000=kWh: $6 _Line: " . __LINE__);
+	my $rawscaler = $5;
+	##make it signed
+	my $exp = hex($rawscaler);
+	$exp -=0x100 if $exp >= 0x80;
+	Log3($name,4,"vz 76.7.0 exp: $exp  _Line: " . __LINE__);
+	## calc scaling value
+	my $scaler = 10**$exp;
+	Log3($name,4,"vz 76.7.0 scaler: $scaler  _Line: " . __LINE__);
+	$total_power_L3 = $scaler*hex($6);
+	Log3($name,3,"vz 76.7.0 final: $total_power_L3  _Line: " . __LINE__);
+	$readings{total_power_L3}   = $total_power_L3;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	#$readings{total_power}    = hex(substr($fullframe,448,4));
+	#$readings{total_power_L1} = hex(substr($fullframe,488,4));
+	#Log3($name,4,"vz total Power L1 $readings{total_power_L1} _Line: " . __LINE__);
+	#$readings{total_power_L2} = hex(substr($fullframe,528,4));
+	#Log3($name,4,"vz total Power L2 $readings{total_power_L2} _Line: " . __LINE__);
+	#$readings{total_power_L3} = hex(substr($fullframe,568,4));
+	#Log3($name,4,"vz total Power L3 $readings{total_power_L3} _Line: " . __LINE__);
+	#
+	#
 	if($readings{total_power} > 32767){
 		$readings{total_power}     = $readings{total_power}-65534;
 	}
@@ -280,7 +538,7 @@ sub vz_analyzeAnswer{
 	if($readings{total_power_L3} > 32767){
 		$readings{total_power_L3}     = $readings{total_power_L3}-65534;
 	}
-
+	
 	readingsBeginUpdate($hash);
 	foreach my $k (keys %readings) {
       		readingsBulkUpdate($hash, $k, $readings{$k});
