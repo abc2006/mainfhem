@@ -286,6 +286,51 @@ sub vz_analyzeAnswer{
 	my $fullframe= $hash->{helper}{fullframe_hex}; 	
 	my %readings; 	
 	# dann fangen wir doch mal vorne an.	
+	## read SML Protocol
+	if ($fullframe=~ m/^.*7605(\w{8})62(\w{2})62(\w{2})726301017605(\w{8})0b(\w{10})/ )
+	{
+		#77 = GetList Response, 7 Einträge
+		#07 = erster Eintrag, 7 Byte lang
+		#$1=transactionID 
+			Log3($name,4,"vz transactionID: $1 _Line: " . __LINE__);
+		# zweiter Eintrag, 5 Byte lang	
+		#$2=groupNo 
+			Log3($name,4,"vz groupNo: $2 _Line: " . __LINE__);
+		#dritter Eintrag, ein Byte lang
+		#$3= abortOnError
+			Log3($name,4,"vz abortOnError: $3 _Line: " . __LINE__);
+		#vierter Eintrag, 2 Byte lang
+		#$4 reqFileID
+			Log3($name,4,"vz reqFileID: $4 _Line: " . __LINE__);
+		#Fünfter Eintrag
+		#$5 = serverID
+			Log3($name,4,"vz serverID: $5 _Line: " . __LINE__);
+	$readings{serverID}   = $5;
+	}
+	## 129-129:199.130.3
+	if ($fullframe=~ m/^.*7707(8181c78203ff)0101010104(\w{6})/)
+	{
+		#77 = GetList Response, 7 Einträge
+		#07 = erster Eintrag, 7 Byte lang
+		#$1=OBIS-ID
+			Log3($name,4,"vz objName: $1 _Line: " . __LINE__);
+		# zweiter Eintrag, 5 Byte lang	
+		#$2=vendorID
+			Log3($name,4,"vz VendorID, ascii 49534b=ISK: $2 _Line: " . __LINE__);
+	$readings{vendorID}   = $2;
+	}
+	## 1-0:0.0.9
+	if ($fullframe=~ m/^.*7707(0100000009ff)010101010b(\w{10})/)
+	{
+		#77 = GetList Response, 7 Einträge
+		#07 = erster Eintrag, 7 Byte lang
+		#$1=OBIS-ID
+			Log3($name,4,"vz objName: $1 _Line: " . __LINE__);
+		# zweiter Eintrag, 5 Byte lang	
+		#$2=machineID
+			Log3($name,4,"vz machineID: $2 _Line: " . __LINE__);
+	$readings{machineID}   = $2;
+	}
 	## read 1-0:1.8.0 Bezug Gesamt
 	if ($fullframe=~ m/^.*7707(0100010800ff)(65000101\w{2})(\w{2})62(\w{2})52(\w{2})69(\w{16})/ )
 	{
@@ -385,7 +430,7 @@ sub vz_analyzeAnswer{
 	## calc scaling value
 	my $scaler = 10**$exp;
 	Log3($name,4,"vz 16.7.0 scaler: $scaler  _Line: " . __LINE__);
-	$total_power = $scaler*hex($6);
+	my $total_power = $scaler*hex($6);
 	Log3($name,3,"vz 16.7.0 final: $total_power  _Line: " . __LINE__);
 	$readings{total_power}   = $total_power;
 	}
@@ -420,7 +465,7 @@ sub vz_analyzeAnswer{
 	## calc scaling value
 	my $scaler = 10**$exp;
 	Log3($name,4,"vz 36.7.0 scaler: $scaler  _Line: " . __LINE__);
-	$total_power_L1 = $scaler*hex($6);
+	my $total_power_L1 = $scaler*hex($6);
 	Log3($name,3,"vz 36.7.0 final: $total_power_L1  _Line: " . __LINE__);
 	$readings{total_power_L1}   = $total_power_L1;
 	}
@@ -447,7 +492,7 @@ sub vz_analyzeAnswer{
 			Log3($name,4,"vz 56.7.0 scaler *10^$5 _Line: " . __LINE__);
 		#sechster Eintrag
 		#55 S6=value 
-			Log3($name,4,"vz 56.7.0 Value*scaler=Wh/1000=kWh: $6 _Line: " . __LINE__);
+			Log3($name,4,"vz 56.7.0 Value: $6 _Line: " . __LINE__);
 	my $rawscaler = $5;
 	##make it signed
 	my $exp = hex($rawscaler);
@@ -456,7 +501,7 @@ sub vz_analyzeAnswer{
 	## calc scaling value
 	my $scaler = 10**$exp;
 	Log3($name,4,"vz 56.7.0 scaler: $scaler  _Line: " . __LINE__);
-	$total_power_L2 = $scaler*hex($6); 
+	my $total_power_L2 = $scaler*hex($6); 
 	Log3($name,3,"vz 56.7.0 final: $total_power_L2  _Line: " . __LINE__);
 	$readings{total_power_L2}   = $total_power_L2;
 	}
@@ -483,7 +528,7 @@ sub vz_analyzeAnswer{
 			Log3($name,4,"vz 76.7.0 scaler *10^$5 _Line: " . __LINE__);
 		#sechster Eintrag
 		#55 S6=value
-			Log3($name,4,"vz 76.7.0 Value*scaler=Wh/1000=kWh: $6 _Line: " . __LINE__);
+			Log3($name,4,"vz 76.7.0 : $6 _Line: " . __LINE__);
 	my $rawscaler = $5;
 	##make it signed
 	my $exp = hex($rawscaler);
@@ -492,12 +537,24 @@ sub vz_analyzeAnswer{
 	## calc scaling value
 	my $scaler = 10**$exp;
 	Log3($name,4,"vz 76.7.0 scaler: $scaler  _Line: " . __LINE__);
-	$total_power_L3 = $scaler*hex($6);
+	my $total_power_L3 = $scaler*hex($6);
 	Log3($name,3,"vz 76.7.0 final: $total_power_L3  _Line: " . __LINE__);
 	$readings{total_power_L3}   = $total_power_L3;
 	}
 
 
+	## 129-129:199.130.5 PublicKey
+	if ($fullframe=~ m/^.*7707(8181c78205ff)010101018302(\w{96})/)
+	{
+		#77 = GetList Response, 7 Einträge
+		#07 = erster Eintrag, 7 Byte lang
+		#$1=OBIS-ID
+			Log3($name,4,"vz objName: $1 _Line: " . __LINE__);
+		# zweiter Eintrag, 5 Byte lang	
+		#$2=publicKey
+			Log3($name,4,"vz PublicKey: $2 _Line: " . __LINE__);
+	$readings{PublicKey}   = $2;
+	}
 
 
 
