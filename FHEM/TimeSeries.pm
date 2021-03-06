@@ -266,7 +266,19 @@ sub _updatestat($$) {
 #
 sub elapsed($$) {
   my ($self, $t)= @_;
-  return defined($self->{autoreset}) && defined($self->{_t0}) && ($t - $self->{_t0} >= $self->{autoreset});
+  ##return defined($self->{autoreset}) && defined($self->{_t0}) && ($t - $self->{_t0} >= $self->{autoreset});
+if(defined($self->{autoreset})){
+     if(defined($self->{lastEvent})){
+        if($t > $self->{lastEvent} + $self->{autoreset}){
+	   $self->{lastEvent} = $t;
+           return 1;
+        }
+        return 0;
+     }
+     $self->{lastEvent} = $t;
+     return 0;
+  }
+return 1;
 }
 
 #
